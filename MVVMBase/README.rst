@@ -9,4 +9,5 @@ maven {
 ```
 ## add implementation declaration in your module build.gradle
 ```
-implementation "com.github.seelikes.android.constraint:constraint-layout:$version_constraint_layout"
+implementation "com.github.seelikes.android:mvvm-base:1.0.00"
+```
