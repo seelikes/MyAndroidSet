@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion version_min_sdk as int
         targetSdkVersion version_target_sdk as int
-        versionCode 100
-        versionName "1.0.00"
+        versionCode 1001
+        versionName "1.0.01"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -34,6 +34,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$version_support"
     implementation "com.android.support.constraint:constraint-layout:$version_constraint_layout"
+    implementation "com.android.support:design:$version_support"
+    implementation "com.android.support:support-annotations:$version_support"
     testImplementation "junit:junit:$version_junit"
     androidTestImplementation "com.android.support.test:runner:$version_runner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$version_espresso_core"
@@ -66,7 +68,7 @@ publishing {
         maven(MavenPublication) {
             groupId "com.github.seelikes.android"
             artifactId "mvvm-base"
-            version "1.0.00"
+            version "1.0.01"
             artifact androidJavadocsJar
             artifact androidSourcesJar
             artifact bundleReleaseAar

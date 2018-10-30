@@ -23,9 +23,6 @@ public abstract class BaseFragment<C extends BaseFragment<C, M, B>, M extends Ba
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         disposable = new CompositeDisposable();
         model = initModel(inflater, container, savedInstanceState, disposable);
-        if (model.binding.getRoot() instanceof ViewGroup) {
-            ScreenAdapterTools.getInstance().loadView((ViewGroup) model.binding.getRoot(), new CustomConversion());
-        }
         return model.binding.getRoot();
     }
 

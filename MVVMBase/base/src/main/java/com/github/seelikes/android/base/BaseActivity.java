@@ -20,9 +20,6 @@ public abstract class BaseActivity<C extends BaseActivity<C, M, B>, M extends Ba
         super.onCreate(savedInstanceState);
         disposable = new CompositeDisposable();
         model = initModel(savedInstanceState, disposable);
-        if (model.binding.getRoot() instanceof ViewGroup) {
-            ScreenAdapterTools.getInstance().loadView((ViewGroup) model.binding.getRoot(), new CustomConversion());
-        }
     }
 
     @Override

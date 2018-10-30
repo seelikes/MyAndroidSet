@@ -2,8 +2,11 @@ package com.github.seelikes.android.base;
 
 import android.databinding.ViewDataBinding;
 import android.support.annotation.Nullable;
+import android.view.ViewGroup;
 
 import com.java.lib.oil.lang.reflect.ReflectManager;
+import com.yatoooon.screenadaptation.ScreenAdapterTools;
+import com.yatoooon.screenadaptation.conversion.CustomConversion;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -38,6 +41,9 @@ public class BaseViewModel<M extends BaseViewModel<M, B>, B extends ViewDataBind
                             this.listener.beforeModelSetToBinding((M) this, binding);
                         }
                         ReflectManager.getInstance().invoke(binding.getClass(), "setModel", this.binding, this);
+                        if (binding.getRoot() instanceof ViewGroup) {
+                            ScreenAdapterTools.getInstance().loadView((ViewGroup) binding.getRoot(), new CustomConversion());
+                        }
                         if (this.listener != null) {
                             this.listener.afterModelSetToBinding((M) this, binding);
                         }
