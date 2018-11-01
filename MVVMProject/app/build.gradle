@@ -1,0 +1,37 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion version_compile_sdk as int
+    defaultConfig {
+        applicationId "com.github.seelikes.android.mvvm.project"
+        minSdkVersion version_min_sdk as int
+        targetSdkVersion version_target_sdk as int
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dataBinding {
+        enabled true
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:$version_support"
+    implementation "com.android.support:multidex:$version_multidex"
+    implementation "com.android.support.constraint:constraint-layout:$version_constraint_layout"
+    testImplementation "junit:junit:$version_junit"
+    androidTestImplementation "com.android.support.test:runner:$version_runner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$version_espresso_core"
+    implementation "com.github.seelikes.android:mvvm-base:$version_mvvm_base"
+}
