@@ -1,0 +1,29 @@
+{
+    "work_dir": {
+        "Windows": "D:\\tmp\\work",
+        "Linux": "~/Desktop/work"
+    },
+    "keep_compile_dir_days": 9,
+    "clean_command": {
+        "Windows": "gradlew clean",
+        "Linux": "./gradlew clean"
+    },
+    "del_command": {
+        "Windows": [
+            "del /F /S /Q {0}",
+            "rd /S /Q {0}"
+        ],
+        "Linux": [
+            "rm -rf {0}"
+        ]
+    },
+    "copy_command": {
+        "Windows": [
+            "xcopy /H /R /Q /E /I /Y {0} {1}"
+        ],
+        "Linux": [
+            "mkdir -p {1}",
+            "cp -rf {0} {1}"
+        ]
+    }
+}
