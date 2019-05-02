@@ -12,6 +12,7 @@ android {
         versionCode 1000
         versionName "1.0.00"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -46,4 +47,5 @@ dependencies {
     implementation "androidx.paging:paging-common-ktx:$paging_version"
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
     implementation "androidx.paging:paging-rxjava2-ktx:$paging_version"
+    implementation "me.jessyan:autosize:$autosize"
 }
