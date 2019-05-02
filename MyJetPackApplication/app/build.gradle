@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.alibaba.arouter'
 
 android {
     compileSdkVersion sdk_version_compile as int
@@ -23,6 +24,11 @@ android {
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
+    }
+    kapt {
+        arguments {
+            arg("AROUTER_MODULE_NAME", project.name)
+        }
     }
     dataBinding {
         enabled true
@@ -47,5 +53,8 @@ dependencies {
     implementation "androidx.paging:paging-common-ktx:$paging_version"
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
     implementation "androidx.paging:paging-rxjava2-ktx:$paging_version"
-    implementation "me.jessyan:autosize:$autosize"
+    implementation "me.jessyan:autosize:$autosize_version"
+    implementation "com.alibaba:arouter-api:$arouter_api_version"
+    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
+    implementation "com.alibaba:arouter-register:$arouter_register_version"
 }

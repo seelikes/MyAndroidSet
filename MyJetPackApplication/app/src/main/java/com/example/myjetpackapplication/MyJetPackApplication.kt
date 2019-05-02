@@ -1,6 +1,7 @@
 package com.example.myjetpackapplication
 
 import androidx.multidex.MultiDexApplication
+import com.alibaba.android.arouter.launcher.ARouter
 import me.jessyan.autosize.AutoSizeConfig
 
 /**
@@ -10,6 +11,7 @@ class MyJetPackApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         initAutoSize()
+        initARouter()
     }
 
     private fun initAutoSize() {
@@ -23,5 +25,13 @@ class MyJetPackApplication : MultiDexApplication() {
                 isSupportSP = false
             }
         }
+    }
+
+    private fun initARouter() {
+        if (BuildConfig.DEBUG) {
+            ARouter.openDebug()
+            ARouter.openLog()
+        }
+        ARouter.init(this)
     }
 }
