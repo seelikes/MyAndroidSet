@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View" />
+        <variable name="model" type="com.example.myjetpackapplication.business.main.MainItemViewHolder" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200px">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="64px"
+            android:layout_marginLeft="64px"
+            android:gravity="center_vertical"
+            android:textColor="@color/main_item_title"
+            android:textSize="48px"
+            android:text='@{model.title}' />
+
+        <View
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="64px"
+            android:layout_marginRight="64px"
+            android:gravity="center_vertical"
+            android:textColor="@color/main_item_right_arrow"
+            android:text=">"
+            android:visibility='@{model.hasChildren ? View.VISIBLE : View.GONE}' />
+    </LinearLayout>
+</layout>
