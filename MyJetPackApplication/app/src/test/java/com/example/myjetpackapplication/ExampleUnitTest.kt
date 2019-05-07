@@ -13,4 +13,13 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
+
+    @Test
+    fun downTo_to() {
+        var sum = 0
+        for (i in 10 downTo 0) {
+            sum += 1
+        }
+        assertEquals(11, sum)
+    }
 }
