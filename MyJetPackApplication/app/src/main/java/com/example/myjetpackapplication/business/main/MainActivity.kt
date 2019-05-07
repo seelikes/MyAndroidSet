@@ -4,9 +4,11 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.myjetpackapplication.R
 import com.example.myjetpackapplication.basic.BasicActivity
 import com.example.myjetpackapplication.databinding.ActivityMainBinding
@@ -31,7 +33,14 @@ class  MainActivity : BasicActivity<MainActivity, MainViewModel, ActivityMainBin
         }
         var adapter = binding.rvList.adapter
         if (adapter !is MainItemAdapter) {
-            adapter = MainItemAdapter(this, model.items)
+            adapter = MainItemAdapter(this, model.items) { item, position ->
+                if (item.children.isNotEmpty()) {
+                    ViewModelProviders.of(this).get(MainDataModel::class.java).items.value = item.children
+                }
+                else {
+                    ARouter.getInstance().build(item.path).navigation()
+                }
+            }
             connect(adapter, model.items)
             binding.rvList.adapter = adapter
         }

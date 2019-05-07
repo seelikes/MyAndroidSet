@@ -18,4 +18,10 @@ class MainItemViewHolder(context: Context, binding: ItemMainBinding) : BasicView
         hasChildren.set(entity.children.isNotEmpty())
         title.set(entity.title)
     }
+
+    fun onUiClick() {
+        clickListener?.apply {
+            invoke(entity)
+        }
+    }
 }

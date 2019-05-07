@@ -10,12 +10,12 @@ import com.example.myjetpackapplication.utils.mergeArray
 
 @MainItemBean(
     title = R.string.app_name,
-    path = "/main",
+    path = "/business/main",
     enable = true,
     children = [
         MainItemBean(
             title = R.string.app_name,
-            path = "/main",
+            path = "/business/main",
             enable = true,
             children = [
                 MainItemBean(
@@ -27,7 +27,7 @@ import com.example.myjetpackapplication.utils.mergeArray
         ),
         MainItemBean(
             title = R.string.app_name,
-            path = "/business/main1",
+            path = "/business/main",
             enable = true
         )
     ]

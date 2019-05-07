@@ -12,6 +12,8 @@ open class BasicViewHolder<T : Any, B : ViewDataBinding>(@Suppress("UNUSED_PARAM
     @Suppress("MemberVisibilityCanBePrivate")
     protected lateinit var entity: T
 
+    var clickListener: ((T) -> Unit)? = null
+
     init {
         this.beforeSetToBinding()
         this.callWithParameter(binding)
