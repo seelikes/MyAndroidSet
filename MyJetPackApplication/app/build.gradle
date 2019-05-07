@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.alibaba.arouter'
 
 android {
     compileSdkVersion sdk_version_compile as int
@@ -56,5 +55,5 @@ dependencies {
     implementation "me.jessyan:autosize:$autosize_version"
     implementation "com.alibaba:arouter-api:$arouter_api_version"
     kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
-    implementation "com.alibaba:arouter-register:$arouter_register_version"
+    implementation "com.alibaba:arouter-api:$arouter_api_version"
 }
