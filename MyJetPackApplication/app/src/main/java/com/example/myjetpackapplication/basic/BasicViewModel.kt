@@ -7,7 +7,9 @@ open class BasicViewModel<C : BasicViewModel<C, B>, B : ViewDataBinding>(interna
     init {
         this.beforeSetToBinding()
         this.callWithParameter(binding)
-        this.afterSetToBinding()
+        binding.root.post {
+            this.afterSetToBinding()
+        }
     }
 
     open fun beforeSetToBinding() {
