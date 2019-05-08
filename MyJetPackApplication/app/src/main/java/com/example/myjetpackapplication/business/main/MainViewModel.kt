@@ -8,30 +8,27 @@ import com.example.myjetpackapplication.basic.BasicHostViewModel
 import com.example.myjetpackapplication.databinding.ActivityMainBinding
 import com.example.myjetpackapplication.utils.mergeArray
 
-@MainItemBean(
+private val rootItem = MainItemBean(
     title = R.string.app_name,
     path = "/business/main",
-    enable = true,
-    children = [
+    children = arrayOf(
         MainItemBean(
             title = R.string.app_name,
             path = "/business/main",
-            enable = true,
-            children = [
+            children = arrayOf(
                 MainItemBean(
                     title = R.string.app_name,
-                    path = "/business/main",
-                    enable = true
+                    path = "/business/main"
                 )
-            ]
+            )
         ),
         MainItemBean(
             title = R.string.app_name,
-            path = "/business/main",
-            enable = true
+            path = "/business/main"
         )
-    ]
+    )
 )
+
 class MainViewModel(host: MainActivity, binding: ActivityMainBinding) : BasicHostViewModel<MainViewModel, MainActivity, ActivityMainBinding>(host, binding) {
     val items = ObservableArrayList<MainItemBean>()
 
@@ -43,6 +40,6 @@ class MainViewModel(host: MainActivity, binding: ActivityMainBinding) : BasicHos
 
     override fun afterSetToBinding() {
         super.afterSetToBinding()
-        ViewModelProviders.of(host).get(MainDataModel::class.java).items.value = javaClass.getAnnotation(MainItemBean::class.java)?.children
+        ViewModelProviders.of(host).get(MainDataModel::class.java).items.value = rootItem.children
     }
 }
