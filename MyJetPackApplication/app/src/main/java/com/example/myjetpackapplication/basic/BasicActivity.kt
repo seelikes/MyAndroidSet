@@ -40,5 +40,5 @@ abstract class BasicActivity<C : BasicActivity<C, M, B>, M : BasicHostViewModel<
     open fun useImmersionBar(): Boolean = true
 
     @ColorRes
-    open fun provideStatusBarColor(): Int = android.R.color.white
+    open fun provideStatusBarColor(): Int = android.R.color.transparent
 }

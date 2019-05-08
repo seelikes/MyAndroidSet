@@ -13,14 +13,8 @@ private val rootItem = MainItemBean(
     path = "/business/main",
     children = arrayOf(
         MainItemBean(
-            title = R.string.app_name,
-            path = "/business/main",
-            children = arrayOf(
-                MainItemBean(
-                    title = R.string.app_name,
-                    path = "/business/main"
-                )
-            )
+            title = R.string.room_title,
+            path = "/business/room"
         ),
         MainItemBean(
             title = R.string.app_name,

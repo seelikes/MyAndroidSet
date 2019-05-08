@@ -6,4 +6,6 @@
 
     <color name="main_item_title">#7c3a1f</color>
     <color name="main_item_right_arrow">#6a74aa</color>
+
+    <color name="room_title">#1b1c1d</color>
 </resources>
