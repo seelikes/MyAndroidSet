@@ -56,6 +56,8 @@ dependencies {
     implementation "com.alibaba:arouter-api:$arouter_api_version"
     kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
     implementation "com.alibaba:arouter-api:$arouter_api_version"
+    implementation "com.gyf.immersionbar:immersionbar:$gyf__dev_ImmersionBar_version"
+    implementation "com.gyf.immersionbar:immersionbar-ktx:$gyf__dev_ImmersionBar_version"
     implementation "androidx.work:work-runtime-ktx:$work_version"
     implementation "androidx.work:work-rxjava2:$work_version"
 }
