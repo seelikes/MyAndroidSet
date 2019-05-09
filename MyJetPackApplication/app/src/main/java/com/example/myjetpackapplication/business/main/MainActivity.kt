@@ -34,11 +34,13 @@ class  MainActivity : BasicActivity<MainActivity, MainViewModel, ActivityMainBin
         var adapter = binding.rvList.adapter
         if (adapter !is MainItemAdapter) {
             adapter = MainItemAdapter(this, model.items) { item, position ->
-                if (item.children.isNotEmpty()) {
-                    ViewModelProviders.of(this).get(MainDataModel::class.java).items.value = item.children
-                }
-                else {
-                    ARouter.getInstance().build(item.path).navigation()
+                item?.let {
+                    if (it.children.isNotEmpty()) {
+                        ViewModelProviders.of(this).get(MainDataModel::class.java).items.value = it.children
+                    }
+                    else {
+                        ARouter.getInstance().build(it.path).navigation()
+                    }
                 }
             }
             connect(adapter, model.items)

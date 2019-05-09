@@ -1,7 +1,6 @@
 package com.example.myjetpackapplication.business.room
 
 import androidx.room.Database
-import androidx.room.RoomDatabase
 
 /**
  * Created by liutiantian on 2019-05-08 19:56 星期三

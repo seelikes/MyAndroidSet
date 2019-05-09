@@ -9,6 +9,6 @@ import com.example.myjetpackapplication.databinding.ItemMainBinding
 /**
  * Created by liutiantian on 2019-05-06 23:20 星期一
  */
-class MainItemAdapter(context: Context, items: List<MainItemBean>?, itemClickListener: (MainItemBean, Int) -> Unit) : BasicRecyclerAdapter<MainItemBean, MainItemViewHolder, ItemMainBinding>(context, items, itemClickListener) {
+class MainItemAdapter(context: Context, items: List<MainItemBean>?, itemClickListener: (MainItemBean?, Int) -> Unit) : BasicRecyclerAdapter<MainItemBean, MainItemViewHolder, ItemMainBinding>(context, items, itemClickListener) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainItemViewHolder = MainItemViewHolder(context, ItemMainBinding.inflate(LayoutInflater.from(context), parent, false))
 }

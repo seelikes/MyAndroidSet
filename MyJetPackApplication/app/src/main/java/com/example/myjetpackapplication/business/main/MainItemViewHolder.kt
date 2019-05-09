@@ -13,10 +13,10 @@ class MainItemViewHolder(context: Context, binding: ItemMainBinding) : BasicView
     var title = ObservableInt()
     var hasChildren = ObservableBoolean()
 
-    override fun setData(entity: MainItemBean) {
+    override fun setData(entity: MainItemBean?) {
         super.setData(entity)
-        hasChildren.set(entity.children.isNotEmpty())
-        title.set(entity.title)
+        hasChildren.set(entity?.children?.isNotEmpty() ?: false)
+        title.set(entity?.title ?: 0)
     }
 
     fun onUiClick() {

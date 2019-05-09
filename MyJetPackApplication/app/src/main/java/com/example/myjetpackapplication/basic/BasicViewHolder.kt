@@ -10,9 +10,9 @@ import com.example.myjetpackapplication.utils.callWithParameter
  */
 open class BasicViewHolder<T : Any, B : ViewDataBinding>(@Suppress("UNUSED_PARAMETER") context: Context?, binding: B) : RecyclerView.ViewHolder(binding.root) {
     @Suppress("MemberVisibilityCanBePrivate")
-    protected lateinit var entity: T
+    protected var entity: T? = null
 
-    var clickListener: ((T) -> Unit)? = null
+    var clickListener: ((T?) -> Unit)? = null
 
     init {
         this.beforeSetToBinding()
@@ -22,7 +22,7 @@ open class BasicViewHolder<T : Any, B : ViewDataBinding>(@Suppress("UNUSED_PARAM
         }
     }
 
-    open fun setData(entity: T) {
+    open fun setData(entity: T?) {
         this.entity = entity
     }
 
