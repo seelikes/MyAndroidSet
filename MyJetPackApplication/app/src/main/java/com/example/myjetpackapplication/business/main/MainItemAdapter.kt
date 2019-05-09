@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.myjetpackapplication.basic.BasicRecyclerAdapter
+import com.example.myjetpackapplication.business.main.data.MainItemBean
 import com.example.myjetpackapplication.databinding.ItemMainBinding
 
 /**

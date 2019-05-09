@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.example.myjetpackapplication.basic.BasicPagedListAdapter
+import com.example.myjetpackapplication.business.database.room.data.RoomEntity
 import com.example.myjetpackapplication.databinding.ItemRoomBinding
 
 /**

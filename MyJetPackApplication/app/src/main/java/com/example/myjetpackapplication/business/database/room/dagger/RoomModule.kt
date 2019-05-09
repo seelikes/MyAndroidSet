@@ -2,7 +2,7 @@ package com.example.myjetpackapplication.business.database.room.dagger
 
 import android.content.Context
 import androidx.room.Room
-import com.example.myjetpackapplication.business.database.room.RoomDatabase
+import com.example.myjetpackapplication.business.database.room.data.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

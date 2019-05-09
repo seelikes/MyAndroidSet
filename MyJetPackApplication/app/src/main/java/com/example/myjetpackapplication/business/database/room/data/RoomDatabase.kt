@@ -1,4 +1,4 @@
-package com.example.myjetpackapplication.business.database.room
+package com.example.myjetpackapplication.business.database.room.data
 
 import androidx.room.Database
 

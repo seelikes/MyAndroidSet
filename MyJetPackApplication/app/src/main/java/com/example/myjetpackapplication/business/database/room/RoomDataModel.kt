@@ -6,6 +6,7 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.example.myjetpackapplication.business.database.room.dagger.DaggerRoomComponent
 import com.example.myjetpackapplication.business.database.room.dagger.RoomModule
+import com.example.myjetpackapplication.business.database.room.data.RoomDatabase
 import javax.inject.Inject
 
 /**

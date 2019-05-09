@@ -14,6 +14,8 @@ import com.example.myjetpackapplication.R
 import com.example.myjetpackapplication.basic.BasicActivity
 import com.example.myjetpackapplication.business.database.room.dagger.DaggerRoomComponent
 import com.example.myjetpackapplication.business.database.room.dagger.RoomModule
+import com.example.myjetpackapplication.business.database.room.data.RoomDatabase
+import com.example.myjetpackapplication.business.database.room.data.RoomEntity
 import com.example.myjetpackapplication.databinding.ActivityRoomBinding
 import javax.inject.Inject
 
