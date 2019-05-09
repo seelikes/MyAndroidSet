@@ -90,5 +90,44 @@
             android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="64px"
+            android:layout_marginRight="64px"
+            android:layout_marginBottom="64px"
+            android:layout_gravity="end|bottom"
+            app:fab_labelsPosition="left"
+            app:fab_labelStyle="@color/room_item_button">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_add_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick='@{view -> model.onUiClickAddOne()}'
+                app:fab_colorNormal="@color/room_add_one"
+                app:fab_icon="@mipmap/ic_room_add"
+                app:fab_size="normal" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_random_generate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick='@{view -> model.onUiClickRandomGenerate()}'
+                app:fab_colorNormal="@color/room_random_generate"
+                app:fab_icon="@mipmap/ic_room_random_generate"
+                app:fab_size="normal" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick='@{view -> model.onUiClickRandomGenerate()}'
+                app:fab_colorNormal="@color/room_clean"
+                app:fab_icon="@mipmap/ic_room_clear"
+                app:fab_size="normal" />
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

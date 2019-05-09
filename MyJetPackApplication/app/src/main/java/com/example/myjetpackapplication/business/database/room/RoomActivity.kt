@@ -24,7 +24,9 @@ class RoomActivity : BasicActivity<RoomActivity, RoomViewModel, ActivityRoomBind
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ViewModelProviders.of(this).get(RoomDataModel::class.java).list.observe(this, Observer<PagedList<RoomEntity>> {
-
+            if (model.binding.rvList.adapter is RoomAdapter) {
+                (model.binding.rvList.adapter as RoomAdapter).submitList(it)
+            }
         })
     }
 

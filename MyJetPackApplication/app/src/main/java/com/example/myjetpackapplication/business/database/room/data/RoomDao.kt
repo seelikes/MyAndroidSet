@@ -22,4 +22,7 @@ interface RoomDao {
 
     @Delete
     fun delete(vararg room: RoomEntity): Int
+
+    @Query("DELETE FROM room_entity")
+    fun delete(): Int
 }
