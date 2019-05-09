@@ -7,6 +7,7 @@ import androidx.paging.PagedList
 import com.example.myjetpackapplication.business.database.room.dagger.DaggerRoomComponent
 import com.example.myjetpackapplication.business.database.room.dagger.RoomModule
 import com.example.myjetpackapplication.business.database.room.data.RoomDatabase
+import com.orhanobut.logger.Logger
 import javax.inject.Inject
 
 /**
@@ -18,6 +19,7 @@ class RoomDataModel(application: Application) : AndroidViewModel(application) {
 
     init {
         DaggerRoomComponent.builder().roomModule(RoomModule(application)).build().inject(this)
+        Logger.i("init, database.hashCode(): ${database.hashCode()}")
     }
 
     val list by lazy {

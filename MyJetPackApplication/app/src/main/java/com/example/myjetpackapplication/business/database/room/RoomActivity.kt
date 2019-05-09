@@ -12,24 +12,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.myjetpackapplication.R
 import com.example.myjetpackapplication.basic.BasicActivity
-import com.example.myjetpackapplication.business.database.room.dagger.DaggerRoomComponent
-import com.example.myjetpackapplication.business.database.room.dagger.RoomModule
-import com.example.myjetpackapplication.business.database.room.data.RoomDatabase
 import com.example.myjetpackapplication.business.database.room.data.RoomEntity
 import com.example.myjetpackapplication.databinding.ActivityRoomBinding
-import javax.inject.Inject
 
 /**
  * Created by liutiantian on 2019-05-08 00:06 星期三
  */
 @Route(path = "/business/room")
 class RoomActivity : BasicActivity<RoomActivity, RoomViewModel, ActivityRoomBinding>() {
-    @Inject
-    lateinit var database: RoomDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DaggerRoomComponent.builder().roomModule(RoomModule(this)).build().inject(this)
         ViewModelProviders.of(this).get(RoomDataModel::class.java).list.observe(this, Observer<PagedList<RoomEntity>> {
 
         })

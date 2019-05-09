@@ -2,6 +2,8 @@ package com.example.myjetpackapplication
 
 import androidx.multidex.MultiDexApplication
 import com.alibaba.android.arouter.launcher.ARouter
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
 import me.jessyan.autosize.AutoSizeConfig
 
 /**
@@ -10,6 +12,7 @@ import me.jessyan.autosize.AutoSizeConfig
 class MyJetPackApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
+        initLogger()
         initAutoSize()
         initARouter()
     }
@@ -33,5 +36,16 @@ class MyJetPackApplication : MultiDexApplication() {
             ARouter.openLog()
         }
         ARouter.init(this)
+    }
+
+    private fun initLogger() {
+        Logger.addLogAdapter(object : AndroidLogAdapter() {
+            override fun isLoggable(priority: Int, tag: String?): Boolean {
+                if (BuildConfig.DEBUG) {
+                    return super.isLoggable(priority, tag)
+                }
+                return priority >= Logger.ERROR
+            }
+        })
     }
 }
