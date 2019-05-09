@@ -2,5 +2,7 @@
 <resources>
     <string name="app_name">MyJetPackApplication</string>
 
+    <string name="database_title">Database</string>
     <string name="room_title">Room</string>
+    <string name="room_button_delete">Delete</string>
 </resources>

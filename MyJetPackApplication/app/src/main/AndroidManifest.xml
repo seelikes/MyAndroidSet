@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".business.room.RoomActivity"/>
+        <activity android:name="com.example.myjetpackapplication.business.database.room.RoomActivity"/>
     </application>
 
 </manifest>

@@ -1,6 +1,6 @@
-package com.example.myjetpackapplication.business.room
+package com.example.myjetpackapplication.business.database.room
 
-import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 
 /**
@@ -9,7 +9,7 @@ import androidx.room.*
 @Dao
 interface RoomDao {
     @Query("SELECT * FROM room_entity")
-    fun query(): LiveData<List<RoomEntity>>
+    fun query(): DataSource.Factory<Int, RoomEntity>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insert(room: RoomEntity): Long
