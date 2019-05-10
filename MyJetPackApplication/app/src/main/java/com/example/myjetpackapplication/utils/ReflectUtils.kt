@@ -23,3 +23,17 @@ fun Any?.callWithParameter(host: Any) {
         }
     }
 }
+
+/**
+ * call the runnable when the target class has a method with the given annotation type
+ */
+fun <T : Annotation> Any?.runIfClassHasAnnotation(annotationClass: Class<T>, callback: (() -> Unit)?) {
+    this?.let {
+        for (method in it.javaClass.declaredMethods) {
+            if (method.getAnnotation(annotationClass) != null) {
+                callback?.invoke()
+                break
+            }
+        }
+    }
+}

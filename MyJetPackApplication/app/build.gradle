@@ -74,4 +74,5 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     implementation "com.orhanobut:logger:$logger_orhanobut_version"
+    implementation "org.greenrobot:eventbus:$greenrobot_EventBus"
 }
