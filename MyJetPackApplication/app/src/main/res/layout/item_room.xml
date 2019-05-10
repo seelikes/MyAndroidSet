@@ -8,8 +8,7 @@
     <com.mcxtzhang.swipemenulib.SwipeMenuLayout
         android:layout_width="match_parent"
         android:layout_height="200px"
-        app:swipeEnable="true"
-        app:leftSwipe="false">
+        app:swipeEnable="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,10 +56,10 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginEnd="64px"
-            android:layout_marginRight="64px"
+            android:paddingHorizontal="0px"
             android:background="@android:color/holo_red_dark"
-            android:gravity="center_vertical"
+            android:gravity="center"
+            android:onClick='@{view -> model.onUiClickDelete()}'
             android:textSize="40px"
             android:textColor="@color/room_item_button"
             android:text="@string/room_button_delete" />

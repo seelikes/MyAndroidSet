@@ -3,6 +3,7 @@ package com.example.myjetpackapplication.business.database.room
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
+import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -13,7 +14,9 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.myjetpackapplication.R
 import com.example.myjetpackapplication.basic.BasicActivity
 import com.example.myjetpackapplication.business.database.room.data.RoomEntity
+import com.example.myjetpackapplication.business.database.room.event.DeleteEvent
 import com.example.myjetpackapplication.databinding.ActivityRoomBinding
+import org.greenrobot.eventbus.Subscribe
 
 /**
  * Created by liutiantian on 2019-05-08 00:06 星期三
@@ -49,5 +52,18 @@ class RoomActivity : BasicActivity<RoomActivity, RoomViewModel, ActivityRoomBind
         if (binding.rvList.adapter !is RoomAdapter) {
             binding.rvList.adapter = RoomAdapter(this, RoomDiffUtil())
         }
+    }
+
+    @Subscribe
+    fun onEventDelete(event: DeleteEvent) {
+        ArchTaskExecutor.getInstance().executeOnDiskIO {
+            event.room?.let {
+                ViewModelProviders.of(this).get(RoomDataModel::class.java).database.roomDao().delete(it)
+            }
+        }
+    }
+
+    fun collapseFloatMenu() {
+        model.binding.floatMenu.collapse()
     }
 }

@@ -18,9 +18,17 @@ class RoomViewModel(host: RoomActivity, binding: ActivityRoomBinding) : BasicHos
 
     fun onUiClickAddOne() {
         Logger.i("onUiClickAddOne.UL1200LP.DI1211, enter")
+        host.collapseFloatMenu()
+        val room = RoomEntity()
+        room.dice = Random(System.currentTimeMillis()).nextInt()
+        room.time = System.currentTimeMillis()
+        ArchTaskExecutor.getInstance().executeOnDiskIO {
+            ViewModelProviders.of(host).get(RoomDataModel::class.java).database.roomDao().insert(room)
+        }
     }
 
     fun onUiClickRandomGenerate() {
+        host.collapseFloatMenu()
         val random = Random(System.currentTimeMillis())
         val rooms = MutableList(128) {
             val room = RoomEntity()
@@ -34,6 +42,7 @@ class RoomViewModel(host: RoomActivity, binding: ActivityRoomBinding) : BasicHos
     }
 
     fun onUiClickClear() {
+        host.collapseFloatMenu()
         ArchTaskExecutor.getInstance().executeOnDiskIO {
             ViewModelProviders.of(host).get(RoomDataModel::class.java).database.roomDao().delete()
         }

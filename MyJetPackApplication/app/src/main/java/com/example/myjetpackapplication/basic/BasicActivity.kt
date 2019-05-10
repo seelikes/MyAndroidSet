@@ -37,7 +37,7 @@ abstract class BasicActivity<C : BasicActivity<C, M, B>, M : BasicHostViewModel<
         model.binding.unbind()
         runIfClassHasAnnotation(Subscribe::class.java) {
             if (EventBus.getDefault().isRegistered(this)) {
-                EventBus.getDefault().register(this)
+                EventBus.getDefault().unregister(this)
             }
         }
         super.onDestroy()

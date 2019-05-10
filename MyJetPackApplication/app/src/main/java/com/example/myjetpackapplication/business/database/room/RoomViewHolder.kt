@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.databinding.ObservableField
 import com.example.myjetpackapplication.basic.BasicViewHolder
 import com.example.myjetpackapplication.business.database.room.data.RoomEntity
+import com.example.myjetpackapplication.business.database.room.event.DeleteEvent
 import com.example.myjetpackapplication.databinding.ItemRoomBinding
 import com.example.myjetpackapplication.utils.format
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 
 /**
@@ -21,5 +23,9 @@ class RoomViewHolder(context: Context, binding: ItemRoomBinding) : BasicViewHold
         id.set(entity?.id?.toString(10) ?: "")
         dice.set(entity?.dice?.toString(10) ?: "")
         time.set(entity?.time?.let { format(Date(it)) })
+    }
+
+    fun onUiClickDelete() {
+        EventBus.getDefault().post(DeleteEvent(entity))
     }
 }
