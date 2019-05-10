@@ -1,5 +1,6 @@
 package com.example.myjetpackapplication.business.database.room
 
+import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModelProviders
 import com.example.myjetpackapplication.R
@@ -27,10 +28,14 @@ class RoomViewModel(host: RoomActivity, binding: ActivityRoomBinding) : BasicHos
             room.time = System.currentTimeMillis()
             room
         }
-        ViewModelProviders.of(host).get(RoomDataModel::class.java).database.roomDao().insert(*rooms.toTypedArray())
+        ArchTaskExecutor.getInstance().executeOnDiskIO {
+            ViewModelProviders.of(host).get(RoomDataModel::class.java).database.roomDao().insert(*rooms.toTypedArray())
+        }
     }
 
     fun onUiClickClear() {
-        ViewModelProviders.of(host).get(RoomDataModel::class.java).database.roomDao().delete()
+        ArchTaskExecutor.getInstance().executeOnDiskIO {
+            ViewModelProviders.of(host).get(RoomDataModel::class.java).database.roomDao().delete()
+        }
     }
 }
