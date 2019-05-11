@@ -29,6 +29,25 @@ private val rootItem = MainItemBean(
     )
 )
 
+fun pageUp(item: MainItemBean, currentPage: Array<MainItemBean> = rootItem.children): Array<MainItemBean> {
+    if (currentPage.isNotEmpty()) {
+        for (child in currentPage) {
+            if (child.children.isNotEmpty()) {
+                for (grandson in child.children) {
+                    if (grandson == item) {
+                        return currentPage
+                    }
+                }
+                val pageUp = pageUp(item, child.children)
+                if (pageUp.isNotEmpty()) {
+                    return pageUp
+                }
+            }
+        }
+    }
+    return item.children
+}
+
 class MainViewModel(host: MainActivity, binding: ActivityMainBinding) : BasicHostViewModel<MainViewModel, MainActivity, ActivityMainBinding>(host, binding) {
     val items = ObservableArrayList<MainItemBean>()
 

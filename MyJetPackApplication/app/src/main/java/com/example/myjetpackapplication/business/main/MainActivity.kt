@@ -33,7 +33,7 @@ class  MainActivity : BasicActivity<MainActivity, MainViewModel, ActivityMainBin
         }
         var adapter = binding.rvList.adapter
         if (adapter !is MainItemAdapter) {
-            adapter = MainItemAdapter(this, model.items) { item, position ->
+            adapter = MainItemAdapter(this, model.items) { item, _ ->
                 item?.let {
                     if (it.children.isNotEmpty()) {
                         ViewModelProviders.of(this).get(MainDataModel::class.java).items.value = it.children
@@ -46,5 +46,14 @@ class  MainActivity : BasicActivity<MainActivity, MainViewModel, ActivityMainBin
             connect(adapter, model.items)
             binding.rvList.adapter = adapter
         }
+    }
+
+    override fun onBackPressed() {
+        val pageUp = pageUp(model.items[0])
+        if (pageUp.isNotEmpty()) {
+            ViewModelProviders.of(this).get(MainDataModel::class.java).items.value = pageUp
+            return
+        }
+        super.onBackPressed()
     }
 }
