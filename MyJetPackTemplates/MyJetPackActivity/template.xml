@@ -37,6 +37,30 @@
         help="The name of the view model class to create" />
 
     <parameter
+        id="activityRoutePath"
+        name="Activity Route Path"
+        type="string"
+        suggest="/business/${classToResource(activityClass)?lower_case}"
+        default="/business/main"
+        help="The route path of the activity title to create" />
+
+    <parameter
+        id="activityTitleName"
+        name="Activity Title Name"
+        type="string"
+        suggest="${classToResource(activityClass)}_title"
+        default="main_title"
+        help="The name of the activity title to create" />
+
+    <parameter
+        id="activityTitle"
+        name="Activity Title"
+        type="string"
+        suggest="${classToResource(activityClass)?cap_first}"
+        default="Main"
+        help="The title of the activity to create" />
+
+    <parameter
         id="isLauncher"
         name="Launcher Activity"
         type="boolean"
