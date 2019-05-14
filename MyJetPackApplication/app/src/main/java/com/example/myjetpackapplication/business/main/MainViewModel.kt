@@ -45,7 +45,7 @@ fun pageUp(item: MainItemBean, currentPage: Array<MainItemBean> = rootItem.child
             }
         }
     }
-    return item.children
+    return arrayOf()
 }
 
 class MainViewModel(host: MainActivity, binding: ActivityMainBinding) : BasicHostViewModel<MainViewModel, MainActivity, ActivityMainBinding>(host, binding) {
