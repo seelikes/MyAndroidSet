@@ -13,4 +13,9 @@
     <color name="room_random_generate">#c3b0b0</color>
     <color name="room_add_one">#e8be34</color>
     <color name="room_clean">#953c37</color>
+    
+    <color name="paging_background">#d0ccb6</color>
+    <color name="paging_item_title">#7c3a1f</color>
+    <color name="paging_item_paging">#d13a58</color>
+    <color name="paging_item_time">#87957c</color>
 </resources>

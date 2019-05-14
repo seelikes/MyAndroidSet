@@ -23,8 +23,8 @@ private val rootItem = MainItemBean(
             )
         ),
         MainItemBean(
-            title = R.string.app_name,
-            path = "/business/main"
+            title = R.string.paging_title,
+            path = "/business/paging"
         )
     )
 )
