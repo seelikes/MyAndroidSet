@@ -37,6 +37,23 @@
         help="The name of the view model class to create" />
 
     <parameter
+        id="isCreateDataModelClass"
+        name="Create DataModel Class"
+        type="boolean"
+        default="false"
+        help="If true, a DataModel class will be created" />
+
+    <parameter
+        id="dataModelClass"
+        name="DataModel Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        suggest="${underscoreToCamelCase(classToResource(activityClass))}DataModel"
+        default="MainDataModel"
+        visibility="isCreateDataModelClass!false"
+        help="The name of the data model class to create" />
+
+    <parameter
         id="activityRoutePath"
         name="Activity Route Path"
         type="string"
