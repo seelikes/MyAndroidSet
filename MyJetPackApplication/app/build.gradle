@@ -67,6 +67,7 @@ dependencies {
     implementation "com.alibaba:arouter-api:$arouter_api_version"
     kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
     implementation "com.alibaba:arouter-api:$arouter_api_version"
+    implementation "com.aliyun.ams:alicloud-android-hotfix:$alicloud__android__hotfix_version"
     implementation "com.gyf.immersionbar:immersionbar:$ImmersionBar_gyf__dev_version"
     implementation "com.gyf.immersionbar:immersionbar-ktx:$ImmersionBar_gyf__dev_version"
     implementation "com.getbase:floatingactionbutton:$android__floating__action__button_futuresimple_version"
@@ -74,5 +75,6 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     implementation "com.orhanobut:logger:$logger_orhanobut_version"
+    implementation "com.yanzhenjie.permission:x:$AndPermission_yanzhenjie_version"
     implementation "org.greenrobot:eventbus:$greenrobot_EventBus"
 }

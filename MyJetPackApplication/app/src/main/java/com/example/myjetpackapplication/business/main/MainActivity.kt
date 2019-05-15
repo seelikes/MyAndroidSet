@@ -1,5 +1,6 @@
 package com.example.myjetpackapplication.business.main
 
+import android.Manifest
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
@@ -7,15 +8,40 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.*
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.myjetpackapplication.R
 import com.example.myjetpackapplication.basic.BasicActivity
 import com.example.myjetpackapplication.databinding.ActivityMainBinding
+import com.example.myjetpackapplication.sophix.work.SophixWorker
 import com.example.myjetpackapplication.utils.connect
+import com.orhanobut.logger.Logger
+import com.yanzhenjie.permission.AndPermission
+import java.util.concurrent.TimeUnit
 
 @Route(path = "/business/main")
 class  MainActivity : BasicActivity<MainActivity, MainViewModel, ActivityMainBinding>() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        AndPermission.with(this)
+            .runtime()
+            .permission(Manifest.permission.INTERNET, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .onGranted {
+                Logger.i("onCreate.onGranted.UL4886122304953LP, enter")
+                with(WorkManager.getInstance(this)) {
+                    val constants = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).setRequiresBatteryNotLow(true).build()
+                    enqueue(PeriodicWorkRequestBuilder<SophixWorker>(PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS).setConstraints(constants).build())
+                }
+            }
+            .start()
+    }
+
+    override fun onDestroy() {
+        WorkManager.getInstance(this).cancelAllWork()
+        super.onDestroy()
+    }
+
     override fun initModel(savedInstanceState: Bundle?): MainViewModel = MainViewModel(this, DataBindingUtil.setContentView(this, R.layout.activity_main))
 
     override fun initView(binding: ActivityMainBinding) {
