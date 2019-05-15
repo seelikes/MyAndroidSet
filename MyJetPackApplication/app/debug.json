@@ -1,0 +1,18 @@
+{
+    "Password": "JguhMXUo6Kwo69zAGZ",
+    "Confirm": "JguhMXUo6Kwo69zAGZ",
+    "Key": {
+        "Alias": "debug",
+        "password": "fPF11paCG5JLI6llpoabcAg1Ir7r",
+        "Confirm": "fPF11paCG5JLI6llpoabcAg1Ir7r",
+        "Validity(years)": 100,
+        "Certificate": {
+            "First and Last Name": "刘甜甜",
+            "Organizational Unit": "Develop Department",
+            "Organization": "seelikes",
+            "City or Locality": "杭州",
+            "State or Province": "浙江",
+            "Country Code(XX)": "CN"
+        }
+    }
+}

@@ -14,10 +14,30 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
-    buildTypes {
+    signingConfigs {
+        debug {
+            storeFile file ('debug.jks')
+            storePassword 'JguhMXUo6Kwo69zAGZ'
+            keyAlias 'debug'
+            keyPassword 'fPF11paCG5JLI6llpoabcAg1Ir7r'
+        }
         release {
+            storeFile file ('release.jks')
+            storePassword 'b5UDn20Z6U0xq27KF'
+            keyAlias 'release'
+            keyPassword 'id16DCv35lQ4tMj6xj6AEy8yicQK9M2'
+        }
+    }
+    buildTypes {
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
