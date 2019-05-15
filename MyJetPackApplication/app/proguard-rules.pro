@@ -49,84 +49,84 @@
 -keep class com.example.myjetpackapplication.sophix.SophixStubApplication.RealApplicationStub
 
 #androidx
--keep androidx.** { *; }
+-keep class androidx.** { *; }
 -dontwarn androidx.**
 
 #arouter
--keep com.alibaba.android.arouter.** { *; }
+-keep class com.alibaba.android.arouter.** { *; }
 
 #hotfix
 -keep class com.taobao.sophix.** { *; }
 -keep class com.ta.utdid2.device.** { *; }
 
 #aliyun
--keep com.alibaba.mtl.** { *; }
--keep com.taobao.statistic.** { *; }
--keep com.ut.mini.** { *; }
--keep com.ta.utdid2.** { *; }
--keep com.ut.device.** { *; }
+-keep class com.alibaba.mtl.** { *; }
+-keep class com.taobao.statistic.** { *; }
+-keep class com.ut.mini.** { *; }
+-keep class com.ta.utdid2.** { *; }
+-keep class com.ut.device.** { *; }
 
 #floatingactionbutton
--keep com.getbase.floatingactionbutton.** { *; }
+-keep class com.getbase.floatingactionbutton.** { *; }
 
 #SwipeDelMenuLayout
--keep com.mcxtzhang.swipemenulib.** { *; }
+-keep class com.mcxtzhang.swipemenulib.** { *; }
 
 #findbugs
--keep javax.annotation.** { *; }
+-keep class javax.annotation.** { *; }
 
 #gson
--keep com.google.gson.** { *; }
+-keep class com.google.gson.** { *; }
 
 #dagger
--keep dagger.** { *; }
+-keep class dagger.** { *; }
 -dontwarn dagger.**
 
 #google
--keep com.google.** { *; }
+-keep class com.google.** { *; }
 -dontwarn com.google.**
 
 #immersionbar
--keep com.gyf.immersionbar.** { *; }
+-keep class com.gyf.immersionbar.** { *; }
 
 #logger
--keep com.orhanobut.logger.** { *; }
+-keep class com.orhanobut.logger.** { *; }
 
 #squareup
--keep com.squareup.** { *; }
+-keep class com.squareup.** { *; }
 -dontwarn com.squareup.**
 
 #AndPermission
--keep com.yanzhenjie.permission.** { *; }
+-keep class com.yanzhenjie.permission.** { *; }
 
 #rxjava
--keep io.reactivex.** { *; }
+-keep class io.reactivex.** { *; }
 
 #javax
--keep javax.** { *; }
+-keep class javax.** { *; }
 -dontwarn javax.**
 
 #junit
--keep junit.** { *; }
+-keep class junit.** { *; }
 -dontwarn junit.**
--keep org.junit.** { *; }
+-keep class org.junit.** { *; }
 -dontwarn org.junit.**
 
 #autosize
--keep  me.jessyan.autosize.** { *; }
+-keep class  me.jessyan.autosize.** { *; }
 
 #org
--keep org.** { *; }
+-keep class org.** { *; }
 
 #EventBus
--keep org.greenrobot.eventbus.** { *; }
+-keep class org.greenrobot.eventbus.** { *; }
 
 #kotlin
--keep kotlinx.android.** { *; }
+-keep class kotlinx.android.** { *; }
 -dontwarn kotlinx.android.**
--keep kotlin.** { *; }
+-keep class kotlin.** { *; }
 -dontwarn kotlin.**
--kepp kotlin.coroutines.android.** { *; }
+-keep class kotlin.coroutines.android.** { *; }
 -dontwarn kotlin.coroutines.android.**
--keep kotlin.coroutines.** { *; }
+-keep class kotlin.coroutines.** { *; }
 -dontwarn kotlin.coroutines.**
