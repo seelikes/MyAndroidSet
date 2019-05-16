@@ -46,7 +46,11 @@
     *** serialVersionUID;
 }
 
--keep class com.example.myjetpackapplication.sophix.SophixStubApplication.RealApplicationStub
+-keepclassmembers class com.example.myjetpackapplication.MyJetPackApplication {
+    public <init>();
+}
+
+-keep class com.example.myjetpackapplication.sophix.** { *; }
 
 #androidx
 -keep class androidx.** { *; }
