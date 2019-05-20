@@ -130,7 +130,7 @@
 -dontwarn kotlinx.android.**
 -keep class kotlin.** { *; }
 -dontwarn kotlin.**
--keep class kotlin.coroutines.android.** { *; }
--dontwarn kotlin.coroutines.android.**
--keep class kotlin.coroutines.** { *; }
--dontwarn kotlin.coroutines.**
+-keep class kotlinx.coroutines.android.** { *; }
+-dontwarn kotlinx.coroutines.android.**
+-keep class kotlinx.coroutines.** { *; }
+-dontwarn kotlinx.coroutines.**
