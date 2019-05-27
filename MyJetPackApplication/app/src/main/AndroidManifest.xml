@@ -27,7 +27,7 @@
         </activity>
         <activity android:name=".business.database.room.RoomActivity" />
         <activity android:name=".business.paging.PagingActivity" />
-
+        <activity android:name=".business.speech.baidu.SpeechBaiduActivity" />
     </application>
 
 </manifest>

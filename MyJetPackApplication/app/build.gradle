@@ -13,6 +13,10 @@ android {
         versionName "1.0.00"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+
+        buildConfigField "String", "BAIDU_SPEECH_APP_ID", "\"$Baidu_speech_app_id\""
+        buildConfigField "String", "BAIDU_SPEECH_APP_KEY", "\"$Baidu_speech_app_key\""
+        buildConfigField "String", "BAIDU_SPEECH_APP_SECRET", "\"$Baidu_speech_app_secret\""
     }
     signingConfigs {
         debug {
@@ -94,6 +98,7 @@ dependencies {
     implementation "com.github.mcxtzhang:SwipeDelMenuLayout:V$SwipeDelMenuLayout_mcxtzhang_version"
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation "com.java.lib:oil:$oil_version"
     implementation "com.orhanobut:logger:$logger_orhanobut_version"
     implementation "com.yanzhenjie.permission:x:$AndPermission_yanzhenjie_version"
     implementation "org.greenrobot:eventbus:$greenrobot_EventBus"

@@ -52,6 +52,10 @@
 
 -keep class com.example.myjetpackapplication.sophix.** { *; }
 
+#android
+-keep class android.** { *; }
+-dontwarn android.**
+
 #androidx
 -keep class androidx.** { *; }
 -dontwarn androidx.**

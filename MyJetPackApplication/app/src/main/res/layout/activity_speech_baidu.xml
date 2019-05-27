@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="model" type="com.example.myjetpackapplication.business.speech.baidu.SpeechBaiduViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:toolbarId="@+id/toolbar">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:contentInsetStart="0px"
+                    app:contentInsetEnd="0px">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="216px"
+                        android:background="@android:color/white"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="192px"
+                            android:layout_height="152px"
+                            android:onClick='@{view -> model.host.finish()}'>
+
+                            <ImageView
+                                android:layout_width="64px"
+                                android:layout_height="64px"
+                                android:layout_centerInParent="true"
+                                android:contentDescription="@null"
+                                android:scaleType="fitXY"
+                                android:src="@mipmap/ic_left_arrow" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="0px"
+                            android:layout_height="1px"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="152px"
+                            android:gravity="center_vertical"
+                            android:textSize="48px"
+                            android:textColor="@color/room_title"
+                            android:text='@{model.title}' />
+
+                        <View
+                            android:layout_width="0px"
+                            android:layout_height="1px"
+                            android:layout_weight="1" />
+
+                        <RelativeLayout
+                            android:layout_width="192px"
+                            android:layout_height="152px">
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="600px"
+                    android:layout_marginTop="64px"
+                    android:layout_marginLeft="64px"
+                    android:layout_marginStart="64px"
+                    android:layout_marginRight="64px"
+                    android:layout_marginEnd="64px"
+                    android:padding="30px"
+                    android:background="@drawable/speech_baidu_input_background"
+                    android:gravity="start|top"
+                    android:hint="@string/speech_baidu_text_area_hint"
+                    android:textSize="40px"
+                    android:textStyle="bold"
+                    android:textColor="@color/speech_baidu_title"
+                    android:text="@={model.speak}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="180px"
+                    android:layout_marginTop="64px"
+                    android:layout_marginStart="64px"
+                    android:layout_marginLeft="64px"
+                    android:layout_marginEnd="64px"
+                    android:layout_marginRight="64px"
+                    android:background="@drawable/speech_baidu_button_background"
+                    android:gravity="center"
+                    android:onClick='@{view -> model.onUiClickSpeech()}'
+                    android:textSize="64px"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:text="@string/speech_baidu_button_text" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

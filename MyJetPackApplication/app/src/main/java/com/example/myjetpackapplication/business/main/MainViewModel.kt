@@ -23,6 +23,15 @@ private val rootItem = MainItemBean(
             )
         ),
         MainItemBean(
+            title = R.string.speech_title,
+            children = arrayOf(
+                MainItemBean(
+                    title = R.string.speech_baidu_title,
+                    path = "/business/speech/baidu"
+                )
+            )
+        ),
+        MainItemBean(
             title = R.string.paging_title,
             path = "/business/paging"
         )

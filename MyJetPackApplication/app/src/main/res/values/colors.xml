@@ -18,4 +18,10 @@
     <color name="paging_item_title">#7c3a1f</color>
     <color name="paging_item_paging">#d13a58</color>
     <color name="paging_item_time">#87957c</color>
+
+    <color name="speech_baidu_title">#7c3a1f</color>
+    <color name="speech_baidu_input_background">#d0ccb6</color>
+    <color name="speech_baidu_input_stroke_focus">#41bdea</color>
+    <color name="speech_baidu_input_stroke">#d0ccb6</color>
+    <color name="speech_baidu_button_background">#41bdea</color>
 </resources>
