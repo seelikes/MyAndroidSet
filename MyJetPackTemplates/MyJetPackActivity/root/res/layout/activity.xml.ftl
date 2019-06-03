@@ -85,4 +85,13 @@
         </${getMaterialComponentName('android.support.design.widget.AppBarLayout', useAndroidX)}>
 
     </${getMaterialComponentName('android.support.design.widget.CoordinatorLayout', useAndroidX)}>
+
+    <${getMaterialComponentName('android.support.v4.widget.NestedScrollView', useAndroidX)}
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+
+    </${getMaterialComponentName('android.support.v4.widget.NestedScrollView', useAndroidX)}>
 </layout>
