@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<template
+    format="5"
+    revision="1"
+    name="My JetPack Fragment"
+    minApi="14"
+    minBuildApi="14"
+    description="Creates a new fragment and with view model">
+
+    <category value="Fragment" />
+    <formfactor value="Mobile" />
+
+    <parameter
+        id="fragmentClass"
+        name="Fragment Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        default="MainFragment"
+        help="The name of the fragment class to create" />
+
+    <parameter
+        id="fragmentLayout"
+        name="Fragment Layout Name"
+        type="string"
+        constraints="layout|unique|nonempty"
+        suggest="fragment_${classToResource(fragmentClass)}"
+        default="fragment_main"
+        help="The name of the layout to create for the fragment" />
+
+    <parameter
+        id="fragmentLayoutRootComponent"
+        name="Root Layout"
+        type="enum"
+        default="0"
+        help="The root layout of the fragment's layout" >
+        <option id="0">LinearLayout</option>
+        <option id="1">CoordinatorLayout+NestedScrollView</option>
+        <option id="2">CoordinatorLayout+RecyclerView</option>
+    </parameter>
+
+    <parameter
+        id="fragmentTitleName"
+        name="Fragment Title Name"
+        type="string"
+        suggest="${classToResource(fragmentClass)}_title"
+        default="main_title"
+        visibility="(fragmentLayoutRootComponent == '1' || fragmentLayoutRootComponent == '2')!false"
+        help="The name of the fragment title to create" />
+
+    <parameter
+        id="fragmentTitle"
+        name="Fragment Title"
+        type="string"
+        suggest="${classToResource(fragmentClass)?cap_first}"
+        default="Main"
+        visibility="(fragmentLayoutRootComponent == '1' || fragmentLayoutRootComponent == '2')!false"
+        help="The title of the fragment to create" />
+
+    <parameter
+        id="viewModelClass"
+        name="ViewModel Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        suggest="${underscoreToCamelCase(classToResource(fragmentClass))}ViewModel"
+        default="MainViewModel"
+        help="The name of the view model class to create" />
+
+    <parameter
+        id="isCreateDataModelClass"
+        name="Create DataModel Class"
+        type="boolean"
+        default="false"
+        help="If true, a DataModel class will be created" />
+
+    <parameter
+        id="dataModelClass"
+        name="DataModel Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        suggest="${underscoreToCamelCase(classToResource(fragmentClass))}DataModel"
+        default="MainDataModel"
+        visibility="isCreateDataModelClass!false"
+        help="The name of the data model class to create" />
+
+    <parameter
+        id="packageName"
+        name="Package name"
+        type="string"
+        constraints="package"
+        default="com.mycompany.myapp" />
+
+    <!-- 128x128 thumbnails relative to template.xml -->
+    <thumbs>
+        <!-- default thumbnail is required -->
+        <thumb>template_blank_fragment.png</thumb>
+    </thumbs>
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+
+</template>
