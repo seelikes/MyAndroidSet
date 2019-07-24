@@ -102,6 +102,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     implementation "com.java.lib:oil:$oil_version"
     implementation "com.orhanobut:logger:$logger_orhanobut_version"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_android_version"
     implementation "com.yanzhenjie.permission:x:$AndPermission_yanzhenjie_version"
     implementation "org.greenrobot:eventbus:$greenrobot_EventBus"
 }
