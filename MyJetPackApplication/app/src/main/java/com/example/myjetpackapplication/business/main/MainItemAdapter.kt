@@ -3,7 +3,7 @@ package com.example.myjetpackapplication.business.main
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.example.myjetpackapplication.basic.BasicRecyclerAdapter
+import com.github.seelikes.android.mvvm.basic.BasicRecyclerAdapter
 import com.example.myjetpackapplication.business.main.data.MainItemBean
 import com.example.myjetpackapplication.databinding.ItemMainBinding
 

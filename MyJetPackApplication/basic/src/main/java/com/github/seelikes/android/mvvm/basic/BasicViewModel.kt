@@ -1,7 +1,7 @@
-package com.example.myjetpackapplication.basic
+package com.github.seelikes.android.mvvm.basic
 
 import androidx.databinding.ViewDataBinding
-import com.example.myjetpackapplication.utils.callWithParameter
+import com.github.seelikes.android.mvvm.basic.utils.callWithParameter
 
 open class BasicViewModel<C : BasicViewModel<C, B>, B : ViewDataBinding>(internal val binding: B) {
     init {

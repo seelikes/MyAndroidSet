@@ -3,7 +3,7 @@ package com.example.myjetpackapplication.business.main
 import android.content.Context
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
-import com.example.myjetpackapplication.basic.BasicViewHolder
+import com.github.seelikes.android.mvvm.basic.BasicViewHolder
 import com.example.myjetpackapplication.business.main.data.MainItemBean
 import com.example.myjetpackapplication.databinding.ItemMainBinding
 

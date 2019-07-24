@@ -1,0 +1,53 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion sdk_version_compile as int
+
+    defaultConfig {
+        minSdkVersion sdk_version_min as int
+        targetSdkVersion sdk_version_target as int
+        versionCode 1000
+        versionName "1.0.00"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    dataBinding {
+        enabled true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test:runner:$runner_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+    api "androidx.core:core-ktx:$core_ktx_version"
+    api "androidx.paging:paging-common-ktx:$androidx_paging_version"
+    api "androidx.paging:paging-runtime-ktx:$androidx_paging_version"
+    api "androidx.paging:paging-rxjava2-ktx:$androidx_paging_version"
+    api "com.gyf.immersionbar:immersionbar:$ImmersionBar_gyf__dev_version"
+    api "com.gyf.immersionbar:immersionbar-ktx:$ImmersionBar_gyf__dev_version"
+    api "org.greenrobot:eventbus:$greenrobot_EventBus"
+}

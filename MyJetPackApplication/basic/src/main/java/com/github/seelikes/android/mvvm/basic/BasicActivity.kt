@@ -1,18 +1,25 @@
-package com.example.myjetpackapplication.basic
+package com.github.seelikes.android.mvvm.basic
 
 import android.os.Bundle
 import androidx.annotation.CallSuper
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
-import com.example.myjetpackapplication.utils.runIfClassHasAnnotation
+import com.github.seelikes.android.mvvm.basic.utils.runIfClassHasAnnotation
 import com.gyf.immersionbar.ktx.immersionBar
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
 abstract class BasicActivity<C : BasicActivity<C, M, B>, M : BasicHostViewModel<M, C, B>, B : ViewDataBinding> : AppCompatActivity(), BasicInitView<B> {
-    @Suppress("MemberVisibilityCanBePrivate")
+    /**
+     * Model对象
+     */
     protected lateinit var model: M
+
+    /**
+     * ViewBinding对象
+     */
+    protected lateinit var binding: B
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +30,7 @@ abstract class BasicActivity<C : BasicActivity<C, M, B>, M : BasicHostViewModel<
             }
         }
         model = initModel(savedInstanceState)
+        binding = model.binding
         if (useImmersionBar()) {
             immersionBar {
                 statusBarColor(provideStatusBarColor())

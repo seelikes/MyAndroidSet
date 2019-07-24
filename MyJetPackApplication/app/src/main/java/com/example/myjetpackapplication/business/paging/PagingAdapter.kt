@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.example.myjetpackapplication.basic.BasicPagedListAdapter
+import com.github.seelikes.android.mvvm.basic.BasicPagedListAdapter
 import com.example.myjetpackapplication.business.paging.data.PagingEntity
 import com.example.myjetpackapplication.databinding.ItemPagingBinding
 

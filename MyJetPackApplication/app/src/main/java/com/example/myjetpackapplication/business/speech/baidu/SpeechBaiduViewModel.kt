@@ -3,7 +3,7 @@ package com.example.myjetpackapplication.business.speech.baidu
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import com.example.myjetpackapplication.R
-import com.example.myjetpackapplication.basic.BasicHostViewModel
+import com.github.seelikes.android.mvvm.basic.BasicHostViewModel
 import com.example.myjetpackapplication.databinding.ActivitySpeechBaiduBinding
 
 class SpeechBaiduViewModel(host: SpeechBaiduActivity, binding: ActivitySpeechBaiduBinding) : BasicHostViewModel<SpeechBaiduViewModel, SpeechBaiduActivity, ActivitySpeechBaiduBinding>(host, binding) {

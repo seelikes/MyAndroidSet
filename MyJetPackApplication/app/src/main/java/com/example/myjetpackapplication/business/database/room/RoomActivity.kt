@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.myjetpackapplication.R
-import com.example.myjetpackapplication.basic.BasicActivity
+import com.github.seelikes.android.mvvm.basic.BasicActivity
 import com.example.myjetpackapplication.business.database.room.data.RoomEntity
 import com.example.myjetpackapplication.business.database.room.event.DeleteEvent
 import com.example.myjetpackapplication.databinding.ActivityRoomBinding
@@ -27,8 +27,8 @@ class RoomActivity : BasicActivity<RoomActivity, RoomViewModel, ActivityRoomBind
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ViewModelProviders.of(this).get(RoomDataModel::class.java).list.observe(this, Observer<PagedList<RoomEntity>> {
-            if (model.binding.rvList.adapter is RoomAdapter) {
-                (model.binding.rvList.adapter as RoomAdapter).submitList(it)
+            if (binding.rvList.adapter is RoomAdapter) {
+                (binding.rvList.adapter as RoomAdapter).submitList(it)
             }
         })
     }
@@ -64,6 +64,6 @@ class RoomActivity : BasicActivity<RoomActivity, RoomViewModel, ActivityRoomBind
     }
 
     fun collapseFloatMenu() {
-        model.binding.floatMenu.collapse()
+        binding.floatMenu.collapse()
     }
 }

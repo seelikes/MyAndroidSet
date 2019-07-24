@@ -1,4 +1,4 @@
-package com.example.myjetpackapplication.basic
+package com.github.seelikes.android.mvvm.basic
 
 import androidx.databinding.ViewDataBinding
 

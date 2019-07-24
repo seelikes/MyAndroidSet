@@ -2,7 +2,7 @@ package com.example.myjetpackapplication.business.database.room
 
 import android.content.Context
 import androidx.databinding.ObservableField
-import com.example.myjetpackapplication.basic.BasicViewHolder
+import com.github.seelikes.android.mvvm.basic.BasicViewHolder
 import com.example.myjetpackapplication.business.database.room.data.RoomEntity
 import com.example.myjetpackapplication.business.database.room.event.DeleteEvent
 import com.example.myjetpackapplication.databinding.ItemRoomBinding

@@ -1,10 +1,10 @@
-package com.example.myjetpackapplication.basic
+package com.github.seelikes.android.mvvm.basic
 
 import android.content.Context
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myjetpackapplication.utils.runIfClassHasAnnotation
+import com.github.seelikes.android.mvvm.basic.utils.runIfClassHasAnnotation
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 

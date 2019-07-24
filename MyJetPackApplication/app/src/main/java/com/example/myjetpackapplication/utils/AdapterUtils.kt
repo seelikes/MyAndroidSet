@@ -3,8 +3,8 @@ package com.example.myjetpackapplication.utils
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.databinding.ViewDataBinding
-import com.example.myjetpackapplication.basic.BasicRecyclerAdapter
-import com.example.myjetpackapplication.basic.BasicViewHolder
+import com.github.seelikes.android.mvvm.basic.BasicRecyclerAdapter
+import com.github.seelikes.android.mvvm.basic.BasicViewHolder
 
 /**
  * Created by liutiantian on 2019-05-07 15:26 星期二

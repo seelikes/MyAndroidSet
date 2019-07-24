@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.myjetpackapplication.R
-import com.example.myjetpackapplication.basic.BasicActivity
+import com.github.seelikes.android.mvvm.basic.BasicActivity
 import com.example.myjetpackapplication.business.paging.data.PagingEntity
 import com.example.myjetpackapplication.databinding.ActivityPagingBinding
 

@@ -12,10 +12,10 @@ import androidx.work.*
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.myjetpackapplication.R
-import com.example.myjetpackapplication.basic.BasicActivity
 import com.example.myjetpackapplication.databinding.ActivityMainBinding
 import com.example.myjetpackapplication.sophix.work.SophixWorker
 import com.example.myjetpackapplication.utils.connect
+import com.github.seelikes.android.mvvm.basic.BasicActivity
 import com.orhanobut.logger.Logger
 import com.yanzhenjie.permission.AndPermission
 import java.util.concurrent.TimeUnit

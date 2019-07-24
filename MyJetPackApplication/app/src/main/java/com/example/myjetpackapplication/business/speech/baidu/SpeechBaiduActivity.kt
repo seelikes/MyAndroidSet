@@ -10,7 +10,7 @@ import com.baidu.tts.client.SpeechSynthesizerListener
 import com.baidu.tts.client.TtsMode
 import com.example.myjetpackapplication.BuildConfig
 import com.example.myjetpackapplication.R
-import com.example.myjetpackapplication.basic.BasicActivity
+import com.github.seelikes.android.mvvm.basic.BasicActivity
 import com.example.myjetpackapplication.databinding.ActivitySpeechBaiduBinding
 import com.example.myjetpackapplication.utils.copyAssets
 import com.orhanobut.logger.Logger

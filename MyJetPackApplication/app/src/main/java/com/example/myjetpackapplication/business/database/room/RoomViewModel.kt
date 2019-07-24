@@ -4,7 +4,7 @@ import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModelProviders
 import com.example.myjetpackapplication.R
-import com.example.myjetpackapplication.basic.BasicHostViewModel
+import com.github.seelikes.android.mvvm.basic.BasicHostViewModel
 import com.example.myjetpackapplication.business.database.room.data.RoomEntity
 import com.example.myjetpackapplication.databinding.ActivityRoomBinding
 import com.orhanobut.logger.Logger

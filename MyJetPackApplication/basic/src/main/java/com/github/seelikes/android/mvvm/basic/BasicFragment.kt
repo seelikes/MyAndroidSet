@@ -1,4 +1,4 @@
-package com.example.myjetpackapplication.basic
+package com.github.seelikes.android.mvvm.basic
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,14 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.DialogFragment
-import com.example.myjetpackapplication.utils.runIfClassHasAnnotation
+import androidx.fragment.app.Fragment
+import com.github.seelikes.android.mvvm.basic.utils.runIfClassHasAnnotation
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
-abstract class BasicDialog<C : BasicDialog<C, M, B>, M : BasicHostViewModel<M, C, B>, B : ViewDataBinding> : DialogFragment(), BasicInitView<B> {
-    @Suppress("MemberVisibilityCanBePrivate")
+abstract class BasicFragment<C : BasicFragment<C, M, B>, M : BasicHostViewModel<M, C, B>, B : ViewDataBinding> : Fragment(), BasicInitView<B> {
+    /**
+     * Model对象
+     */
     protected lateinit var model: M
+
+    /**
+     * ViewDataBinding对象
+     */
+    protected lateinit var binding: B
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,13 +39,13 @@ abstract class BasicDialog<C : BasicDialog<C, M, B>, M : BasicHostViewModel<M, C
     }
 
     @CallSuper
-    override fun dismiss() {
+    override fun onDestroy() {
         runIfClassHasAnnotation(Subscribe::class.java) {
             if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this)
             }
         }
-        super.dismiss()
+        super.onDestroy()
     }
 
     /**

@@ -4,7 +4,7 @@ import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.myjetpackapplication.R
-import com.example.myjetpackapplication.basic.BasicHostViewModel
+import com.github.seelikes.android.mvvm.basic.BasicHostViewModel
 import com.example.myjetpackapplication.business.main.data.MainItemBean
 import com.example.myjetpackapplication.databinding.ActivityMainBinding
 import com.example.myjetpackapplication.utils.mergeArray

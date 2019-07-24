@@ -1,9 +1,9 @@
-package com.example.myjetpackapplication.basic
+package com.github.seelikes.android.mvvm.basic
 
 import android.content.Context
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myjetpackapplication.utils.callWithParameter
+import com.github.seelikes.android.mvvm.basic.utils.callWithParameter
 
 /**
  * Created by liutiantian on 2019-04-30 19:24 星期二

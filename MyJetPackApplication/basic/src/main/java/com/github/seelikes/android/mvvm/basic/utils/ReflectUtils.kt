@@ -1,9 +1,9 @@
-package com.example.myjetpackapplication.utils
+package com.github.seelikes.android.mvvm.basic.utils
 
 /**
  * 在任何对象上反射调用SAM方法
  */
-fun Any?.callWithParameter(host: Any) {
+internal fun Any?.callWithParameter(host: Any) {
     this?.let {
         val methods = host.javaClass.declaredMethods
         for (method in methods) {
@@ -27,7 +27,7 @@ fun Any?.callWithParameter(host: Any) {
 /**
  * call the runnable when the target class has a method with the given annotation type
  */
-fun <T : Annotation> Any?.runIfClassHasAnnotation(annotationClass: Class<T>, callback: (() -> Unit)?) {
+internal fun <T : Annotation> Any?.runIfClassHasAnnotation(annotationClass: Class<T>, callback: (() -> Unit)?) {
     this?.let {
         for (method in it.javaClass.declaredMethods) {
             if (method.getAnnotation(annotationClass) != null) {
