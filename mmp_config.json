@@ -1,6 +1,6 @@
 {
     "work_dir": {
-        "Windows": "D:\\tmp\\work",
+        "Windows": "~\\Desktop\\work",
         "Linux": "~/Desktop/work"
     },
     "keep_compile_dir_days": 9,
