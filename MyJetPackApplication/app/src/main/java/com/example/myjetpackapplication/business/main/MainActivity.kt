@@ -3,6 +3,7 @@ package com.example.myjetpackapplication.business.main
 import android.Manifest
 import android.graphics.Rect
 import android.os.Bundle
+import android.os.Debug
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.work.*
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.example.myjetpackapplication.BuildConfig
 import com.example.myjetpackapplication.R
 import com.example.myjetpackapplication.databinding.ActivityMainBinding
 import com.example.myjetpackapplication.sophix.work.SophixWorker
@@ -24,6 +26,9 @@ import java.util.concurrent.TimeUnit
 class  MainActivity : BasicActivity<MainActivity, MainViewModel, ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (BuildConfig.DEBUG) {
+            Debug.startMethodTracing()
+        }
         AndPermission.with(this)
             .runtime()
             .permission(Manifest.permission.INTERNET, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -40,6 +45,9 @@ class  MainActivity : BasicActivity<MainActivity, MainViewModel, ActivityMainBin
     override fun onDestroy() {
         WorkManager.getInstance(this).cancelAllWork()
         super.onDestroy()
+        if (BuildConfig.DEBUG) {
+            Debug.stopMethodTracing()
+        }
     }
 
     override fun initModel(savedInstanceState: Bundle?): MainViewModel = MainViewModel(this, DataBindingUtil.setContentView(this, R.layout.activity_main))
