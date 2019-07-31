@@ -6,4 +6,4 @@ import java.util.*
 /**
  * Created by liutiantian on 2019-05-09 14:03 星期四
  */
-fun format(date: Date, format: String = "yyyy-MM-dd HH:mm:ss") = SimpleDateFormat(format, Locale.CHINA).format(date)
+fun format(date: Date, format: String = "yyyy-MM-dd HH:mm:ss"): String = SimpleDateFormat(format, Locale.CHINA).format(date)
