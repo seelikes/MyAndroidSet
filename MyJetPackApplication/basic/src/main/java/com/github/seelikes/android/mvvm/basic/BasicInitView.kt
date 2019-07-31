@@ -2,7 +2,7 @@ package com.github.seelikes.android.mvvm.basic
 
 import androidx.databinding.ViewDataBinding
 
-interface BasicInitView<B : ViewDataBinding> {
+internal interface BasicInitView<B : ViewDataBinding> {
     /**
      * 初始化视图
      * 该方法在binding已经持有model之后调用
