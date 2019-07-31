@@ -1,0 +1,1 @@
+C:\Users\liutiantian\AppData\Local\Programs\Python\Python37\python.exe C:\Users\liutiantian\Desktop\commit\TinyTools\mmp\mmp.py
