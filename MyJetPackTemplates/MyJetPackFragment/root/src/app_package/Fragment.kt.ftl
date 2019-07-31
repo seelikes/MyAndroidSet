@@ -3,8 +3,8 @@ package ${escapeKotlinIdentifiers(packageName)}
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.example.myjetpackapplication.basic.BasicFragment
-import com.example.myjetpackapplication.databinding.${underscoreToCamelCase(fragmentLayout)}Binding
+import ${applicationPackage}.databinding.${underscoreToCamelCase(fragmentLayout)}Binding
+import com.github.seelikes.android.mvvm.basic.BasicFragment
 
 /**
  * Created by liutiantian on 2019-06-03 20:22 星期一
