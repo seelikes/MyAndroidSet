@@ -15,4 +15,9 @@
     <string name="speech_baidu_err_init_success">Baidu tts init success</string>
     <string name="speech_baidu_text_area_hint">Input Here</string>
     <string name="speech_baidu_button_text">Speech</string>
+
+    <string name="profiler_title">Profiler</string>
+    <string name="cpu_title">Cpu</string>
+    <string name="cpu_long_execute_time_method">Long Execute Method</string>
+    <string name="cpu_high_frequency_execute_method">HighFrequency Execute Method</string>
 </resources>

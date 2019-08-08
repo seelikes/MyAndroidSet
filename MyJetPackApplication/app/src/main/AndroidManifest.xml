@@ -28,6 +28,7 @@
         <activity android:name=".business.database.room.RoomActivity" />
         <activity android:name=".business.paging.PagingActivity" />
         <activity android:name=".business.speech.baidu.SpeechBaiduActivity" />
+        <activity android:name=".business.profiler.cpu.CPUActivity" />
     </application>
 
 </manifest>

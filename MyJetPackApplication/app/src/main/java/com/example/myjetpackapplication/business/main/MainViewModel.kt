@@ -34,6 +34,15 @@ private val rootItem = MainItemBean(
         MainItemBean(
             title = R.string.paging_title,
             path = "/business/paging"
+        ),
+        MainItemBean(
+            title = R.string.profiler_title,
+            children = arrayOf(
+                MainItemBean(
+                    title = R.string.cpu_title,
+                    path = "/business/cpu"
+                )
+            )
         )
     )
 )
