@@ -4,6 +4,10 @@
     <#--<#include "root://activities/common/recipe_manifest.xml.ftl" />-->
     <@kt.addAllKotlinDependencies />
 
+<#if !(hasDependency('com.github.seelikes.android:mvvm-basic'))>
+    <dependency mavenUrl="com.github.seelikes.android:mvvm-basic:$mvvm_basic_version" />
+</#if>
+
     <merge from="root/AndroidManifest.xml.ftl" to="${escapeXmlAttribute(manifestOut)}/AndroidManifest.xml" />
 
     <merge from="root/res/values/strings.xml.ftl" to="${escapeXmlAttribute(resOut)}/values/strings.xml" />

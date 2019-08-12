@@ -3,7 +3,11 @@ package ${escapeKotlinIdentifiers(packageName)}
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+<#if applicationPackage??>
 import ${applicationPackage}.databinding.${underscoreToCamelCase(fragmentLayout)}Binding
+<#else>
+import ${packageName}.databinding.${underscoreToCamelCase(fragmentLayout)}Binding
+</#if>
 import com.github.seelikes.android.mvvm.basic.BasicFragment
 
 /**
