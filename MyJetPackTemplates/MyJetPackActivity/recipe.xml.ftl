@@ -4,6 +4,10 @@
     <#--<#include "root://activities/common/recipe_manifest.xml.ftl" />-->
     <@kt.addAllKotlinDependencies />
 
+<#if !(hasDependency('org.jetbrains.kotlin:kotlin-stdlib-jdk8'))>
+    <dependency mavenUrl=org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version" />
+</#if>
+
 <#if !(hasDependency('com.github.seelikes.android:mvvm-basic'))>
     <dependency mavenUrl="com.github.seelikes.android:mvvm-basic:$mvvm_basic_version" />
 </#if>

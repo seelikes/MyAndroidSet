@@ -8,7 +8,7 @@
     description="Creates a new activity and with view model">
 
     <category value="Activity" />
-    <formfactor value="Mobile" />
+    <formfactor value="Wear" />
 
     <parameter
         id="activityClass"
