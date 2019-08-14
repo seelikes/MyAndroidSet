@@ -1,0 +1,12 @@
+/**
+ * 测试方法
+ * @param name 名字
+ * @return void
+ */
+def sayHello(String name) {
+    println("Hello " + name)
+}
+
+ext {
+    sayHello = this.&sayHello
+}

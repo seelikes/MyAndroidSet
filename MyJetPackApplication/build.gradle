@@ -1,5 +1,10 @@
 import groovy.xml.QName
 
+// gradle公共函数文件导入测试 S
+apply from: 'test.gradle'
+sayHello('aaa')
+// gradle公共函数文件导入测试 E
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
