@@ -71,6 +71,7 @@ ext {
     groupId = 'com.github.seelikes.android'
     artifactId = 'mvvm-basic'
     version = project.extensions.android.defaultConfig.versionName
+    description = 'mvvm basic classes for Android'
     publish = 'project'
 }
 

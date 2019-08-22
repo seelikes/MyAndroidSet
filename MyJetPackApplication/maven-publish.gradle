@@ -119,34 +119,55 @@ if (project.extensions.findByName('android')) {
         classifier = "sources"
         from android.sourceSets.main.java.sourceFiles
     }
+}
+else {
+    task javadocJar(type: Jar) {
+        classifier "javadoc"
+        from javadoc
+    }
 
-    afterEvaluate {
-        publishing {
-            publications {
-                maven(MavenPublication) {
-                    groupId project.ext.groupId
-                    artifactId project.ext.artifactId
-                    version project.ext.version
+    task sourcesJar(type: Jar) {
+        classifier "sources"
+        from sourceSets.main.allSource
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId project.ext.groupId
+                artifactId project.ext.artifactId
+                version project.ext.version
+                description project.ext.description
+                if (project.extensions.findByName('android')) {
                     artifact androidJavadocsJar
                     artifact androidSourcesJar
                     artifact bundleReleaseAar
-                    pom.withXml {
-                        def dependencies = asNode().appendNode('dependencies')
-                        wrapIntoDependencies(dependencies, configurations.api, "compile")
-                        wrapIntoDependencies(dependencies, configurations.implementation, "provided")
-                        wrapIntoDependencies(dependencies, configurations.testImplementation, "test")
+                }
+                else {
+                    artifact jar
+                    artifact javadocJar
+                    artifact sourcesJar
+                }
+                pom.withXml {
+                    def dependencies = asNode().appendNode('dependencies')
+                    wrapIntoDependencies(dependencies, configurations.api, "compile")
+                    wrapIntoDependencies(dependencies, configurations.implementation, "provided")
+                    wrapIntoDependencies(dependencies, configurations.testImplementation, "test")
+                    if (project.extensions.findByName('android')) {
                         wrapIntoDependencies(dependencies, configurations.androidTestImplementation, "test")
                     }
                 }
             }
-            repositories {
-                maven {
-                    url canExecuteMavenPublish() && project.ext.publish != 'project' ? project.property(project.ext.version.endsWith('-SNAPSHOT') ? 'deploy.snapshot.url' : 'deploy.release.url') : 'publish'
-                    if (canExecuteMavenPublish() && project.ext.publish != 'project') {
-                        credentials {
-                            username project.property(project.ext.version.endsWith('-SNAPSHOT') ? "deploy.snapshot.user.name" : "deploy.release.user.name")
-                            password project.property(project.ext.version.endsWith('-SNAPSHOT') ? "deploy.snapshot.user.password" : "deploy.release.user.password")
-                        }
+        }
+        repositories {
+            maven {
+                url canExecuteMavenPublish() && project.ext.publish != 'project' ? project.property(project.ext.version.endsWith('-SNAPSHOT') ? 'deploy.snapshot.url' : 'deploy.release.url') : 'publish'
+                if (canExecuteMavenPublish() && project.ext.publish != 'project') {
+                    credentials {
+                        username project.property(project.ext.version.endsWith('-SNAPSHOT') ? "deploy.snapshot.user.name" : "deploy.release.user.name")
+                        password project.property(project.ext.version.endsWith('-SNAPSHOT') ? "deploy.snapshot.user.password" : "deploy.release.user.password")
                     }
                 }
             }
