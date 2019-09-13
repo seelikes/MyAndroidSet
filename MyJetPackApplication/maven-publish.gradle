@@ -155,6 +155,8 @@ afterEvaluate {
                     wrapIntoDependencies(dependencies, configurations.api, "compile")
                     wrapIntoDependencies(dependencies, configurations.implementation, "provided")
                     wrapIntoDependencies(dependencies, configurations.testImplementation, "test")
+                    wrapIntoDependencies(dependencies, configurations.testCompile, "test")
+                    wrapIntoDependencies(dependencies, configurations.compileOnly, "runtime")
                     if (project.extensions.findByName('android')) {
                         wrapIntoDependencies(dependencies, configurations.androidTestImplementation, "test")
                     }
@@ -163,8 +165,8 @@ afterEvaluate {
         }
         repositories {
             maven {
-                url canExecuteMavenPublish() && project.ext.publish != 'project' ? project.property(project.ext.version.endsWith('-SNAPSHOT') ? 'deploy.snapshot.url' : 'deploy.release.url') : 'publish'
-                if (canExecuteMavenPublish() && project.ext.publish != 'project') {
+                url canExecuteMavenPublish() && (("${publish}" != 'project') && "${registry}" != 'project') ? project.property(project.ext.version.endsWith('-SNAPSHOT') ? 'deploy.snapshot.url' : 'deploy.release.url') : 'publish'
+                if (canExecuteMavenPublish() && ("${publish}" != 'project') && "${registry}" != 'project') {
                     credentials {
                         username project.property(project.ext.version.endsWith('-SNAPSHOT') ? "deploy.snapshot.user.name" : "deploy.release.user.name")
                         password project.property(project.ext.version.endsWith('-SNAPSHOT') ? "deploy.snapshot.user.password" : "deploy.release.user.password")
