@@ -99,6 +99,19 @@ def canExecuteMavenPublish() {
     return project.hasProperty('deploy.release.url') && project.hasProperty('deploy.release.user.name') && project.hasProperty('deploy.release.user.password')
 }
 
+/**
+ * 获取项目属性
+ * @param name 名字
+ * @param defValue 默认值
+ * @return 属性
+ */
+def getProperty(String name, Object defValue) {
+    if (project.hasProperty(name)) {
+        return project.property(name)
+    }
+    return defValue
+}
+
 apply plugin: 'maven-publish'
 
 if (project.extensions.findByName('android')) {
@@ -165,8 +178,8 @@ afterEvaluate {
         }
         repositories {
             maven {
-                url canExecuteMavenPublish() && (("${publish}" != 'project') && "${registry}" != 'project') ? project.property(project.ext.version.endsWith('-SNAPSHOT') ? 'deploy.snapshot.url' : 'deploy.release.url') : 'publish'
-                if (canExecuteMavenPublish() && ("${publish}" != 'project') && "${registry}" != 'project') {
+                url canExecuteMavenPublish() && (getProperty("publish", null) != 'project' && getProperty("registry", null) != 'project') ? project.property(project.ext.version.endsWith('-SNAPSHOT') ? 'deploy.snapshot.url' : 'deploy.release.url') : 'publish'
+                if (canExecuteMavenPublish() && (getProperty("publish", null) != 'project' && getProperty("registry", null) != 'project')) {
                     credentials {
                         username project.property(project.ext.version.endsWith('-SNAPSHOT') ? "deploy.snapshot.user.name" : "deploy.release.user.name")
                         password project.property(project.ext.version.endsWith('-SNAPSHOT') ? "deploy.snapshot.user.password" : "deploy.release.user.password")
