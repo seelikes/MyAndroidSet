@@ -74,7 +74,6 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
     implementation "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
-    kapt "androidx.lifecycle:lifecycle-compiler:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidx_lifecycle_version"
