@@ -103,4 +103,9 @@ dependencies {
     implementation "com.orhanobut:logger:$logger_orhanobut_version"
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_android_version"
     implementation "com.yanzhenjie.permission:x:$AndPermission_yanzhenjie_version"
+    implementation "skin.support:skin-support:$Android_skin_support__ximsfei_version"
+    implementation "skin.support:skin-support-design:$Android_skin_support__ximsfei_version"
+    implementation "skin.support:skin-support-cardview:$Android_skin_support__ximsfei_version"
+    implementation "skin.support:skin-support-constraint-layout:$Android_skin_support__ximsfei_version"
+    implementation "top.zibin:Luban:$luban_Curzibn_version"
 }
