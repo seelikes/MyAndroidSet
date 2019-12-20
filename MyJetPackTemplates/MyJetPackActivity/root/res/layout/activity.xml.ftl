@@ -60,7 +60,7 @@
                             android:layout_height="152px"
                             android:gravity="center_vertical"
                             android:textSize="48px"
-                            android:textColor="@color/room_title"
+                            android:textColor="@color/title_text_color"
                             android:text='@{model.title}' />
 
                         <View
