@@ -73,6 +73,8 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
     implementation "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
+    implementation "com.example.myjetpackapplication:resources:$resources_version"
+    implementation "com.example:business-animation:$business_animation_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$androidx_lifecycle_version"

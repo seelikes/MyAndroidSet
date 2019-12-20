@@ -1,0 +1,64 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+android {
+    compileSdkVersion sdk_version_compile as int
+
+    defaultConfig {
+        minSdkVersion sdk_version_min as int
+        targetSdkVersion sdk_version_target as int
+        versionCode 1001
+        versionName "1.0.01"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.core:core-ktx:$core_ktx_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    testImplementation "junit:junit:$junit_version"
+    implementation "androidx.test.ext:junit-ktx:$androidx_junit_ktx_version"
+    androidTestImplementation "androidx.test:runner:$runner_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+    api "com.alibaba:arouter-api:$arouter_api_version"
+    api "com.orhanobut:logger:$logger_orhanobut_version"
+    api "me.jessyan:autosize:$autosize_version"
+}
+
+/**
+ * 发布必须配置此项
+ * 如果发布至maven服务器
+ * 需要配置publish不是project，不可删掉
+ * 发布至snapshot服务器需配置以下内容
+ * 版本号以-SNAPSHOT结尾
+ * 配置deploy.snapshot.url指向maven snapshot服务器地址
+ * 配置deploy.snapshot.user.name指向maven snapshot服务器用户名
+ * 配置deploy.snapshot.user.password指向maven snapshot服务器密码
+ * 发布至release服务器需配置以下内容
+ * 版本号不以-SNAPSHOT结尾
+ * 配置deploy.release.url指向maven release服务器地址
+ * 配置deploy.release.user.name指向maven release服务器用户名
+ * 配置deploy.release.user.password指向maven release服务器密码
+ */
+ext {
+    groupId = 'com.example.myjetpackapplication'
+    artifactId = 'single'
+    version = project.extensions.android.defaultConfig.versionName
+    description = 'base class for module single run'
+}
+
+apply from: "${rootDir}/maven-publish.gradle"

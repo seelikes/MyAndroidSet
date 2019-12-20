@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">business-animation</string>
+    <string name="animation_title">Animation</string>
+    <string name="animation_start_btn">Start Property Animation</string>
+</resources>

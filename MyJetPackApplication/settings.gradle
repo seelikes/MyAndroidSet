@@ -1,2 +1,5 @@
 include ':app'
 include ':basic'
+include ':businesses:business-animation'
+include ':resources'
+include ':single'

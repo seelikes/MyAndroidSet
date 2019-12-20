@@ -43,6 +43,15 @@ private val rootItem = MainItemBean(
                     path = "/business/cpu"
                 )
             )
+        ),
+        MainItemBean(
+            title = R.string.test_title,
+            children = arrayOf(
+                MainItemBean(
+                    title = R.string.animation_title,
+                    path = "/business12/animation"
+                )
+            )
         )
     )
 )

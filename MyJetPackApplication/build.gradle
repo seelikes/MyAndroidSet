@@ -8,10 +8,10 @@ sayHello('aaa')
 buildscript {
     repositories {
         google()
-        jcenter()
         maven {
             url 'http://112.74.29.196:34272/repository/maven-public'
         }
+        jcenter()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_version"
@@ -24,12 +24,12 @@ buildscript {
 allprojects {
     repositories {
         google()
+        maven {
+            url 'http://112.74.29.196:34272/repository/maven-public'
+        }
         jcenter()
         maven {
             url "https://jitpack.io"
-        }
-        maven {
-            url 'http://112.74.29.196:34272/repository/maven-public'
         }
         maven {
             url "http://maven.aliyun.com/nexus/content/repositories/releases"
