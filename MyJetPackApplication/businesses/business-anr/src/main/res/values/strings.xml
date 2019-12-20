@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">business-anr</string>
+    <string name="anr_title">Anr</string>
+    <string name="trigger_anr">Trigger Anr</string>
+</resources>

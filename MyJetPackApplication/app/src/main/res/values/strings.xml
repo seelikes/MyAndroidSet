@@ -23,4 +23,5 @@
 
     <string name="test_title">Test</string>
     <string name="animation_title">Animation</string>
+    <string name="anr_title">Anr</string>
 </resources>

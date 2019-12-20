@@ -50,6 +50,10 @@ private val rootItem = MainItemBean(
                 MainItemBean(
                     title = R.string.animation_title,
                     path = "/business12/animation"
+                ),
+                MainItemBean(
+                    title = R.string.anr_title,
+                    path = "/business13/anr"
                 )
             )
         )
