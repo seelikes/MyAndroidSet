@@ -3,6 +3,7 @@ package com.example.myjetpackapplication.business.animation
 import android.animation.AnimatorInflater
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.myjetpackapplication.business.animation.databinding.ActivityAnimationBinding
@@ -23,5 +24,14 @@ class AnimationActivity : BasicActivity<AnimationActivity, AnimationViewModel, A
         }
         animator.setTarget(animation_first_view)
         animator.start()
+    }
+
+    fun onClickStartTweenAnimation(view: View) {
+        Logger.i("enter")
+        val anim = AnimationUtils.loadAnimation(this, R.anim.height_tween_scale)
+        if (anim.hasStarted() && !anim.hasEnded()) {
+            return
+        }
+        animation_first_view.startAnimation(anim)
     }
 }

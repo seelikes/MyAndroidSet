@@ -104,6 +104,14 @@
                     android:layout_gravity="center_horizontal"
                     android:text="@string/animation_start_btn" />
 
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20px"
+                    android:onClick="onClickStartTweenAnimation"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/anim_start_btn" />
+
                 <com.example.myjetpackapplication.business.animation.views.HeightSetableView
                     android:id="@+id/animation_first_view"
                     android:layout_width="match_parent"

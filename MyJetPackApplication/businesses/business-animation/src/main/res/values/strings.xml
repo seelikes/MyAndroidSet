@@ -2,4 +2,5 @@
     <string name="app_name">business-animation</string>
     <string name="animation_title">Animation</string>
     <string name="animation_start_btn">Start Property Animation</string>
+    <string name="anim_start_btn">Start Tween Animation</string>
 </resources>
