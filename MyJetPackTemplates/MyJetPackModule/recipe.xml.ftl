@@ -19,6 +19,12 @@
     <mkdir at="${escapeXmlAttribute(srcOut)}" />
 </#if>
 
+    <instantiate from="root/src/alone/app_package/Application.kt.ftl"
+        to="${escapeXmlAttribute(aloneOut)}/${moduleName?cap_first}Application.kt" />
+
+    <instantiate from="root/src/alone//AndroidManifest.xml.ftl"
+        to="${escapeXmlAttribute(aloneDir)}/AndroidManifest.xml" />
+
     <instantiate from="root/src/main/res/values/strings.xml.ftl"
         to="${escapeXmlAttribute(resOut)}/values/strings.xml" />
 

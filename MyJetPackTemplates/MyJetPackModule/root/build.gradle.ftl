@@ -1,4 +1,9 @@
-apply plugin: 'com.android.library'
+if (Run_Mode.contains('ALONE_${moduleName?upper_case}')) {
+    apply plugin: 'com.android.application'
+}
+else {
+    apply plugin: 'com.android.library'
+}
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -11,6 +16,9 @@ android {
         targetSdkVersion sdk_version_target as int
         versionCode 1000
         versionName "1.0.00"
+        if (Run_Mode.contains('ALONE_${moduleName?upper_case}')) {
+            multiDexEnabled true
+        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -19,6 +27,17 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    if (Run_Mode.contains('ALONE_${moduleName?upper_case}')) {
+        sourceSets {
+            main {
+                manifest.srcFile 'src/alone/AndroidManifest.xml'
+                java {
+                    srcDirs = ['src/main/java', 'src/alone/java']
+                }
+            }
         }
     }
 
@@ -56,4 +75,7 @@ dependencies {
     implementation "com.example.myjetpackapplication:resources:$resources_version"
     api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     api "com.java.lib:oil:$oil_version"
+    if (Run_Mode.contains('ALONE_${moduleName?upper_case}')) {
+        implementation "com.example.myjetpackapplication:single:$single_version"
+    }
 }
