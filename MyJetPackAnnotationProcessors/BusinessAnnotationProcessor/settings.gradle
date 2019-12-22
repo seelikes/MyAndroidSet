@@ -1,0 +1,2 @@
+include ':app', ':business-compiler', ':business-annotation', ':business-api'
+rootProject.name='BusinessAnnotationProcessor'
