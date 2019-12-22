@@ -12,22 +12,23 @@
     <dependency mavenUrl="com.github.seelikes.android:mvvm-basic:$mvvm_basic_version" />
 </#if>
 
-    <merge from="root/AndroidManifest.xml.ftl" to="${escapeXmlAttribute(manifestOut)}/AndroidManifest.xml" />
+    <merge from="root/src/main/AndroidManifest.xml.ftl" to="${escapeXmlAttribute(manifestOut)}/AndroidManifest.xml" />
+    <merge from="root/src/alone/AndroidManifest.xml.ftl" to="${escapeXmlAttribute(aloneDir)}/AndroidManifest.xml" />
 
     <merge from="root/res/values/strings.xml.ftl" to="${escapeXmlAttribute(resOut)}/values/strings.xml" />
 
     <merge from="root/build.gradle.ftl" to="${escapeXmlAttribute(projectOut)}/build.gradle" />
 
     <instantiate from="root/res/layout/activity.xml.ftl"
-                   to="${escapeXmlAttribute(resOut)}/layout/${escapeXmlAttribute(activityLayout)}.xml" />
+        to="${escapeXmlAttribute(resOut)}/layout/${escapeXmlAttribute(activityLayout)}.xml" />
 
-    <instantiate from="root/src/app_package/Activity.${ktOrJavaExt}.ftl"
-                   to="${escapeXmlAttribute(srcOut)}/${activityClass}.${ktOrJavaExt}" />
+    <instantiate from="root/src/main/app_package/Activity.${ktOrJavaExt}.ftl"
+        to="${escapeXmlAttribute(srcOut)}/${activityClass}.${ktOrJavaExt}" />
 
-    <instantiate from="root/src/app_package/ViewModel.${ktOrJavaExt}.ftl"
-                 to="${escapeXmlAttribute(srcOut)}/${viewModelClass}.${ktOrJavaExt}" />
+    <instantiate from="root/src/main/app_package/ViewModel.${ktOrJavaExt}.ftl"
+        to="${escapeXmlAttribute(srcOut)}/${viewModelClass}.${ktOrJavaExt}" />
 
-    <instantiate from="root/src/app_package/DataModel.${ktOrJavaExt}.ftl"
-                 to="${escapeXmlAttribute(srcOut)}/${dataModelClass}.${ktOrJavaExt}" />
+    <instantiate from="root/src/main/app_package/DataModel.${ktOrJavaExt}.ftl"
+        to="${escapeXmlAttribute(srcOut)}/${dataModelClass}.${ktOrJavaExt}" />
 
 </recipe>
