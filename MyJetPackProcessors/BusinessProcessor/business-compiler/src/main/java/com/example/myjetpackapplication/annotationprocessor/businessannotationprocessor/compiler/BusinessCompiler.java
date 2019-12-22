@@ -1,5 +1,6 @@
 package com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.compiler;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.annotation.Business;
 import com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.annotation.BusinessItem;
 import com.google.auto.service.AutoService;
@@ -120,6 +121,10 @@ public class BusinessCompiler extends AbstractProcessor {
                 .returns(ListBusinessItem)
                 .addCode("$T res = new $T<>();\n", ListBusinessItem, ArrayList);
         for (Element element : itemAnnotations) {
+            Route route = element.getAnnotation(Route.class);
+            if (route == null) {
+                continue;
+            }
             Business business = element.getAnnotation(Business.class);
             listAllBuilder.addCode("{\n");
             listAllBuilder.addCode("    $T business = new $T();\n", BusinessItem.class, BusinessItem.class);
@@ -127,6 +132,7 @@ public class BusinessCompiler extends AbstractProcessor {
             if (!business.parent().isEmpty()) {
                 listAllBuilder.addCode("    business.setParent($S);\n", business.parent());
             }
+            listAllBuilder.addCode("    business.setPath($S);\n", route.path());
             listAllBuilder.addCode("    business.setPriority($L);\n", business.priority());
             listAllBuilder.addCode("    business.setEnable($L);\n", business.enable());
             listAllBuilder.addCode("    res.add(business);\n");

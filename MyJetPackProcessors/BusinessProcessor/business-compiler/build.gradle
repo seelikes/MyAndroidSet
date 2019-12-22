@@ -5,7 +5,8 @@ dependencies {
     compileOnly "com.google.auto.service:auto-service:1.0-rc6"
     api "com.java.lib:oil:1.1.21"
     api "com.squareup:javapoet:1.11.1"
-    api "com.example.myjetpackapplication.annotationprocessor:business-annotation:1.0.01"
+    api "com.example.myjetpackapplication.annotationprocessor:business-annotation:1.0.03"
+    api "com.alibaba:arouter-annotation:1.0.6"
 }
 
 tasks.withType(JavaCompile) {
@@ -22,7 +23,7 @@ targetCompatibility = "7"
 ext {
     groupId = 'com.example.myjetpackapplication.annotationprocessor'
     artifactId = 'business-compiler'
-    version = '1.0.09'
+    version = '1.0.10'
     description = 'business annotation processor'
 }
 

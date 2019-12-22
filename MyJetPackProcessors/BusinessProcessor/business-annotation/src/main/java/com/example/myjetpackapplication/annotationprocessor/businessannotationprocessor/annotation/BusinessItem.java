@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class BusinessItem implements Serializable {
     private String title;
     private String parent;
+    private String path;
     private int priority;
     private boolean enable;
 
@@ -25,6 +26,14 @@ public class BusinessItem implements Serializable {
 
     public void setParent(String parent) {
         this.parent = parent;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public int getPriority() {
