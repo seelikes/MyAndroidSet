@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="touch_cancel_layout">#e4294e</color>
+    <color name="touch_cancel_view">#2a29e6</color>
+</resources>

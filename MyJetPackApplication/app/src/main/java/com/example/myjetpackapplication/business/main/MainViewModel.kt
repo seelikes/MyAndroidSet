@@ -54,6 +54,10 @@ private val rootItem = MainItemBean(
                 MainItemBean(
                     title = R.string.anr_title,
                     path = "/business13/anr"
+                ),
+                MainItemBean(
+                    title = R.string.event_title,
+                    path = "/business14/event/touch/cancel"
                 )
             )
         )
