@@ -1,0 +1,29 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compileOnly "com.google.auto.service:auto-service:1.0-rc6"
+    api "com.java.lib:oil:1.1.21"
+    api "com.squareup:javapoet:1.11.1"
+    api "com.example.myjetpackapplication.annotationprocessor:business-annotation:1.0.01"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+javadoc {
+    options.encoding = "UTF-8"
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
+
+ext {
+    groupId = 'com.example.myjetpackapplication.annotationprocessor'
+    artifactId = 'business-compiler'
+    version = '1.0.09'
+    description = 'business annotation processor'
+}
+
+apply from: 'file://C:/Users/liutiantian/Desktop/commit/MyAndroidSet/MyJetPackApplication/maven-publish.gradle'
