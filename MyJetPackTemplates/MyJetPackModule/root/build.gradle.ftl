@@ -77,7 +77,34 @@ dependencies {
     kapt "com.example.myjetpackapplication.annotationprocessor:business-compiler:$business_compiler_version"
     api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     api "com.java.lib:oil:$oil_version"
+    api "com.orhanobut:logger:$logger_orhanobut_version"
     if (Run_Mode.contains('ALONE_${moduleName?upper_case}')) {
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
+}
+
+if (!Run_Mode.contains('ALONE_${moduleName?upper_case}')) {
+    /**
+    * 发布必须配置此项
+    * 如果发布至maven服务器
+    * 需要配置publish不是project，不可删掉
+    * 发布至snapshot服务器需配置以下内容
+    * 版本号以-SNAPSHOT结尾
+    * 配置deploy.snapshot.url指向maven snapshot服务器地址
+    * 配置deploy.snapshot.user.name指向maven snapshot服务器用户名
+    * 配置deploy.snapshot.user.password指向maven snapshot服务器密码
+    * 发布至release服务器需配置以下内容
+    * 版本号不以-SNAPSHOT结尾
+    * 配置deploy.release.url指向maven release服务器地址
+    * 配置deploy.release.user.name指向maven release服务器用户名
+    * 配置deploy.release.user.password指向maven release服务器密码
+    */
+    ext {
+        groupId = 'com.example.myjetpackapplication'
+        artifactId = 'business-${moduleName?lower_case}'
+        version = project.extensions.android.defaultConfig.versionName
+        description = 'test cases for ${moduleName?lower_case}'
+    }
+
+    apply from: "${rootDir}/maven-publish.gradle"
 }
