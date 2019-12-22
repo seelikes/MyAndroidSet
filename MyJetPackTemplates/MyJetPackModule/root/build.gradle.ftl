@@ -73,6 +73,8 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
     implementation "com.example.myjetpackapplication:resources:$resources_version"
+    implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
+    kapt "com.example.myjetpackapplication.annotationprocessor:business-compiler:$business_compiler_version"
     api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     api "com.java.lib:oil:$oil_version"
     if (Run_Mode.contains('ALONE_${moduleName?upper_case}')) {
