@@ -3,7 +3,7 @@
     package="${packageName}">
 
     <application
-        android:name=".${moduleName?cap_first}Application"
+        android:name=".Single${moduleName?cap_first}Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

@@ -70,6 +70,11 @@ dependencies {
     implementation "androidx.core:core-ktx:$core_ktx_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$androidx_lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidx_lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_version"
     implementation "com.google.android.material:material:$material_version"
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit-ktx:$androidx_junit_ktx_version"
@@ -82,11 +87,6 @@ dependencies {
     api "com.java.lib:oil:$oil_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
     if (Run_Mode.contains('ALONE_${moduleName?upper_case}')) {
-        implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
-        implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_version"
-        implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$androidx_lifecycle_version"
-        implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidx_lifecycle_version"
-        implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_version"
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
 }
