@@ -20,9 +20,33 @@
 </#if>
 
     <instantiate from="root/src/alone/app_package/Application.kt.ftl"
-        to="${escapeXmlAttribute(aloneOut)}/${moduleName?cap_first}Application.kt" />
+        to="${escapeXmlAttribute(aloneOut)}/Single${moduleName?cap_first}Application.kt" />
 
-    <instantiate from="root/src/alone//AndroidManifest.xml.ftl"
+    <instantiate from="root/src/alone/app_package/SingleRunActivity.kt.ftl"
+        to="${escapeXmlAttribute(aloneOut)}/Single${moduleName?cap_first}Activity.kt" />
+
+    <instantiate from="root/src/alone/app_package/SingleRunDataModel.kt.ftl"
+        to="${escapeXmlAttribute(aloneOut)}/Single${moduleName?cap_first}DataModel.kt" />
+
+    <instantiate from="root/src/alone/app_package/SingleRunItemAdapter.kt.ftl"
+        to="${escapeXmlAttribute(aloneOut)}/Single${moduleName?cap_first}ItemAdapter.kt" />
+
+    <instantiate from="root/src/alone/app_package/SingleRunItemHolder.kt.ftl"
+        to="${escapeXmlAttribute(aloneOut)}/Single${moduleName?cap_first}ItemHolder.kt" />
+
+    <instantiate from="root/src/alone/app_package/SingleRunViewModel.kt.ftl"
+        to="${escapeXmlAttribute(aloneOut)}/Single${moduleName?cap_first}ViewModel.kt" />
+
+    <instantiate from="root/src/alone/res/layout/activity_single_run.xml.ftl"
+        to="${escapeXmlAttribute(aloneResOut)}/layout/activity_single_${moduleName}.xml" />
+
+    <instantiate from="root/src/alone/res/layout/item_single_run.xml.ftl"
+        to="${escapeXmlAttribute(aloneResOut)}/layout/item_single_${moduleName}.xml" />
+
+    <instantiate from="root/src/alone/res/values/strings.xml.ftl"
+        to="${escapeXmlAttribute(aloneResOut)}/values/strings.xml" />
+
+    <instantiate from="root/src/alone/AndroidManifest.xml.ftl"
         to="${escapeXmlAttribute(aloneDir)}/AndroidManifest.xml" />
 
     <instantiate from="root/src/main/res/values/strings.xml.ftl"

@@ -37,6 +37,9 @@ android {
                 java {
                     srcDirs = ['src/main/java', 'src/alone/java']
                 }
+                res {
+                    srcDirs = ['src/main/res', 'src/alone/res']
+                }
             }
         }
     }
@@ -79,6 +82,11 @@ dependencies {
     api "com.java.lib:oil:$oil_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
     if (Run_Mode.contains('ALONE_${moduleName?upper_case}')) {
+        implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
+        implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_version"
+        implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$androidx_lifecycle_version"
+        implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidx_lifecycle_version"
+        implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_version"
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
 }
@@ -106,5 +114,5 @@ if (!Run_Mode.contains('ALONE_${moduleName?upper_case}')) {
         description = 'test cases for ${moduleName?lower_case}'
     }
 
-    apply from: "${rootDir}/maven-publish.gradle"
+    apply from: "${r'${rootDir}'}/maven-publish.gradle"
 }
