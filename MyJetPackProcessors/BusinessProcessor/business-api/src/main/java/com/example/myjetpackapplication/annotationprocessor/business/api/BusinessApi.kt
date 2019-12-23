@@ -40,33 +40,31 @@ object BusinessApi {
             .basePackage(context.packageName)
             .instantRun(DEBUG)
             .getClass {
-                if (it == null) {
-                    return@getClass
-                }
-                if (it.getAnnotation(ABusinessManager::class.java) != null) {
-                    it.declaredMethods.forEach { method ->
-                        if (method.getAnnotation(ABusinessListAll::class.java) != null) {
-                            val businessItems = method.invoke(null) as? List<*>
-                            if (businessItems == null || businessItems.isEmpty()) {
-                                return@forEach
+                if (it != null) {
+                    if (it.getAnnotation(ABusinessManager::class.java) != null) {
+                        it.declaredMethods.forEach { method ->
+                            if (method.getAnnotation(ABusinessListAll::class.java) != null) {
+                                val businessItems = method.invoke(null) as? List<*>
+                                if (businessItems != null && businessItems.isNotEmpty()) {
+                                    if (!BusinessApi::businesses.isInitialized) {
+                                        businesses = mutableListOf()
+                                    }
+                                    businesses.addAll(businessItems as List<BusinessItem>)
+                                }
                             }
-                            if (!BusinessApi::businesses.isInitialized) {
-                                businesses = mutableListOf()
-                            }
-                            businesses.addAll(businessItems as List<BusinessItem>)
                         }
                     }
                 }
             }
     }
 
-    fun getChildren(parent: BusinessItem): List<BusinessItem>? {
+    fun getChildren(parent: BusinessItem?): List<BusinessItem>? {
         if (!BusinessApi::businesses.isInitialized) {
             return null
         }
         val res = mutableListOf<BusinessItem>()
         for (business in businesses) {
-            if (GlobalMethods.getInstance().checkEqual(business.parent, parent.title)) {
+            if (GlobalMethods.getInstance().checkEqual(business.parent, parent?.title)) {
                 res.add(business)
             }
         }
@@ -97,13 +95,5 @@ object BusinessApi {
             }
         }
         return null
-    }
-
-    private fun getClass(canonicalName: String): Class<*>? {
-        return try {
-            Class.forName(canonicalName)
-        } catch (throwable: Throwable) {
-            null
-        }
     }
 }

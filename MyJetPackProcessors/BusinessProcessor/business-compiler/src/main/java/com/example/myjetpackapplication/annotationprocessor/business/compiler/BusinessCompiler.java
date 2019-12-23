@@ -33,7 +33,7 @@ import javax.tools.Diagnostic;
  * Created by liutiantian on 2019-12-21 18:17 星期六
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
-@SupportedAnnotationTypes({"com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.annotation.Business"})
+@SupportedAnnotationTypes({"com.example.myjetpackapplication.annotationprocessor.business.annotation.Business"})
 @AutoService(Processor.class)
 public class BusinessCompiler extends AbstractProcessor {
     public BusinessCompiler() {
@@ -100,7 +100,7 @@ public class BusinessCompiler extends AbstractProcessor {
                 .addCode("    layer = businesses;\n")
                 .addCode("}\n")
                 .addCode("for (int i = 0; i < layer.size(); ++i) {\n")
-                .addCode("    $T children = getChildren(layer.get(i).getTitle());\n", ListBusinessItem)
+                .addCode("    $T children = getChildren(layer.get(i));\n", ListBusinessItem)
                 .addCode("    if (children == null || children.isEmpty()) {\n")
                 .addCode("        continue;\n")
                 .addCode("    }\n")
