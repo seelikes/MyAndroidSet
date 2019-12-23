@@ -8,7 +8,7 @@ import com.github.seelikes.android.mvvm.basic.utils.callWithParameter
 /**
  * Created by liutiantian on 2019-04-30 19:24 星期二
  */
-open class BasicViewHolder<T : Any, B : ViewDataBinding>(@Suppress("UNUSED_PARAMETER") context: Context?, binding: B) : RecyclerView.ViewHolder(binding.root) {
+open class BasicViewHolder<T : Any, B : ViewDataBinding>(protected val context: Context?, protected val binding: B) : RecyclerView.ViewHolder(binding.root) {
     @Suppress("MemberVisibilityCanBePrivate")
     protected var entity: T? = null
 
