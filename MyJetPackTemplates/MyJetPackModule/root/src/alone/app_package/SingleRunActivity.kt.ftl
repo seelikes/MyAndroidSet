@@ -14,7 +14,7 @@ import ${packageName}.R
 import ${packageName}.databinding.ActivitySingle${moduleName?cap_first}Binding
 import com.github.seelikes.android.mvvm.basic.BasicActivity
 
-@Route(path = "/business/single/${moduleName}")
+@Route(path = "/business/single/${moduleName?replace("-", "/")}")
 class Single${moduleName?cap_first}Activity : BasicActivity<Single${moduleName?cap_first}Activity, Single${moduleName?cap_first}ViewModel, ActivitySingle${moduleName?cap_first}Binding>() {
     override fun initModel(savedInstanceState: Bundle?): Single${moduleName?cap_first}ViewModel = Single${moduleName?cap_first}ViewModel(this, DataBindingUtil.setContentView(this, R.layout.activity_single_${moduleName}))
 
