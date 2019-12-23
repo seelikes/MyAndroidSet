@@ -14,6 +14,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.myjetpackapplication.BuildConfig
 import com.example.myjetpackapplication.R
+import com.example.myjetpackapplication.annotationprocessor.business.api.BusinessApi
 import com.example.myjetpackapplication.databinding.ActivityMainBinding
 import com.example.myjetpackapplication.sophix.work.SophixWorker
 import com.example.myjetpackapplication.utils.connect
@@ -69,8 +70,9 @@ class  MainActivity : BasicActivity<MainActivity, MainViewModel, ActivityMainBin
         if (adapter !is MainItemAdapter) {
             adapter = MainItemAdapter(this, model.items) { item, _ ->
                 item?.let {
-                    if (it.children.isNotEmpty()) {
-                        ViewModelProviders.of(this).get(MainDataModel::class.java).items.value = it.children
+                    val children = BusinessApi.getChildren(it)
+                    if (children?.isNotEmpty() == true) {
+                        ViewModelProviders.of(this).get(MainDataModel::class.java).items.value = children
                     }
                     else {
                         ARouter.getInstance().build(it.path).navigation()
@@ -83,8 +85,8 @@ class  MainActivity : BasicActivity<MainActivity, MainViewModel, ActivityMainBin
     }
 
     override fun onBackPressed() {
-        val pageUp = pageUp(model.items[0])
-        if (pageUp.isNotEmpty()) {
+        val pageUp = BusinessApi.getChildren(model.items[0])
+        if (pageUp?.isNotEmpty() == true) {
             ViewModelProviders.of(this).get(MainDataModel::class.java).items.value = pageUp
             return
         }

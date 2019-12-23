@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.annotation.Business
+import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
 import com.example.myjetpackapplication.business.gesture.databinding.ActivityGestureBinding
 import com.example.myjetpackapplication.business.gesture.info.GestureInfo
 import com.github.seelikes.android.mvvm.basic.BasicActivity

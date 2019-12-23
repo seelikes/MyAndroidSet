@@ -5,7 +5,7 @@ import kotlin.math.min
 /**
  * Created by liutiantian on 2019-05-06 08:35 星期一
  */
-fun <E> mergeArray(dest: ArrayList<E>, source: Array<E>) {
+fun <E> mergeArray(dest: ArrayList<E>, source: List<E>) {
     val size = min(dest.size, source.size)
     for (i in 0 until size) {
         if (dest[i] != source[i]) {

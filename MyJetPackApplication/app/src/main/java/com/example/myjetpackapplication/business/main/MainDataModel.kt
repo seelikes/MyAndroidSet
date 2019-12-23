@@ -2,8 +2,8 @@ package com.example.myjetpackapplication.business.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myjetpackapplication.business.main.data.MainItemBean
+import com.example.myjetpackapplication.annotationprocessor.business.annotation.BusinessItem
 
 class MainDataModel : ViewModel() {
-    val items: MutableLiveData<Array<MainItemBean>> by lazy { MutableLiveData<Array<MainItemBean>>() }
+    val items: MutableLiveData<List<BusinessItem>> by lazy { MutableLiveData<List<BusinessItem>>() }
 }

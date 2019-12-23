@@ -9,8 +9,8 @@ android {
         applicationId "com.example.myjetpackapplication"
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1000
-        versionName "1.0.00"
+        versionCode 2000
+        versionName "2.0.00"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -74,6 +74,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
     implementation "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
+    implementation "com.example.myjetpackapplication.annotationprocessor:business-api:$business_api_version"
     kapt "com.example.myjetpackapplication.annotationprocessor:business-compiler:$business_compiler_version"
     implementation "com.example.myjetpackapplication:resources:$resources_version"
     implementation "com.example.myjetpackapplication:business-animation:$business_animation_version"
