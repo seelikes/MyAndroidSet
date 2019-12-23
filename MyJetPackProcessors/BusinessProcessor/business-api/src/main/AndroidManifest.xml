@@ -1,2 +1,2 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.api" />
+    package="com.example.myjetpackapplication.annotationprocessor.business.api" />

@@ -1,8 +1,8 @@
-package com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.compiler;
+package com.example.myjetpackapplication.annotationprocessor.business.compiler;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.annotation.Business;
-import com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.annotation.BusinessItem;
+import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business;
+import com.example.myjetpackapplication.annotationprocessor.business.annotation.BusinessItem;
 import com.google.auto.service.AutoService;
 import com.java.lib.oil.GlobalMethods;
 import com.squareup.javapoet.ClassName;
@@ -13,7 +13,6 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Set;
 

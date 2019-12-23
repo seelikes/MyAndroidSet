@@ -1,4 +1,4 @@
-package com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor;
+package com.example.myjetpackapplication.annotationprocessor.business;
 
 import androidx.appcompat.app.AppCompatActivity;
 

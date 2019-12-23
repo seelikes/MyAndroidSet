@@ -1,4 +1,4 @@
-package com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.annotation;
+package com.example.myjetpackapplication.annotationprocessor.business.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

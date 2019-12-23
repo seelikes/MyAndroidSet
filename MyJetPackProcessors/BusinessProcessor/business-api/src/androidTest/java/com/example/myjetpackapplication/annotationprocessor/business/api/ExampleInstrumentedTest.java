@@ -1,4 +1,4 @@
-package com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.api;
+package com.example.myjetpackapplication.annotationprocessor.business.api;
 
 import android.content.Context;
 
