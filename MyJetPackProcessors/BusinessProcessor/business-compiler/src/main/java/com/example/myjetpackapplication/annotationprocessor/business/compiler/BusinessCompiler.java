@@ -1,6 +1,8 @@
 package com.example.myjetpackapplication.annotationprocessor.business.compiler;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.myjetpackapplication.annotationprocessor.business.annotation.ABusinessListAll;
+import com.example.myjetpackapplication.annotationprocessor.business.annotation.ABusinessManager;
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business;
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.BusinessItem;
 import com.google.auto.service.AutoService;
@@ -66,7 +68,7 @@ public class BusinessCompiler extends AbstractProcessor {
         MethodSpec.Builder getChildrenBuilder = MethodSpec.methodBuilder("getChildren")
                 .addJavadoc("DO NOT EDIT, AUTO GENERATE CODE!!\n")
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-                .addParameter(ClassName.get(String.class), "parent")
+                .addParameter(ClassName.get(BusinessItem.class), "parent")
                 .returns(ListBusinessItem)
                 .addCode("if (businesses == null || businesses.isEmpty()) {\n")
                 .addCode("    businesses = listAll();\n")
@@ -76,7 +78,7 @@ public class BusinessCompiler extends AbstractProcessor {
                 .addCode("}\n")
                 .addCode("$T res = new $T<>();\n", ListBusinessItem, ArrayList)
                 .addCode("for (int i = 0; i < businesses.size(); ++i) {\n")
-                .addCode("    if ($T.getInstance().checkEqual(businesses.get(i).getParent(), parent)) {\n", GlobalMethods)
+                .addCode("    if ($T.getInstance().checkEqual(businesses.get(i).getParent(), parent.getTitle())) {\n", GlobalMethods)
                 .addCode("        res.add(businesses.get(i));\n")
                 .addCode("    }\n")
                 .addCode("}\n")
@@ -116,7 +118,8 @@ public class BusinessCompiler extends AbstractProcessor {
 
         MethodSpec.Builder listAllBuilder = MethodSpec.methodBuilder("listAll")
                 .addJavadoc("DO NOT EDIT, AUTO GENERATE CODE!!\n")
-                .addModifiers(Modifier.PRIVATE, Modifier.STATIC)
+                .addAnnotation(ABusinessListAll.class)
+                .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
                 .returns(ListBusinessItem)
                 .addCode("$T res = new $T<>();\n", ListBusinessItem, ArrayList);
         for (Element element : itemAnnotations) {
@@ -141,6 +144,7 @@ public class BusinessCompiler extends AbstractProcessor {
         TypeSpec BusinessManagerClass = TypeSpec.classBuilder("BusinessManager")
                 .addJavadoc("PLEASE DO NOT EDIT THIS CLASS, IT IS AUTO GENERATED, REFRESH FROM BUILD TO BUILD!\n")
                 .addModifiers(Modifier.PUBLIC)
+                .addAnnotation(ABusinessManager.class)
                 .addField(businessesBuilder.build())
                 .addMethod(listAllBuilder.build())
                 .addMethod(getChildrenBuilder.build())

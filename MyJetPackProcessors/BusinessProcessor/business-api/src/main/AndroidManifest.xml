@@ -1,2 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myjetpackapplication.annotationprocessor.business.api" />
+    package="com.example.myjetpackapplication.annotationprocessor.business.api">
+    <application>
+        <provider
+            android:authorities="com.example.myjetpackapplication.annotationprocessor.business.api"
+            android:name=".BusinessProvider"
+            android:exported="false" />
+    </application>
+</manifest>
