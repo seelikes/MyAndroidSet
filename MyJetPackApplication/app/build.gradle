@@ -9,8 +9,8 @@ android {
         applicationId "com.example.myjetpackapplication"
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 2000
-        versionName "2.0.00"
+        versionCode 1000
+        versionName "1.0.00"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -79,6 +79,7 @@ dependencies {
     implementation "com.example.myjetpackapplication:business-animation:$business_animation_version"
     implementation "com.example.myjetpackapplication:business-anr:$business_anr_version"
     implementation "com.example.myjetpackapplication:business-event:$business_event_version"
+    implementation "com.example.myjetpackapplication:business-gesture:$business_gesture_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$androidx_lifecycle_version"

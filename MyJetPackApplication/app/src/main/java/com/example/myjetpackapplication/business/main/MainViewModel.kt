@@ -58,6 +58,10 @@ private val rootItem = MainItemBean(
                 MainItemBean(
                     title = R.string.event_title,
                     path = "/business14/event/touch/cancel"
+                ),
+                MainItemBean(
+                    title = R.string.gesture_title,
+                    path = "/business15/gesture"
                 )
             )
         )
