@@ -23,7 +23,7 @@ targetCompatibility = "7"
 ext {
     groupId = 'com.example.myjetpackapplication.annotationprocessor'
     artifactId = 'business-compiler'
-    version = '1.0.19'
+    version = '1.0.20'
     description = 'business annotation processor'
 }
 

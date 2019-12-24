@@ -78,7 +78,7 @@ public class BusinessCompiler extends AbstractProcessor {
                 .addCode("}\n")
                 .addCode("$T res = new $T<>();\n", ListBusinessItem, ArrayList)
                 .addCode("for (int i = 0; i < businesses.size(); ++i) {\n")
-                .addCode("    if ($T.getInstance().checkEqual(businesses.get(i).getParent(), parent.getTitle())) {\n", GlobalMethods)
+                .addCode("    if ($T.getInstance().checkEqual(businesses.get(i).getParent(), parent != null && parent.getTitle() != null && !parent.getTitle().isEmpty() ? parent.getTitle() : null)) {\n", GlobalMethods)
                 .addCode("        res.add(businesses.get(i));\n")
                 .addCode("    }\n")
                 .addCode("}\n")
