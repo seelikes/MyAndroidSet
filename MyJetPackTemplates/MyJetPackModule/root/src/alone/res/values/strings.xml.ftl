@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="single_${classToResource(fakeClass?cap_first)}_title">${moduleName?cap_first}</string>
+    <string name="single_${moduleNameShiftPrefix?replace("-", "_")}_title">${underscoreToCamelCase(activitySingleLayout)}</string>
 </resources>

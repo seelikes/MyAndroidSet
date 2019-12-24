@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <import type="android.view.View" />
-        <variable name="model" type="${packageName}.Single${moduleName?cap_first}ItemHolder" />
+        <variable name="model" type="${packageName}.${underscoreToCamelCase(activitySingleLayout)}ItemHolder" />
     </data>
 
     <LinearLayout

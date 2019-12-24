@@ -9,16 +9,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.annotation.Business
+import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
 import ${packageName}.R
-import ${packageName}.databinding.ActivitySingle${moduleName?cap_first}Binding
+import ${packageName}.databinding.Activity${underscoreToCamelCase(activitySingleLayout)}Binding
 import com.github.seelikes.android.mvvm.basic.BasicActivity
 
-@Route(path = "/business/single/${moduleName?replace("-", "/")}")
-class Single${moduleName?cap_first}Activity : BasicActivity<Single${moduleName?cap_first}Activity, Single${moduleName?cap_first}ViewModel, ActivitySingle${moduleName?cap_first}Binding>() {
-    override fun initModel(savedInstanceState: Bundle?): Single${moduleName?cap_first}ViewModel = Single${moduleName?cap_first}ViewModel(this, DataBindingUtil.setContentView(this, R.layout.activity_single_${moduleName}))
+@Route(path = "/business/single/${moduleNameShiftPrefix?replace("-", "/")}")
+class ${underscoreToCamelCase(activitySingleLayout)}Activity : BasicActivity<${underscoreToCamelCase(activitySingleLayout)}Activity, ${underscoreToCamelCase(activitySingleLayout)}ViewModel, Activity${underscoreToCamelCase(activitySingleLayout)}Binding>() {
+    override fun initModel(savedInstanceState: Bundle?): ${underscoreToCamelCase(activitySingleLayout)}ViewModel = ${underscoreToCamelCase(activitySingleLayout)}ViewModel(this, DataBindingUtil.setContentView(this, R.layout.activity_${activitySingleLayout}))
 
-    override fun initView(binding: ActivitySingle${moduleName?cap_first}Binding) {
+    override fun initView(binding: Activity${underscoreToCamelCase(activitySingleLayout)}Binding) {
         super.initView(binding)
         if (binding.rvList.layoutManager == null) {
             binding.rvList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
@@ -33,19 +33,28 @@ class Single${moduleName?cap_first}Activity : BasicActivity<Single${moduleName?c
             })
         }
         var adapter = binding.rvList.adapter
-        if (adapter !is Single${moduleName?cap_first}ItemAdapter) {
-            adapter = Single${moduleName?cap_first}ItemAdapter(this, BusinessManager.getChildren(null)) { item, _ ->
+        if (adapter !is ${underscoreToCamelCase(activitySingleLayout)}ItemAdapter) {
+            adapter = ${underscoreToCamelCase(activitySingleLayout)}ItemAdapter(this, BusinessManager.getChildren(null)) { item, _ ->
                 item?.let {
-                    val children = BusinessManager.getChildren(it.title)
+                    val children = BusinessManager.getChildren(ViewModelProviders.of(this).get(${underscoreToCamelCase(activitySingleLayout)}DataModel::class.java).items.value?.get(0))
                     if (children.isNotEmpty()) {
-                        ViewModelProviders.of(this).get(Single${moduleName?cap_first}DataModel::class.java).items.value = children
+                        ViewModelProviders.of(this).get(${underscoreToCamelCase(activitySingleLayout)}DataModel::class.java).items.value = children
                     }
                     else {
-                        ARouter.getInstance().build(it.path).navigation()
+                        ARouter.getInstance().build(item.path).navigation()
                     }
                 }
             }
             binding.rvList.adapter = adapter
         }
+    }
+
+    override fun onBackPressed() {
+        val pageUp = BusinessManager.tryBack(ViewModelProviders.of(this).get(${underscoreToCamelCase(activitySingleLayout)}DataModel::class.java).items.value?.get(0), null)
+        if (pageUp?.isNotEmpty() == true) {
+            ViewModelProviders.of(this).get(${underscoreToCamelCase(activitySingleLayout)}DataModel::class.java).items.value = pageUp
+            return
+        }
+        super.onBackPressed()
     }
 }

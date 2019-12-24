@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="model"
-            type="${packageName}.Single${moduleName?cap_first}ViewModel" />
+            type="${packageName}.${underscoreToCamelCase(activitySingleLayout)}ViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

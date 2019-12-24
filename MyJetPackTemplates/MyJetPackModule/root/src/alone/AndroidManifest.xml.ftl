@@ -3,7 +3,7 @@
     package="${packageName}">
 
     <application
-        android:name=".Single${moduleName?cap_first}Application"
+        android:name=".${underscoreToCamelCase(activitySingleLayout)}Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Single${moduleName?cap_first}Activity">
+        <activity android:name=".${underscoreToCamelCase(activitySingleLayout)}Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

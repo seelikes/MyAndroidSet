@@ -3,7 +3,7 @@ package ${escapeKotlinIdentifiers(packageName)}
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.annotation.Business
+import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
 <#if applicationPackage??>
 import ${applicationPackage}.R
 import ${applicationPackage}.databinding.${underscoreToCamelCase(activityLayout)}Binding

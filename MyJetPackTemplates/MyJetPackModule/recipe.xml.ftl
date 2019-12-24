@@ -19,29 +19,29 @@
     <mkdir at="${escapeXmlAttribute(srcOut)}" />
 </#if>
 
-    <instantiate from="root/src/alone/app_package/Application.kt.ftl"
-        to="${escapeXmlAttribute(aloneOut)}/Single${moduleName?cap_first}Application.kt" />
+    <instantiate from="root/src/alone/app_package/SingleRunApplication.kt.ftl"
+        to="${escapeXmlAttribute(aloneOut)}/${underscoreToCamelCase(activitySingleLayout)}Application.kt" />
 
     <instantiate from="root/src/alone/app_package/SingleRunActivity.kt.ftl"
-        to="${escapeXmlAttribute(aloneOut)}/Single${moduleName?cap_first}Activity.kt" />
+        to="${escapeXmlAttribute(aloneOut)}/${underscoreToCamelCase(activitySingleLayout)}Activity.kt" />
 
     <instantiate from="root/src/alone/app_package/SingleRunDataModel.kt.ftl"
-        to="${escapeXmlAttribute(aloneOut)}/Single${moduleName?cap_first}DataModel.kt" />
+        to="${escapeXmlAttribute(aloneOut)}/${underscoreToCamelCase(activitySingleLayout)}DataModel.kt" />
 
     <instantiate from="root/src/alone/app_package/SingleRunItemAdapter.kt.ftl"
-        to="${escapeXmlAttribute(aloneOut)}/Single${moduleName?cap_first}ItemAdapter.kt" />
+        to="${escapeXmlAttribute(aloneOut)}/${underscoreToCamelCase(activitySingleLayout)}ItemAdapter.kt" />
 
     <instantiate from="root/src/alone/app_package/SingleRunItemHolder.kt.ftl"
-        to="${escapeXmlAttribute(aloneOut)}/Single${moduleName?cap_first}ItemHolder.kt" />
+        to="${escapeXmlAttribute(aloneOut)}/${underscoreToCamelCase(activitySingleLayout)}ItemHolder.kt" />
 
     <instantiate from="root/src/alone/app_package/SingleRunViewModel.kt.ftl"
-        to="${escapeXmlAttribute(aloneOut)}/Single${moduleName?cap_first}ViewModel.kt" />
+        to="${escapeXmlAttribute(aloneOut)}/${underscoreToCamelCase(activitySingleLayout)}ViewModel.kt" />
 
     <instantiate from="root/src/alone/res/layout/activity_single_run.xml.ftl"
-        to="${escapeXmlAttribute(aloneResOut)}/layout/activity_single_${moduleName}.xml" />
+        to="${escapeXmlAttribute(aloneResOut)}/layout/activity_${activitySingleLayout}.xml" />
 
     <instantiate from="root/src/alone/res/layout/item_single_run.xml.ftl"
-        to="${escapeXmlAttribute(aloneResOut)}/layout/item_single_${moduleName}.xml" />
+        to="${escapeXmlAttribute(aloneResOut)}/layout/item_${activitySingleLayout}.xml" />
 
     <instantiate from="root/src/alone/res/values/strings.xml.ftl"
         to="${escapeXmlAttribute(aloneResOut)}/values/strings.xml" />

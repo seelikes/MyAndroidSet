@@ -2,9 +2,9 @@ package ${packageName}
 
 import androidx.databinding.ObservableInt
 import ${packageName}.R
-import ${packageName}.databinding.ActivitySingle${moduleName?cap_first}Binding
+import ${packageName}.databinding.Activity${underscoreToCamelCase(activitySingleLayout)}Binding
 import com.github.seelikes.android.mvvm.basic.BasicHostViewModel
 
-class Single${moduleName?cap_first}ViewModel(host: Single${moduleName?cap_first}Activity, binding: ActivitySingle${moduleName?cap_first}Binding) : BasicHostViewModel<Single${moduleName?cap_first}ViewModel, Single${moduleName?cap_first}Activity, ActivitySingle${moduleName?cap_first}Binding>(host, binding) {
-    val title = ObservableInt(R.string.single_${classToResource(fakeClass?cap_first)}_title)
+class ${underscoreToCamelCase(activitySingleLayout)}ViewModel(host: ${underscoreToCamelCase(activitySingleLayout)}Activity, binding: Activity${underscoreToCamelCase(activitySingleLayout)}Binding) : BasicHostViewModel<${underscoreToCamelCase(activitySingleLayout)}ViewModel, ${underscoreToCamelCase(activitySingleLayout)}Activity, Activity${underscoreToCamelCase(activitySingleLayout)}Binding>(host, binding) {
+    val title = ObservableInt(R.string.single_${moduleNameShiftPrefix?replace("-", "_")}_title)
 }
