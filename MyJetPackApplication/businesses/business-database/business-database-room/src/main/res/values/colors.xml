@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="database_room_title">#1b1c1d</color>
+    <color name="database_room_item_title">#7c3a1f</color>
+    <color name="database_room_item_button">#41bdea</color>
+    <color name="database_room_random_generate">#c3b0b0</color>
+    <color name="database_room_add_one">#e8be34</color>
+    <color name="database_room_clean">#953c37</color>
+</resources>

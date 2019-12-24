@@ -2,10 +2,6 @@
 <resources>
     <string name="app_name">MyJetPackApplication</string>
 
-    <string name="database_title">Database</string>
-    <string name="room_title">Room</string>
-    <string name="room_button_delete">Delete</string>
-
     <string name="paging_title">Paging</string>
 
     <string name="speech_title">Speech</string>
