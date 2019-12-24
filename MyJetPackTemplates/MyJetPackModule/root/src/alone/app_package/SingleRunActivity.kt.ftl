@@ -41,7 +41,9 @@ class ${underscoreToCamelCase(activitySingleLayout)}Activity : BasicActivity<${u
                         ViewModelProviders.of(this).get(${underscoreToCamelCase(activitySingleLayout)}DataModel::class.java).items.value = children
                     }
                     else {
-                        ARouter.getInstance().build(item.path).navigation()
+                        item.path?.let { path ->
+                            ARouter.getInstance().build(path).navigation()
+                        }
                     }
                 }
             }
