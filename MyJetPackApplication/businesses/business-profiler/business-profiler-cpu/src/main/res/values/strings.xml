@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ProfilerCpu</string>
+    <string name="profiler_cpu_title">Cpu</string>
+    <string name="cpu_title">Cpu</string>
+    <string name="cpu_long_execute_time_method">Long Execute Method</string>
+    <string name="cpu_high_frequency_execute_method">HighFrequency Execute Method</string>
+</resources>

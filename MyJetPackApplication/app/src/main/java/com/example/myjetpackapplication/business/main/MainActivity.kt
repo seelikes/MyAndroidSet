@@ -75,7 +75,9 @@ class  MainActivity : BasicActivity<MainActivity, MainViewModel, ActivityMainBin
                         ViewModelProviders.of(this).get(MainDataModel::class.java).items.value = children
                     }
                     else {
-                        ARouter.getInstance().build(it.path).navigation()
+                        item.path?.let { path ->
+                            ARouter.getInstance().build(path).navigation()
+                        }
                     }
                 }
             }
