@@ -1,4 +1,4 @@
-include ':app', ':business-database-room'
+include ':app'
 include ':basic'
 include ':businesses:business-animation'
 include ':businesses:business-anr'
