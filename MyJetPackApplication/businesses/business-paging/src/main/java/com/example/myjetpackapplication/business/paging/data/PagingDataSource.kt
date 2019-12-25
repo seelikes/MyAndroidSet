@@ -1,8 +1,10 @@
 package com.example.myjetpackapplication.business.paging.data
 
 import androidx.paging.PageKeyedDataSource
+import com.java.lib.oil.lang.StringManager
 import java.nio.charset.Charset
 import java.security.SecureRandom
+import java.util.*
 import kotlin.math.min
 
 /**
@@ -33,10 +35,10 @@ class PagingDataSource : PageKeyedDataSource<Long, PagingEntity>() {
 
     private fun load(start: Long, size: Int): List<PagingEntity> {
         val list = mutableListOf<PagingEntity>()
-        val bytes = ByteArray(10)
+        val bytes = ByteArray(3)
         for (i in start * 15 until min(start * 15 + size, MAX_LOAD_SIZE)) {
-            SecureRandom(SecureRandom().generateSeed(8)).nextBytes(bytes)
-            list.add(PagingEntity(i, String(bytes, Charset.forName("UTF-8")), System.currentTimeMillis()))
+            SecureRandom(SecureRandom().generateSeed(3)).nextBytes(bytes)
+            list.add(PagingEntity(i, StringManager.getInstance().hex(bytes).toUpperCase(Locale.US), System.currentTimeMillis()))
         }
         return list
     }
