@@ -12,6 +12,9 @@
     <instantiate from="root/proguard-rules.pro.ftl"
         to="${escapeXmlAttribute(projectOut)}/proguard-rules.pro" />
 
+    <instantiate from="root/consumer-rules.pro.ftl"
+        to="${escapeXmlAttribute(projectOut)}/consumer-rules.pro" />
+
     <instantiate from="root/src/androidTest/java/app_package/ExampleInstrumentedTest.kt.ftl"
         to="${escapeXmlAttribute(testOut)}/ExampleInstrumentedTest.kt" />
 

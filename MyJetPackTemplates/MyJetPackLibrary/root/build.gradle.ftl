@@ -1,9 +1,4 @@
-if (Run_Mode.contains('ALONE_${activityLayout?upper_case}')) {
-    apply plugin: 'com.android.application'
-}
-else {
-    apply plugin: 'com.android.library'
-}
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
