@@ -17,6 +17,12 @@ android {
         buildConfigField "String", "BAIDU_SPEECH_APP_ID", "\"$Baidu_speech_app_id\""
         buildConfigField "String", "BAIDU_SPEECH_APP_KEY", "\"$Baidu_speech_app_key\""
         buildConfigField "String", "BAIDU_SPEECH_APP_SECRET", "\"$Baidu_speech_app_secret\""
+
+        manifestPlaceholders = [
+            BAIDU_SPEECH_APP_ID: Baidu_speech_app_id,
+            BAIDU_SPEECH_APP_KEY: Baidu_speech_app_key,
+            BAIDU_SPEECH_APP_SECRET: Baidu_speech_app_secret
+        ]
     }
     signingConfigs {
         debug {
@@ -85,6 +91,8 @@ dependencies {
     implementation "com.example.myjetpackapplication:business-gesture:$business_gesture_version"
     implementation "com.example.myjetpackapplication:business-profiler:$business_profiler_version"
     implementation "com.example.myjetpackapplication:business-profiler-cpu:$business_profiler_cpu_version"
+    implementation "com.example.myjetpackapplication:business-speech:$business_speech_version"
+    implementation "com.example.myjetpackapplication:business-speech-baidu:$business_speech_baidu_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$androidx_lifecycle_version"

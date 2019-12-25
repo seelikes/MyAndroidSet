@@ -17,6 +17,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="BAIDU_SPEECH_APP_ID"
+            android:value="${BAIDU_SPEECH_APP_ID}" />
+
+        <meta-data
+            android:name="BAIDU_SPEECH_APP_KEY"
+            android:value="${BAIDU_SPEECH_APP_KEY}" />
+
+        <meta-data
+            android:name="BAIDU_SPEECH_APP_SECRET"
+            android:value="${BAIDU_SPEECH_APP_SECRET}" />
+
         <activity android:name=".business.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,10 +37,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".business.database.room.RoomActivity" />
         <activity android:name=".business.paging.PagingActivity" />
         <activity android:name=".business.speech.baidu.SpeechBaiduActivity" />
-        <activity android:name=".business.profiler.cpu.CPUActivity" />
     </application>
 
 </manifest>

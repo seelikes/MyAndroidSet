@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Baidu</string>
+    <string name="speech_baidu_title">Baidu</string>
+    <string name="speech_baidu_err_auth">Baidu auth error</string>
+    <string name="speech_baidu_err_init_tts">Baidu tts init error</string>
+    <string name="speech_baidu_err_init_success">Baidu tts init success</string>
+    <string name="speech_baidu_text_area_hint">Input Here</string>
+    <string name="speech_baidu_button_text">Speech</string>
+</resources>

@@ -22,7 +22,7 @@ import org.greenrobot.eventbus.Subscribe
  * Created by liutiantian on 2019-05-08 00:06 星期三
  */
 @Business(title = "database_room_title", parent = "database_title")
-@Route(path = "/business/room")
+@Route(path = "/business18/room")
 class DatabaseRoomActivity : BasicActivity<DatabaseRoomActivity, DatabaseRoomViewModel, ActivityDatabaseRoomBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
