@@ -91,6 +91,7 @@ dependencies {
     implementation "com.example.myjetpackapplication:business-gesture:$business_gesture_version"
     implementation "com.example.myjetpackapplication:business-profiler:$business_profiler_version"
     implementation "com.example.myjetpackapplication:business-profiler-cpu:$business_profiler_cpu_version"
+    implementation "com.example.myjetpackapplication:business-paging:$business_paging_version"
     implementation "com.example.myjetpackapplication:business-speech:$business_speech_version"
     implementation "com.example.myjetpackapplication:business-speech-baidu:$business_speech_baidu_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"

@@ -3,30 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="model" type="com.example.myjetpackapplication.business.paging.PagingViewModel"/>
+
+        <variable
+            name="model"
+            type="com.example.myjetpackapplication.business.paging.SinglePagingViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/paging_background">
+        android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:toolbarId="@+id/tool_bar"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:toolbarId="@+id/toolbar">
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/tool_bar"
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:contentInsetStart="0px"
-                    app:contentInsetEnd="0px">
+                    app:contentInsetEnd="0px"
+                    app:contentInsetStart="0px">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -59,9 +62,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="152px"
                             android:gravity="center_vertical"
-                            android:textSize="48px"
-                            android:textColor="@color/room_title"
-                            android:text='@{model.title}' />
+                            android:text='@{model.title}'
+                            android:textColor="@color/title_text_color"
+                            android:textSize="48px" />
 
                         <View
                             android:layout_width="0px"
@@ -71,7 +74,6 @@
                         <RelativeLayout
                             android:layout_width="192px"
                             android:layout_height="152px">
-
 
 
                         </RelativeLayout>
@@ -87,7 +89,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

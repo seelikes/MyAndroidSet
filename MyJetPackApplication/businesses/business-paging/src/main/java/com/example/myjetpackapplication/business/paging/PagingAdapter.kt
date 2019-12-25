@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.github.seelikes.android.mvvm.basic.BasicPagedListAdapter
 import com.example.myjetpackapplication.business.paging.data.PagingEntity
-import com.example.myjetpackapplication.databinding.ItemPagingBinding
+import com.example.myjetpackapplication.business.paging.databinding.ItemPagingBinding
 
 /**
  * Created by liutiantian on 2019-05-14 13:39 星期二

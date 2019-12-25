@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="model" type="com.example.myjetpackapplication.business.database.room.DatabaseRoomViewModel" />
+        <variable name="model" type="com.example.myjetpackapplication.business.paging.PagingViewModel"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white">
+        android:background="@color/paging_background">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -38,7 +37,8 @@
 
                         <RelativeLayout
                             android:layout_width="192px"
-                            android:layout_height="152px">
+                            android:layout_height="152px"
+                            android:onClick='@{view -> model.host.finish()}'>
 
                             <ImageView
                                 android:layout_width="64px"
@@ -87,48 +87,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-        <com.getbase.floatingactionbutton.FloatingActionsMenu
-            android:id="@+id/float_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="64px"
-            android:layout_marginRight="64px"
-            android:layout_marginBottom="64px"
-            android:layout_gravity="end|bottom"
-            app:fab_labelsPosition="left"
-            app:fab_labelStyle="@color/database_room_item_button">
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_add_one"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick='@{view -> model.onUiClickAddOne()}'
-                app:fab_colorNormal="@color/database_room_add_one"
-                app:fab_icon="@mipmap/ic_room_add"
-                app:fab_size="normal" />
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_random_generate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick='@{view -> model.onUiClickRandomGenerate()}'
-                app:fab_colorNormal="@color/database_room_random_generate"
-                app:fab_icon="@mipmap/ic_room_random_generate"
-                app:fab_size="normal" />
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_clear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick='@{view -> model.onUiClickClear()}'
-                app:fab_colorNormal="@color/database_room_clean"
-                app:fab_icon="@mipmap/ic_room_clear"
-                app:fab_size="normal" />
-
-        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+            android:layout_height="match_parent" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

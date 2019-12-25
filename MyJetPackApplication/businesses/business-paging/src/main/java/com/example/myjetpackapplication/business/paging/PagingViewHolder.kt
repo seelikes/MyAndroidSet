@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.databinding.ObservableField
 import com.github.seelikes.android.mvvm.basic.BasicViewHolder
 import com.example.myjetpackapplication.business.paging.data.PagingEntity
-import com.example.myjetpackapplication.databinding.ItemPagingBinding
-import com.example.myjetpackapplication.utils.format
+import com.example.myjetpackapplication.business.paging.databinding.ItemPagingBinding
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -20,6 +20,6 @@ class PagingViewHolder(context: Context, binding: ItemPagingBinding) : BasicView
         super.setData(entity)
         title.set(entity?.id.toString())
         paging.set(entity?.paging ?: "")
-        time.set(entity?.time?.let { format(Date(it)) } ?: "")
+        time.set(entity?.time?.let { SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Date(it)) } ?: "")
     }
 }

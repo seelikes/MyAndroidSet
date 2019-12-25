@@ -1,7 +1,6 @@
-if (Run_Mode.contains('ALONE_DATABASE_ROOM')) {
+if (Run_Mode.contains('ALONE_PAGING')) {
     apply plugin: 'com.android.application'
-}
-else {
+} else {
     apply plugin: 'com.android.library'
 }
 apply plugin: 'kotlin-android'
@@ -14,9 +13,9 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1003
-        versionName "1.0.03"
-        if (Run_Mode.contains('ALONE_DATABASE_ROOM')) {
+        versionCode 1000
+        versionName "1.0.00"
+        if (Run_Mode.contains('ALONE_PAGING')) {
             multiDexEnabled true
         }
 
@@ -30,7 +29,7 @@ android {
         }
     }
 
-    if (Run_Mode.contains('ALONE_DATABASE_ROOM')) {
+    if (Run_Mode.contains('ALONE_PAGING')) {
         sourceSets {
             main {
                 manifest.srcFile 'src/alone/AndroidManifest.xml'
@@ -83,48 +82,37 @@ dependencies {
     implementation "com.example.myjetpackapplication:resources:$resources_version"
     implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
     kapt "com.example.myjetpackapplication.annotationprocessor:business-compiler:$business_compiler_version"
-    implementation "androidx.room:room-common:$androidx_room_version"
-    kapt "androidx.room:room-compiler:$androidx_room_version"
-    api "androidx.room:room-guava:$androidx_room_version"
-    api "androidx.room:room-ktx:$androidx_room_version"
-    api "androidx.room:room-migration:$androidx_room_version"
-    api "androidx.room:room-runtime:$androidx_room_version"
-    api "androidx.room:room-rxjava2:$androidx_room_version"
-    api "com.alibaba:arouter-api:$arouter_api_version"
-    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
-    api "com.getbase:floatingactionbutton:$android__floating__action__button_futuresimple_version"
-    api "com.github.mcxtzhang:SwipeDelMenuLayout:V$SwipeDelMenuLayout_mcxtzhang_version"
     api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
-    api "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
     api "com.java.lib:oil:$oil_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
-    if (Run_Mode.contains('ALONE_DATABASE_ROOM')) {
+    if (Run_Mode.contains('ALONE_PAGING')) {
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
+    api "com.alibaba:arouter-api:$arouter_api_version"
+    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
 }
 
-if (!Run_Mode.contains('ALONE_DATABASE_ROOM')) {
+if (!Run_Mode.contains('ALONE_PAGING')) {
     /**
-    * 发布必须配置此项
-    * 如果发布至maven服务器
-    * 需要配置publish不是project，不可删掉
-    * 发布至snapshot服务器需配置以下内容
-    * 版本号以-SNAPSHOT结尾
-    * 配置deploy.snapshot.url指向maven snapshot服务器地址
-    * 配置deploy.snapshot.user.name指向maven snapshot服务器用户名
-    * 配置deploy.snapshot.user.password指向maven snapshot服务器密码
-    * 发布至release服务器需配置以下内容
-    * 版本号不以-SNAPSHOT结尾
-    * 配置deploy.release.url指向maven release服务器地址
-    * 配置deploy.release.user.name指向maven release服务器用户名
-    * 配置deploy.release.user.password指向maven release服务器密码
-    */
+     * 发布必须配置此项
+     * 如果发布至maven服务器
+     * 需要配置publish不是project，不可删掉
+     * 发布至snapshot服务器需配置以下内容
+     * 版本号以-SNAPSHOT结尾
+     * 配置deploy.snapshot.url指向maven snapshot服务器地址
+     * 配置deploy.snapshot.user.name指向maven snapshot服务器用户名
+     * 配置deploy.snapshot.user.password指向maven snapshot服务器密码
+     * 发布至release服务器需配置以下内容
+     * 版本号不以-SNAPSHOT结尾
+     * 配置deploy.release.url指向maven release服务器地址
+     * 配置deploy.release.user.name指向maven release服务器用户名
+     * 配置deploy.release.user.password指向maven release服务器密码
+     */
     ext {
         groupId = 'com.example.myjetpackapplication'
-        artifactId = 'business-database-room'
+        artifactId = 'business-paging'
         version = project.extensions.android.defaultConfig.versionName
-        description = 'test cases for database-room'
+        description = 'test cases for paging'
     }
 
     apply from: "${rootDir}/maven-publish.gradle"
