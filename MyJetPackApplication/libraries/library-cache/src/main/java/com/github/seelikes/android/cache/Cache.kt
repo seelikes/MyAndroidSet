@@ -1,4 +1,4 @@
-package com.example.myjetpackapplication.library.cache
+package com.github.seelikes.android.cache
 
 import android.os.Handler
 import androidx.lifecycle.Lifecycle
@@ -21,7 +21,10 @@ object Cache {
     private val handler = Handler()
 
     fun <T : Any> get(key: Any, def: T?): T? {
-        return extract(cache[key]?.value, def)
+        return extract(
+            cache[key]?.value,
+            def
+        )
     }
 
     @JvmOverloads
@@ -32,7 +35,11 @@ object Cache {
         cacheItem.shell = shell
         cacheItem.changeObserver = changeObserver
         cacheItem.removeObserver = removeObserver
-        saveSkeleton(key, value, cacheItem)
+        saveSkeleton(
+            key,
+            value,
+            cacheItem
+        )
     }
 
     @JvmOverloads
@@ -43,7 +50,11 @@ object Cache {
         cacheItem.shell = shell
         cacheItem.changeObserver = changeObserver
         cacheItem.removeObserver = removeObserver
-        saveSkeleton(key, value, cacheItem)
+        saveSkeleton(
+            key,
+            value,
+            cacheItem
+        )
     }
 
     @JvmOverloads
@@ -54,7 +65,11 @@ object Cache {
         cacheItem.shell = shell
         cacheItem.changeObserver = changeObserver
         cacheItem.removeObserver = removeObserver
-        saveSkeleton(key, value, cacheItem)
+        saveSkeleton(
+            key,
+            value,
+            cacheItem
+        )
     }
 
     fun remove(key: Any? = null) {
@@ -64,7 +79,10 @@ object Cache {
                 for (entry in iterator) {
                     entry.value.removeRunnable?.let { handler.removeCallbacks(it) }
                     entry.value.lifecycleObserver?.let { entry.value.shell?.lifecycle?.removeObserver(it) }
-                    val value = extract(entry.value.value, null)
+                    val value = extract(
+                        entry.value.value,
+                        null
+                    )
                     entry.value.removeObserver?.invoke(entry.key, value)
                     removeObservers.forEach {
                         it.key(entry.key, value)
@@ -77,7 +95,10 @@ object Cache {
                 oldItem?: return
                 oldItem.removeRunnable?.let { handler.removeCallbacks(it) }
                 oldItem.lifecycleObserver?.let { oldItem.shell?.lifecycle?.removeObserver(it) }
-                val value = extract(oldItem.value, null)
+                val value = extract(
+                    oldItem.value,
+                    null
+                )
                 oldItem.removeObserver?.invoke(key, value)
                 removeObservers.forEach {
                     it.key(key, value)
@@ -93,7 +114,9 @@ object Cache {
                 val lifecycleObserver = object : LifecycleObserver {
                     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
                     fun onDestroy() {
-                        unregisterNewObserver(newObserver)
+                        unregisterNewObserver(
+                            newObserver
+                        )
                     }
                 }
                 newObservers[newObserver] = shell to lifecycleObserver
@@ -111,7 +134,10 @@ object Cache {
                 }
             }
             else -> {
-                realUnregisterNewReceiver(newObserver, newObservers[newObserver])
+                realUnregisterNewReceiver(
+                    newObserver,
+                    newObservers[newObserver]
+                )
                 newObservers[newObserver]?.second?.let { newObservers[newObserver]?.first?.lifecycle?.removeObserver(it) }
                 if (newObservers[newObserver] != null) {
                     newObservers.remove(newObserver)
@@ -127,7 +153,9 @@ object Cache {
                 val lifecycleObserver = object : LifecycleObserver {
                     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
                     fun onDestroy() {
-                        unregisterChangeObserver(changeObserver)
+                        unregisterChangeObserver(
+                            changeObserver
+                        )
                     }
                 }
                 changeObservers[changeObserver] = shell to lifecycleObserver
@@ -160,7 +188,9 @@ object Cache {
                 val lifecycleObserver = object : LifecycleObserver {
                     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
                     fun onDestroy() {
-                        unregisterRemoveObserver(removeObserver)
+                        unregisterRemoveObserver(
+                            removeObserver
+                        )
                     }
                 }
                 removeObservers[removeObserver] = shell to lifecycleObserver
@@ -227,7 +257,10 @@ object Cache {
         }
 
         oldItem?.changeObserver?.let {
-            val oldValue = extract(oldItem.value, null)
+            val oldValue = extract(
+                oldItem.value,
+                null
+            )
             it(key, value, oldValue)
             changeObservers.forEach { changeObserver ->
                 changeObserver.key(key, value, oldValue)

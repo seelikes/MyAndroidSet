@@ -1,4 +1,4 @@
-package com.example.myjetpackapplication.library.cache
+package com.github.seelikes.android.cache
 
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
