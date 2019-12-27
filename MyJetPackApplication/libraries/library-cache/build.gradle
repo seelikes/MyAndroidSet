@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1001
-        versionName "1.0.01"
+        versionCode 1002
+        versionName "1.0.02"
         if (Run_Mode.contains('ALONE_CACHE')) {
             multiDexEnabled true
         }
@@ -104,8 +104,8 @@ if (!Run_Mode.contains('ALONE_CACHE')) {
     * 配置deploy.release.user.password指向maven release服务器密码
     */
     ext {
-        groupId = 'com.example.myjetpackapplication'
-        artifactId = 'business-cache'
+        groupId = 'com.github.seelikes.android'
+        artifactId = 'cache'
         version = project.extensions.android.defaultConfig.versionName
         description = 'test cases for cache'
     }
