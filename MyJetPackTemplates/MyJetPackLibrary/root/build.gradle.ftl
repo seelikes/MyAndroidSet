@@ -104,8 +104,8 @@ if (!Run_Mode.contains('ALONE_${activityLayout?upper_case}')) {
     * 配置deploy.release.user.password指向maven release服务器密码
     */
     ext {
-        groupId = 'com.example.myjetpackapplication'
-        artifactId = 'business-${moduleNameShiftPrefix?lower_case}'
+        groupId = 'com.github.seelikes.android'
+        artifactId = '${moduleNameShiftPrefix?lower_case}'
         version = project.extensions.android.defaultConfig.versionName
         description = 'test cases for ${moduleNameShiftPrefix?lower_case}'
     }
