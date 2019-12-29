@@ -14,8 +14,8 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1012
-        versionName "1.0.12"
+        versionCode 1013
+        versionName "1.0.13"
         if (Run_Mode.contains('ALONE_SPEECH_BAIDU')) {
             multiDexEnabled true
         }

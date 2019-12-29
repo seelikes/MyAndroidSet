@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1002
-        versionName "1.0.02"
+        versionCode 1003
+        versionName "1.0.03"
         if (Run_Mode.contains('ALONE_CACHE')) {
             multiDexEnabled true
         }
