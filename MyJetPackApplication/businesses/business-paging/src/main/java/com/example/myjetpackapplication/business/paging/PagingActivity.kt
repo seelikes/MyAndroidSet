@@ -16,7 +16,7 @@ import com.example.myjetpackapplication.business.paging.data.PagingEntity
 import com.example.myjetpackapplication.business.paging.databinding.ActivityPagingBinding
 
 @Business(title = "paging_title")
-@Route(path = "/business/paging")
+@Route(path = "/business20/paging")
 class PagingActivity : BasicActivity<PagingActivity, PagingViewModel, ActivityPagingBinding>() {
     override fun initModel(savedInstanceState: Bundle?): PagingViewModel = PagingViewModel(this, DataBindingUtil.setContentView(this, R.layout.activity_paging))
 
