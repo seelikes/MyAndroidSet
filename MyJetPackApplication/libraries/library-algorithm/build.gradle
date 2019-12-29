@@ -1,0 +1,35 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation "junit:junit:$junit_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
+
+/**
+ * 发布必须配置此项
+ * 如果发布至maven服务器
+ * 需要配置publish不是project，不可删掉
+ * 发布至snapshot服务器需配置以下内容
+ * 版本号以-SNAPSHOT结尾
+ * 配置deploy.snapshot.url指向maven snapshot服务器地址
+ * 配置deploy.snapshot.user.name指向maven snapshot服务器用户名
+ * 配置deploy.snapshot.user.password指向maven snapshot服务器密码
+ * 发布至release服务器需配置以下内容
+ * 版本号不以-SNAPSHOT结尾
+ * 配置deploy.release.url指向maven release服务器地址
+ * 配置deploy.release.user.name指向maven release服务器用户名
+ * 配置deploy.release.user.password指向maven release服务器密码
+ */
+ext {
+    groupId = 'com.github.seelikes.java'
+    artifactId = 'algorithm'
+    version = '1.0.00'
+    description = 'java algorithm library'
+}
+
+apply from: "${rootDir}/maven-publish.gradle"
