@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="navigation_fragment_one">#c05a24</color>
+    <color name="navigation_fragment_two">#4e8355</color>
+    <color name="navigation_fragment_three">#9058e3</color>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Navigation</string>
+    <string name="navigation_title">Navigation</string>
+    <string name="navigation_fragment_one">One</string>
+    <string name="navigation_fragment_two">Two</string>
+    <string name="navigation_fragment_three">Three</string>
+</resources>

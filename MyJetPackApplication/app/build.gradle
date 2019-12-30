@@ -89,6 +89,7 @@ dependencies {
     implementation "com.example.myjetpackapplication:business-database-room:$business_database_room_version"
     implementation "com.example.myjetpackapplication:business-event:$business_event_version"
     implementation "com.example.myjetpackapplication:business-gesture:$business_gesture_version"
+    implementation "com.example.myjetpackapplication:business-navigation:$business_navigation_version"
     implementation "com.example.myjetpackapplication:business-profiler:$business_profiler_version"
     implementation "com.example.myjetpackapplication:business-profiler-cpu:$business_profiler_cpu_version"
     implementation "com.example.myjetpackapplication:business-paging:$business_paging_version"

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.example.myjetpackapplication.business.navigation.three.ThreeViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/navigation_fragment_three"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="600px"
+            android:layout_marginBottom="400px"
+            android:layout_gravity="center_horizontal"
+            android:onClick="@{view -> model.onClickThree(view)}"
+            android:text="@string/navigation_fragment_three"
+            android:textColor="@color/title_text_color" />
+
+    </LinearLayout>
+
+</layout>

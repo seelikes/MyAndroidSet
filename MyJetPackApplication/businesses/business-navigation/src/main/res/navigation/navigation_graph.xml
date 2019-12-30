@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_graph"
+    app:startDestination="@id/oneFragment">
+
+    <fragment
+        android:id="@+id/oneFragment"
+        android:name="com.example.myjetpackapplication.business.navigation.one.OneFragment"
+        android:label="OneFragment" >
+        <action
+            android:id="@+id/action_oneFragment_to_twoFragment"
+            app:exitAnim="@anim/slide_left_out"
+            app:enterAnim="@anim/slide_right_in"
+            app:destination="@id/twoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/twoFragment"
+        android:name="com.example.myjetpackapplication.business.navigation.two.TwoFragment"
+        android:label="TwoFragment" >
+        <action
+            android:id="@+id/action_twoFragment_to_threeFragment"
+            app:exitAnim="@anim/slide_left_out"
+            app:enterAnim="@anim/slide_right_in"
+            app:destination="@id/threeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/threeFragment"
+        android:name="com.example.myjetpackapplication.business.navigation.three.ThreeFragment"
+        android:label="ThreeFragment" >
+        <action
+            android:id="@+id/action_threeFragment_to_oneFragment"
+            app:exitAnim="@anim/slide_left_out"
+            app:enterAnim="@anim/slide_right_in"
+            app:destination="@id/oneFragment" />
+    </fragment>
+</navigation>
