@@ -87,7 +87,7 @@ class  MainActivity : BasicActivity<MainActivity, MainViewModel, ActivityMainBin
     }
 
     override fun onBackPressed() {
-        val pageUp = BusinessApi.getChildren(model.items[0])
+        val pageUp = BusinessApi.tryBack(model.items[0])
         if (pageUp?.isNotEmpty() == true) {
             ViewModelProviders.of(this).get(MainDataModel::class.java).items.value = pageUp
             return

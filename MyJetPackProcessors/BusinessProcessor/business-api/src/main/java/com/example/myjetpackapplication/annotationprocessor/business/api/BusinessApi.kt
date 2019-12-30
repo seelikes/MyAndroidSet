@@ -77,7 +77,7 @@ object BusinessApi {
         }
         var currentLayer = layer
         if (currentLayer == null || currentLayer.isEmpty()) {
-            currentLayer = businesses
+            currentLayer = businesses.filter { it.parent == null || it.parent.isEmpty() }
         }
         for (business in currentLayer) {
             val children = getChildren(business)
