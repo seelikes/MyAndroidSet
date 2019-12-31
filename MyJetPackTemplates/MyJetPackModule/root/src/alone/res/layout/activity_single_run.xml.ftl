@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable
-            name="model"
-            type="${packageName}.${underscoreToCamelCase(activitySingleLayout)}ViewModel" />
+        <variable name="view" type="${escapeKotlinIdentifiers(packageName)}.${underscoreToCamelCase(activitySingleLayout)}Activity" />
+        <variable name="model" type="${escapeKotlinIdentifiers(packageName)}.${underscoreToCamelCase(activitySingleLayout)}ViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

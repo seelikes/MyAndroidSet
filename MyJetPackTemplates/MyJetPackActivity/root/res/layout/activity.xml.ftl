@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable name="view" type="${escapeKotlinIdentifiers(packageName)}.${activityClass}" />
         <variable name="model" type="${escapeKotlinIdentifiers(packageName)}.${viewModelClass}" />
     </data>
 

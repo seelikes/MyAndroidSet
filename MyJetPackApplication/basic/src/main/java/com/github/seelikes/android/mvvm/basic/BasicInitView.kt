@@ -12,4 +12,18 @@ internal interface BasicInitView<B : ViewDataBinding> {
     fun initView(binding: B) {
 
     }
+
+    /**
+     * 视图set到binding之前调用
+     */
+    fun beforeSetToBinding() {
+
+    }
+
+    /**
+     * 视图set到binding之后调用
+     */
+    fun afterSetToBinding() {
+
+    }
 }

@@ -7,6 +7,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 </#if>
     <data>
+        <variable name="view" type="${escapeKotlinIdentifiers(packageName)}.${fragmentClass}" />
         <variable name="model" type="${escapeKotlinIdentifiers(packageName)}.${viewModelClass}" />
     </data>
 
