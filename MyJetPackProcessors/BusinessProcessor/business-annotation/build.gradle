@@ -22,4 +22,4 @@ ext {
     description = 'business annotation'
 }
 
-apply from: 'https://raw.githubusercontent.com/seelikes/MyAndroidSet/master/MyJetPackApplication/maven-publish.gradle'
+apply from: '../../../MyJetPackApplication/maven-publish.gradle'

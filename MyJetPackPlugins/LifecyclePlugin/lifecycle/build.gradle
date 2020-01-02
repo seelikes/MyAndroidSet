@@ -22,4 +22,4 @@ ext {
 }
 
 // change to the maven-publish.gradle below MyJetPackApplication, if this not work
-apply from: 'https://raw.githubusercontent.com/seelikes/MyAndroidSet/master/MyJetPackApplication/maven-publish.gradle'
+apply from: '../../../MyJetPackApplication/maven-publish.gradle'
