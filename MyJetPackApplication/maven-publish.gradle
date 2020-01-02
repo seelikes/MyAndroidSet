@@ -133,6 +133,16 @@ if (project.extensions.findByName('android')) {
         from android.sourceSets.main.java.sourceFiles
     }
 }
+else if (getProperty("projectType", "java") == "groovy") {
+    task groovydocJar(type: Jar) {
+        classifier "javadoc"
+        from groovydoc
+    }
+    task sourcesJar(type: Jar) {
+        classifier "sources"
+        from sourceSets.main.allSource
+    }
+}
 else {
     task javadocJar(type: Jar) {
         classifier "javadoc"
@@ -157,6 +167,11 @@ afterEvaluate {
                     artifact androidJavadocsJar
                     artifact androidSourcesJar
                     artifact bundleReleaseAar
+                }
+                else if (getProperty("projectType", "java") == "groovy") {
+                    artifact jar
+                    artifact groovydocJar
+                    artifact sourcesJar
                 }
                 else {
                     artifact jar
