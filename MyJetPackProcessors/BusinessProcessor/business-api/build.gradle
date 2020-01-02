@@ -45,4 +45,4 @@ ext {
     description = 'business api'
 }
 
-apply from: 'file://C:/Users/liutiantian/Desktop/commit/MyAndroidSet/MyJetPackApplication/maven-publish.gradle'
+apply from: 'https://raw.githubusercontent.com/seelikes/MyAndroidSet/master/MyJetPackApplication/maven-publish.gradle'
