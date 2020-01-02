@@ -1,0 +1,3 @@
+include ':app', ':lifecycle'
+rootProject.name='LifecyclePlugin'
+
