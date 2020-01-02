@@ -1,4 +1,6 @@
-{
-    "logs": [
-        {
-            "outputFile": "C:\\Users\\liutiantian\\Desktop\\work\\MyAndroidSet\\20191223\\1240\\MyAndroidSet\\MyJetPackApplication\\app\\build\\intermediates\\incremental\\mergeDebug
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+</resources>
