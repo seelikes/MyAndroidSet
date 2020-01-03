@@ -12,7 +12,7 @@ class LifecyclePlugin implements Plugin<Project> {
     void apply(Project project) {
         def base = project.extensions.getByType(BaseExtension)
         if (base) {
-            base.registerTransform(new LifecycleTransform(project.extensions.create("lifecycle", LifecycleExtension)))
+            base.registerTransform(new LifecycleTransform(project, project.extensions.create("lifecycle", LifecycleExtension)))
         }
     }
 }

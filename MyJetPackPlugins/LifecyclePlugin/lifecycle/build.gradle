@@ -4,10 +4,10 @@ dependencies {
     implementation 'org.codehaus.groovy:groovy-all:2.5.8'
     testImplementation group: 'junit', name: 'junit', version: '4.12'
     implementation gradleApi()
-    implementation 'com.android.tools.build:gradle:3.5.3'
-    implementation 'commons-codec:commons-codec:1.11'
-    implementation 'commons-io:commons-io:2.6'
-    implementation 'javassist:javassist:3.12.1.GA'
+    compile 'com.android.tools.build:gradle:3.5.3'
+    compile 'commons-codec:commons-codec:1.11'
+    compile 'commons-io:commons-io:2.6'
+    compile 'javassist:javassist:3.12.1.GA'
 }
 
 sourceCompatibility = "7"
@@ -16,7 +16,7 @@ targetCompatibility = "7"
 ext {
     groupId = 'com.example.myjetpackapplication.plugin'
     artifactId = 'lifecycle'
-    version = '1.0.00'
+    version = '1.0.15'
     description = 'lifecycle plugin'
     projectType = 'groovy'
 }

@@ -1,22 +1,20 @@
 package com.example.myjetpackapplication.plugin.lifecycle
 
-import com.android.build.api.transform.Format
-import com.android.build.api.transform.QualifiedContent
-import com.android.build.api.transform.Transform
-import com.android.build.api.transform.TransformException
-import com.android.build.api.transform.TransformInvocation
+import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager
 import javassist.ClassPool
-import javassist.CtClass
 import org.apache.commons.io.FileUtils
+import org.gradle.api.Project
 
 /**
  * Created by liutiantian on 2020-01-02 12:08 星期四
  */
 class LifecycleTransform extends Transform {
+    private Project project
     private LifecycleExtension extension
 
-    LifecycleTransform(LifecycleExtension extension) {
+    LifecycleTransform(Project project, LifecycleExtension extension) {
+        this.project = project
         this.extension = extension
     }
 
@@ -42,6 +40,11 @@ class LifecycleTransform extends Transform {
 
     @Override
     void transform(TransformInvocation transformInvocation) throws TransformException, InterruptedException, IOException {
+        project.logger.info("transform door open")
+        for (String classPath in project.android.bootClasspath) {
+            ClassPool.default.appendClassPath classPath.toString()
+        }
+        ClassPool.default.importPackage("android.util.Log")
         transformInvocation.inputs.parallelStream().each { input ->
             input.directoryInputs.parallelStream().each { directoryInput ->
                 ClassPool.default.appendClassPath(directoryInput.file.absolutePath)
@@ -49,21 +52,24 @@ class LifecycleTransform extends Transform {
                     if (!file.name.endsWith(".class") || (file.name.matches(/^R\$[a-zA-Z]+?\.class$/) || file.name == "R.class")) {
                         return
                     }
-                    def canonicalName = file.name.substring(0, file.name.length() - 6)
+                    def packagePath = file.absolutePath.replaceAll("\\\\", ".")
+                    def canonicalName = packagePath.substring(packagePath.indexOf(extension.packageName), packagePath.length() - 6)
                     def ctClass = ClassPool.default.getCtClass(canonicalName)
                     if (ctClass.isFrozen()) {
                         ctClass.defrost()
                     }
                     ctClass.declaredMethods.each { declaredMethod ->
                         if (declaredMethod.name.startsWith("on") && declaredMethod.declaringClass != ctClass) {
-                            declaredMethod.insertBefore("Log.i();")
-                            declaredMethod.insertAfter("Log.i();")
+                            println declaredMethod.name + " transform enter"
+                            declaredMethod.insertBefore("Log.i(" + file.name.substring(0, file.name.length() - 6) + ", " + extension.tag + ", " + declaredMethod.name + ", enter;")
+//                            declaredMethod.insertBefore("Log.i(" + file.name.substring(0, file.name.length() - 6) + ", " + extension.tag + ", " + declaredMethod.name + ", leave;")
                         }
                     }
-                    def dest = transformInvocation.outputProvider.getContentLocation(directoryInput.name, directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
-                    FileUtils.copyDirectory(directoryInput.file, dest)
                 }
+                def dest = transformInvocation.outputProvider.getContentLocation(directoryInput.name, directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
+                FileUtils.copyDirectory(directoryInput.file, dest)
             }
         }
+        project.logger.info("transform door close")
     }
 }
