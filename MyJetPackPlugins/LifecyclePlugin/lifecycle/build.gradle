@@ -18,7 +18,7 @@ ext {
     artifactId = 'lifecycle'
     version = '1.0.17'
     description = 'lifecycle plugin'
-    if (project_in_debug as Boolean) {
+    if (project_in_debug.toBoolean()) {
         registry = 'project'
         registryDir = "${rootDir}/repo"
     }
