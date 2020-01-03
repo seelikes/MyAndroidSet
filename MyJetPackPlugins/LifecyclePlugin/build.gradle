@@ -3,6 +3,11 @@
 buildscript {
     repositories {
         google()
+        if (project_in_debug as Boolean && file('./repo').exists()) {
+            maven {
+                url uri('./repo')
+            }
+        }
         maven {
             url 'http://112.74.29.196:34272/repository/maven-public'
         }
@@ -13,13 +18,24 @@ buildscript {
         
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath 'com.example.myjetpackapplication.plugin:lifecycle:1.0.15'
+        if (project_in_debug as Boolean && file('./repo/com/example/myjetpackapplication/plugin/lifecycle').exists()) {
+            println 'ko223344'
+            classpath 'com.example.myjetpackapplication.plugin:lifecycle:+'
+        }
+        else {
+            classpath 'com.example.myjetpackapplication.plugin:lifecycle:1.0.17'
+        }
     }
 }
 
 allprojects {
     repositories {
         google()
+        if (project_in_debug as Boolean && file('./repo').exists()) {
+            maven {
+                url uri('./repo')
+            }
+        }
         maven {
             url 'http://112.74.29.196:34272/repository/maven-public'
         }

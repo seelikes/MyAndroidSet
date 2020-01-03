@@ -16,8 +16,12 @@ targetCompatibility = "7"
 ext {
     groupId = 'com.example.myjetpackapplication.plugin'
     artifactId = 'lifecycle'
-    version = '1.0.15'
+    version = '1.0.17'
     description = 'lifecycle plugin'
+    if (project_in_debug as Boolean) {
+        registry = 'project'
+        registryDir = "${rootDir}/repo"
+    }
     projectType = 'groovy'
 }
 

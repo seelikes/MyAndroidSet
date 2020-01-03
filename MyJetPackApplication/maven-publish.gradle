@@ -208,7 +208,7 @@ afterEvaluate {
         }
         repositories {
             maven {
-                url canExecuteMavenPublish() && (getProperty("publish", null) != 'project' && getProperty("registry", null) != 'project') ? project.property(project.ext.version.endsWith('-SNAPSHOT') ? 'deploy.snapshot.url' : 'deploy.release.url') : 'publish'
+                url canExecuteMavenPublish() && (getProperty("publish", null) != 'project' && getProperty("registry", null) != 'project') ? project.property(project.ext.version.endsWith('-SNAPSHOT') ? 'deploy.snapshot.url' : 'deploy.release.url') : getProperty('registryDir', 'publish')
                 if (canExecuteMavenPublish() && (getProperty("publish", null) != 'project' && getProperty("registry", null) != 'project')) {
                     credentials {
                         username project.property(project.ext.version.endsWith('-SNAPSHOT') ? "deploy.snapshot.user.name" : "deploy.release.user.name")

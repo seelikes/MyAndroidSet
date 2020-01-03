@@ -3,6 +3,7 @@ package com.example.myjetpackapplication.plugin.lifecycle
 import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager
 import javassist.ClassPool
+import org.apache.commons.codec.digest.DigestUtils
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 
@@ -45,13 +46,15 @@ class LifecycleTransform extends Transform {
             ClassPool.default.appendClassPath classPath.toString()
         }
         ClassPool.default.importPackage("android.util.Log")
-        transformInvocation.inputs.parallelStream().each { input ->
-            input.directoryInputs.parallelStream().each { directoryInput ->
+        project.logger.info("Log class imported to environment")
+        transformInvocation.inputs.each { input ->
+            input.directoryInputs.each { directoryInput ->
                 ClassPool.default.appendClassPath(directoryInput.file.absolutePath)
                 directoryInput.file.eachFileRecurse { file ->
                     if (!file.name.endsWith(".class") || (file.name.matches(/^R\$[a-zA-Z]+?\.class$/) || file.name == "R.class")) {
                         return
                     }
+                    project.logger.info("file name " + file.name + " is ok to be transformed")
                     def packagePath = file.absolutePath.replaceAll("\\\\", ".")
                     def canonicalName = packagePath.substring(packagePath.indexOf(extension.packageName), packagePath.length() - 6)
                     def ctClass = ClassPool.default.getCtClass(canonicalName)
@@ -59,15 +62,30 @@ class LifecycleTransform extends Transform {
                         ctClass.defrost()
                     }
                     ctClass.declaredMethods.each { declaredMethod ->
-                        if (declaredMethod.name.startsWith("on") && declaredMethod.declaringClass != ctClass) {
-                            println declaredMethod.name + " transform enter"
-                            declaredMethod.insertBefore("Log.i(" + file.name.substring(0, file.name.length() - 6) + ", " + extension.tag + ", " + declaredMethod.name + ", enter;")
+                        project.logger.info("declaredMethod name " + declaredMethod.name + "; declaredMethod.getAnnotation(Override.class) != null: " + (declaredMethod.getAnnotation(Override.class) != null))
+                        if (declaredMethod.name.startsWith("on")) {
+                            project.logger.info("declaredMethod.annotations.length: " + declaredMethod.annotations.length)
+                            project.logger.info(declaredMethod.name + " transform enter")
+                            declaredMethod.insertBefore(String.format("android.util.Log.i(\"%s\", \"%s, %s, enter\");", file.name.substring(0, file.name.length() - 6), extension.tag, declaredMethod.name))
 //                            declaredMethod.insertBefore("Log.i(" + file.name.substring(0, file.name.length() - 6) + ", " + extension.tag + ", " + declaredMethod.name + ", leave;")
                         }
                     }
+                    ctClass.writeFile directoryInput.file.absolutePath
+                    ctClass.detach()
                 }
                 def dest = transformInvocation.outputProvider.getContentLocation(directoryInput.name, directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
                 FileUtils.copyDirectory(directoryInput.file, dest)
+            }
+
+            input.jarInputs.each { jarInput ->
+                def jarName = jarInput.name
+                println("jar = " + jarInput.file.getAbsolutePath())
+                def md5Name = DigestUtils.md5Hex(jarInput.file.getAbsolutePath())
+                if (jarName.endsWith(".jar")) {
+                    jarName = jarName.substring(0, jarName.length() - 4)
+                }
+                def dest = transformInvocation.outputProvider.getContentLocation(jarName + md5Name, jarInput.contentTypes, jarInput.scopes, Format.JAR)
+                FileUtils.copyFile(jarInput.file, dest)
             }
         }
         project.logger.info("transform door close")
