@@ -22,7 +22,7 @@ buildscript {
             classpath 'com.example.myjetpackapplication.plugin:lifecycle:+'
         }
         else {
-            classpath 'com.example.myjetpackapplication.plugin:lifecycle:1.0.18'
+            classpath 'com.example.myjetpackapplication.plugin:lifecycle:1.0.19'
         }
     }
 }

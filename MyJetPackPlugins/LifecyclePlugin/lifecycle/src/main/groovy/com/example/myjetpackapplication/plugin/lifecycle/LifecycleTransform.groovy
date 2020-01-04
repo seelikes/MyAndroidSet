@@ -70,6 +70,9 @@ class LifecycleTransform extends Transform {
                     }
                     project.logger.info("file name " + file.name + " is ok to be transformed")
                     def packagePath = file.absolutePath.replaceAll("\\\\", ".")
+                    if (packagePath.indexOf(extension.packageName) == -1) {
+                        return
+                    }
                     def canonicalName = packagePath.substring(packagePath.indexOf(extension.packageName), packagePath.length() - 6)
                     def ctClass = ClassPool.default.getCtClass(canonicalName)
                     if (ctClass.isFrozen()) {

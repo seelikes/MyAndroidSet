@@ -8,6 +8,11 @@ sayHello('aaa')
 buildscript {
     repositories {
         google()
+        if (file('../MyJetPackPlugins/LifecyclePlugin/repo').exists()) {
+            maven {
+                url uri('../MyJetPackPlugins/LifecyclePlugin/repo')
+            }
+        }
         maven {
             url 'http://112.74.29.196:34272/repository/maven-public'
         }
@@ -18,12 +23,23 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        if (file('../MyJetPackPlugins/LifecyclePlugin/repo').exists()) {
+            classpath 'com.example.myjetpackapplication.plugin:lifecycle:+'
+        }
+        else {
+            classpath "com.example.myjetpackapplication.plugin:lifecycle:$lifecycle_version"
+        }
     }
 }
 
 allprojects {
     repositories {
         google()
+        if (file('../MyJetPackPlugins/LifecyclePlugin/repo').exists()) {
+            maven {
+                url uri('../MyJetPackPlugins/LifecyclePlugin/repo')
+            }
+        }
         maven {
             url 'http://112.74.29.196:34272/repository/maven-public'
         }
