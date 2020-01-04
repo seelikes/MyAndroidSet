@@ -10,6 +10,11 @@ class LifecycleExtension {
     String packageName
 
     /**
+     * 日志打印调用
+     */
+    String loggerClass
+
+    /**
      * 插桩日志标签
      */
     String tag

@@ -18,12 +18,11 @@ buildscript {
         
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        if (project_in_debug as Boolean && file('./repo/com/example/myjetpackapplication/plugin/lifecycle').exists()) {
-            println 'ko223344'
+        if (project_in_debug.toBoolean() && file('./repo').exists()) {
             classpath 'com.example.myjetpackapplication.plugin:lifecycle:+'
         }
         else {
-            classpath 'com.example.myjetpackapplication.plugin:lifecycle:1.0.16'
+            classpath 'com.example.myjetpackapplication.plugin:lifecycle:1.0.18'
         }
     }
 }

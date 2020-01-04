@@ -31,5 +31,6 @@ dependencies {
 
 lifecycle {
     packageName = project.extensions.android.defaultConfig.applicationId
-    tag = 'nnn'
+    loggerClass = "android.util.Log"
+    tag = 'nnn12321'
 }
