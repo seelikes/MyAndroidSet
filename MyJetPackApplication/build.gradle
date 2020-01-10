@@ -8,9 +8,9 @@ sayHello('aaa')
 buildscript {
     repositories {
         google()
-        if (file('../MyJetPackPlugins/LifecyclePlugin/repo').exists()) {
+        if (file("../repo").exists()) {
             maven {
-                url uri('../MyJetPackPlugins/LifecyclePlugin/repo')
+                url uri('../repo')
             }
         }
         maven {
@@ -35,9 +35,9 @@ buildscript {
 allprojects {
     repositories {
         google()
-        if (file('../MyJetPackPlugins/LifecyclePlugin/repo').exists()) {
+        if (file("../repo").exists()) {
             maven {
-                url uri('../MyJetPackPlugins/LifecyclePlugin/repo')
+                url uri('../repo')
             }
         }
         maven {

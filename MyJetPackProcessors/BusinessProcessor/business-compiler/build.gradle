@@ -23,7 +23,11 @@ targetCompatibility = "7"
 ext {
     groupId = 'com.example.myjetpackapplication.annotationprocessor'
     artifactId = 'business-compiler'
-    version = '1.0.20'
+    version = '1.0.22'
+    if (project_in_debug.toBoolean()) {
+        registry = 'project'
+        registryDir = "../../../repo"
+    }
     description = 'business annotation processor'
 }
 

@@ -15,6 +15,7 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -59,16 +60,20 @@ public class BusinessCompiler extends AbstractProcessor {
         }
 
         ClassName GlobalMethods = ClassName.bestGuess("com.java.lib.oil.GlobalMethods");
+        ClassName Set = ClassName.bestGuess("java.util.Set");
+        ClassName HashSet = ClassName.bestGuess("java.util.HashSet");
         ClassName List = ClassName.bestGuess("java.util.List");
         ClassName ArrayList = ClassName.bestGuess("java.util.ArrayList");
-        ParameterizedTypeName ListBusinessItem = ParameterizedTypeName.get(List, ClassName.get(BusinessItem.class));
+        ClassName BusinessItem = ClassName.bestGuess("com.example.myjetpackapplication.annotationprocessor.business.annotation.BusinessItem");
+        ParameterizedTypeName ListBusinessItem = ParameterizedTypeName.get(List, BusinessItem);
+        ParameterizedTypeName SetString = ParameterizedTypeName.get(Set, ClassName.get(String.class));
 
-        FieldSpec.Builder businessesBuilder = FieldSpec.builder(ParameterizedTypeName.get(ClassName.get(List.class), ClassName.get(BusinessItem.class)), "businesses", Modifier.PRIVATE, Modifier.STATIC);
+        FieldSpec.Builder businessesBuilder = FieldSpec.builder(ParameterizedTypeName.get(ClassName.get(List.class), BusinessItem), "businesses", Modifier.PRIVATE, Modifier.STATIC);
 
         MethodSpec.Builder getChildrenBuilder = MethodSpec.methodBuilder("getChildren")
                 .addJavadoc("DO NOT EDIT, AUTO GENERATE CODE!!\n")
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-                .addParameter(ClassName.get(BusinessItem.class), "parent")
+                .addParameter(BusinessItem, "parent")
                 .returns(ListBusinessItem)
                 .addCode("if (businesses == null || businesses.isEmpty()) {\n")
                 .addCode("    businesses = listAll();\n")
@@ -82,12 +87,30 @@ public class BusinessCompiler extends AbstractProcessor {
                 .addCode("        res.add(businesses.get(i));\n")
                 .addCode("    }\n")
                 .addCode("}\n")
+                .addCode("if (parent == null && res.isEmpty()) {\n")
+                .addCode("    $T parents = new $T<>();\n", SetString, HashSet)
+                .addCode("    $T titles = new $T<>();\n", SetString, HashSet)
+                .addCode("    for (int i = 0; i < business.size(); ++i) {\n")
+                .addCode("        if (business.get(i).getParent() != null) {\n")
+                .addCode("            parents.add(business.get(i).getParent());\n")
+                .addCode("        }\n")
+                .addCode("        if (business.get(i).getTitle() != null) {\n")
+                .addCode("            titles.add(business.get(i).getTitle());\n")
+                .addCode("        }\n")
+                .addCode("    }\n")
+                .addCode("    parents.removeAll(titles);\n")
+                .addCode("    if (parents.size() == 1) {\n")
+                .addCode("        $T business = new $T();\n", BusinessItem, BusinessItem)
+                .addCode("        business.setTitle(parents.toArray(new $T[0])[0]);\n", String.class)
+                .addCode("        return getChildren(business);\n")
+                .addCode("    }\n")
+                .addCode("}\n")
                 .addCode("return res;\n");
 
         MethodSpec.Builder tryBackBuilder = MethodSpec.methodBuilder("tryBack")
                 .addJavadoc("DO NOT EDIT, AUTO GENERATE CODE!!\n")
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-                .addParameter(ClassName.get(BusinessItem.class), "current")
+                .addParameter(BusinessItem, "current")
                 .addParameter(ListBusinessItem, "layer")
                 .returns(ListBusinessItem)
                 .addCode("if (businesses == null || businesses.isEmpty()) {\n")

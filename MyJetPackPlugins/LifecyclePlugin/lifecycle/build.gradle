@@ -20,7 +20,7 @@ ext {
     description = 'lifecycle plugin'
     if (project_in_debug.toBoolean()) {
         registry = 'project'
-        registryDir = "${rootDir}/repo"
+        registryDir = "../../../repo"
     }
     projectType = 'groovy'
 }

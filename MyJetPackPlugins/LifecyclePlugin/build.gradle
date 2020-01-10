@@ -3,9 +3,9 @@
 buildscript {
     repositories {
         google()
-        if (project_in_debug.toBoolean() && file('./repo').exists()) {
+        if (project_in_debug.toBoolean() && file('../../repo').exists()) {
             maven {
-                url uri('./repo')
+                url uri('../../repo')
             }
         }
         maven {
@@ -30,9 +30,9 @@ buildscript {
 allprojects {
     repositories {
         google()
-        if (project_in_debug.toBoolean() && file('./repo').exists()) {
+        if (project_in_debug.toBoolean() && file('../../repo').exists()) {
             maven {
-                url uri('./repo')
+                url uri('../../repo')
             }
         }
         maven {
