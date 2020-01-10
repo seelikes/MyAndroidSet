@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.example.myjetpackapplication.business.gesture.SingleGestureItemHolder" />
+            type="com.example.myjetpackapplication.business.database.room.SingleGestureItemHolder" />
     </data>
 
     <LinearLayout

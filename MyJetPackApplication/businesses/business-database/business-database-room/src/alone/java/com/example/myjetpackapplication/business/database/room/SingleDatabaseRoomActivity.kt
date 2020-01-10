@@ -45,7 +45,7 @@ class SingleDatabaseRoomActivity :
         var adapter = binding.rvList.adapter
         if (adapter !is SingleDatabaseRoomItemAdapter) {
             adapter =
-                SingleDatabaseRoomItemAdapter(this, BusinessManager.getChildren(null)) { item, _ ->
+                SingleDatabaseRoomItemAdapter(this, BusinessManager.listAll()) { item, _ ->
                     item?.let {
                         val children = BusinessManager.getChildren(
                             ViewModelProviders.of(this).get(SingleDatabaseRoomDataModel::class.java).items.value?.get(

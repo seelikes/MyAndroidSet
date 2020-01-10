@@ -6,6 +6,7 @@ import com.github.seelikes.android.mvvm.basic.BasicViewHolder
 import com.example.myjetpackapplication.business.database.room.data.DatabaseRoomEntity
 import com.example.myjetpackapplication.business.database.room.databinding.ItemDatabaseRoomBinding
 import com.example.myjetpackapplication.business.database.room.event.DeleteEvent
+import com.orhanobut.logger.Logger
 import org.greenrobot.eventbus.EventBus
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,6 +21,7 @@ class DatabaseRoomViewHolder(context: Context, binding: ItemDatabaseRoomBinding)
 
     override fun setData(entity: DatabaseRoomEntity?) {
         super.setData(entity)
+        Logger.i("entity.id: ${entity?.id}")
         id.set(entity?.id?.toString(10) ?: "")
         dice.set(entity?.dice?.toString(10) ?: "")
         time.set(entity?.time?.let { SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Date(it)) })
