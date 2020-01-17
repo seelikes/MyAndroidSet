@@ -1,12 +1,18 @@
 /**
  * 查找可能存在的仓库目录
  */
-def findPath(String path) {
+def findPath(String path, Boolean createInSetDefault = true) {
     def curFile = file('./')
     while (curFile != null) {
         def repoFile = new File(curFile, path)
         if (repoFile.exists()) {
             return repoFile
+        }
+        if (curFile.name == 'MyAndroidSet') {
+            if (createInSetDefault) {
+                return new File(curFile, path)
+            }
+            break
         }
         curFile = curFile.parentFile
     }

@@ -3,7 +3,7 @@ package com.example.myjetpackapplication.business.gesture
 import android.content.Context
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
-import com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.annotation.BusinessItem
+import com.example.myjetpackapplication.annotationprocessor.business.annotation.BusinessItem
 import com.example.myjetpackapplication.business.gesture.databinding.ItemSingleGestureBinding
 import com.github.seelikes.android.mvvm.basic.BasicViewHolder
 import com.orhanobut.logger.Logger
@@ -17,7 +17,7 @@ class SingleGestureItemHolder(context: Context, binding: ItemSingleGestureBindin
 
     override fun setData(entity: BusinessItem?) {
         super.setData(entity)
-        hasChildren.set(BusinessManager.getChildren(entity?.title).isNotEmpty())
+        hasChildren.set(BusinessManager.getChildren(entity).isNotEmpty())
         title.set(
             context?.resources?.getIdentifier(entity?.title, "string", context.packageName)
                 ?: R.string.app_name

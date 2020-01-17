@@ -3,7 +3,7 @@ package com.example.myjetpackapplication.business.gesture
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.annotation.BusinessItem
+import com.example.myjetpackapplication.annotationprocessor.business.annotation.BusinessItem
 import com.example.myjetpackapplication.business.gesture.databinding.ItemSingleGestureBinding
 import com.github.seelikes.android.mvvm.basic.BasicRecyclerAdapter
 

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.example.myjetpackapplication.annotationprocessor.businessannotationprocessor.annotation.Business
+import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
 import com.example.myjetpackapplication.business.gesture.R
 import com.example.myjetpackapplication.business.gesture.databinding.ActivitySingleGestureBinding
 import com.github.seelikes.android.mvvm.basic.BasicActivity
@@ -45,7 +45,7 @@ class SingleGestureActivity : BasicActivity<SingleGestureActivity, SingleGesture
         if (adapter !is SingleGestureItemAdapter) {
             adapter = SingleGestureItemAdapter(this, BusinessManager.getChildren(null)) { item, _ ->
                 item?.let {
-                    val children = BusinessManager.getChildren(it.title)
+                    val children = BusinessManager.getChildren(it)
                     if (children.isNotEmpty()) {
                         ViewModelProviders.of(this).get(SingleGestureDataModel::class.java)
                             .items.value = children

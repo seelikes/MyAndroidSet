@@ -10,7 +10,7 @@ buildscript {
 
     repositories {
         google()
-        if (findPath('repo') != null) {
+        if (findPath('repo').exists()) {
             maven {
                 url uri(findPath('repo'))
             }
@@ -37,7 +37,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        if (findPath('repo')) {
+        if (findPath('repo').exists()) {
             maven {
                 url uri(findPath('repo'))
             }

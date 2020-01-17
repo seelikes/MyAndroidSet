@@ -20,7 +20,7 @@ import java.util.Set;
  * Created by liutiantian on 2019-12-21 18:17 星期六
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
-@SupportedAnnotationTypes({"com.example.myjetpackapplication.annotationprocessor.business.annotation.Businesses"})
+@SupportedAnnotationTypes({"com.example.myjetpackapplication.annotationprocessor.business.annotation.Business", "com.example.myjetpackapplication.annotationprocessor.business.annotation.Businesses"})
 @AutoService(Processor.class)
 public class BusinessCompiler extends AbstractProcessor {
     public BusinessCompiler() {
@@ -35,13 +35,16 @@ public class BusinessCompiler extends AbstractProcessor {
         }
 
         for (TypeElement element : annotations) {
-            if (!GlobalMethods.getInstance().checkIn(element.getQualifiedName().toString(), Businesses.class.getCanonicalName())) {
+            if (!GlobalMethods.getInstance().checkIn(element.getQualifiedName().toString(), Businesses.class.getCanonicalName(), Business.class.getCanonicalName())) {
                 return false;
             }
         }
 
-        Set<? extends Element> itemAnnotations = roundEnv.getElementsAnnotatedWith(Businesses.class);
-        if (itemAnnotations == null || itemAnnotations.isEmpty()) {
+        Set<? extends Element> businessesAnnotations = roundEnv.getElementsAnnotatedWith(Businesses.class);
+        Set<? extends Element> businessAnnotations = roundEnv.getElementsAnnotatedWith(Business.class);
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "businessesAnnotations == null || businessesAnnotations.isEmpty(): " + (businessesAnnotations == null || businessesAnnotations.isEmpty()));
+
+        if ((businessesAnnotations == null || businessesAnnotations.isEmpty()) && (businessAnnotations == null || businessAnnotations.isEmpty())) {
             return true;
         }
 
@@ -131,29 +134,17 @@ public class BusinessCompiler extends AbstractProcessor {
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
                 .returns(ListBusinessItem)
                 .addCode("$T res = new $T<>();\n", ListBusinessItem, ArrayList);
-        for (Element element : itemAnnotations) {
-            Businesses businesses = element.getAnnotation(Businesses.class);
-            for (Business business : businesses.value()) {
-                listAllBuilder.addCode("{\n");
-                listAllBuilder.addCode("    $T business = new $T();\n", BusinessItem.class, BusinessItem.class);
-                listAllBuilder.addCode("    business.setTitle($S);\n", business.title());
-                if (!business.parent().isEmpty()) {
-                    listAllBuilder.addCode("    business.setParent($S);\n", business.parent());
+        if (businessesAnnotations != null && !businessesAnnotations.isEmpty()) {
+            for (Element element : businessesAnnotations) {
+                Businesses businesses = element.getAnnotation(Businesses.class);
+                for (Business business : businesses.value()) {
+                    handleSingleBusiness(listAllBuilder, element, business);
                 }
-                String path = business.path();
-                if (!path.isEmpty()) {
-                    listAllBuilder.addCode("    business.setPath($S);\n", path);
-                }
-                else {
-                    Route route = element.getAnnotation(Route.class);
-                    if (route != null) {
-                        listAllBuilder.addCode("    business.setPath($S);\n", route.path());
-                    }
-                }
-                listAllBuilder.addCode("    business.setPriority($L);\n", business.priority());
-                listAllBuilder.addCode("    business.setEnable($L);\n", business.enable());
-                listAllBuilder.addCode("    res.add(business);\n");
-                listAllBuilder.addCode("}\n");
+            }
+        }
+        if (businessAnnotations != null && !businessAnnotations.isEmpty()) {
+            for (Element element : businessAnnotations) {
+                handleSingleBusiness(listAllBuilder, element, element.getAnnotation(Business.class));
             }
         }
         listAllBuilder.addCode("return res;\n");
@@ -168,18 +159,8 @@ public class BusinessCompiler extends AbstractProcessor {
                 .addMethod(tryBackBuilder.build())
                 .build();
 
-        String packageName = null;
-        for (Element element : itemAnnotations) {
-            if (packageName == null || packageName.isEmpty()) {
-                packageName = element.getEnclosingElement().toString();
-            }
-            else {
-                String newPackageName = element.getEnclosingElement().toString();
-                if (packageName.length() > newPackageName.length()) {
-                    packageName = newPackageName;
-                }
-            }
-        }
+        String packageName = getPackageName(businessesAnnotations, null);
+        packageName = getPackageName(businessAnnotations, packageName);
         try {
             JavaFile.builder(packageName, BusinessManagerClass).indent("    ").build().writeTo(processingEnv.getFiler());
         }
@@ -187,5 +168,44 @@ public class BusinessCompiler extends AbstractProcessor {
             e.printStackTrace();
         }
         return true;
+    }
+
+    private void handleSingleBusiness(MethodSpec.Builder builder, Element element, Business business) {
+        builder.addCode("{\n");
+        builder.addCode("    $T business = new $T();\n", BusinessItem.class, BusinessItem.class);
+        builder.addCode("    business.setTitle($S);\n", business.title());
+        if (!business.parent().isEmpty()) {
+            builder.addCode("    business.setParent($S);\n", business.parent());
+        }
+        String path = business.path();
+        if (!path.isEmpty()) {
+            builder.addCode("    business.setPath($S);\n", path);
+        } else {
+            Route route = element.getAnnotation(Route.class);
+            if (route != null) {
+                builder.addCode("    business.setPath($S);\n", route.path());
+            }
+        }
+        builder.addCode("    business.setPriority($L);\n", business.priority());
+        builder.addCode("    business.setEnable($L);\n", business.enable());
+        builder.addCode("    res.add(business);\n");
+        builder.addCode("}\n");
+    }
+
+    private String getPackageName(Set<? extends Element> elements, String packageName) {
+        if (elements != null && !elements.isEmpty()) {
+            for (Element element : elements) {
+                if (packageName == null || packageName.isEmpty()) {
+                    packageName = element.getEnclosingElement().toString();
+                }
+                else {
+                    String newPackageName = element.getEnclosingElement().toString();
+                    if (packageName.length() > newPackageName.length()) {
+                        packageName = newPackageName;
+                    }
+                }
+            }
+        }
+        return packageName;
     }
 }

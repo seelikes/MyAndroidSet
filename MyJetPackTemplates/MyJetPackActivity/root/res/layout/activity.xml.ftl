@@ -39,7 +39,7 @@
                         <RelativeLayout
                             android:layout_width="192px"
                             android:layout_height="152px"
-                            android:onClick='@{view -> model.host.finish()}'>
+                            android:onClick='@{v -> model.host.finish()}'>
 
                             <ImageView
                                 android:layout_width="64px"

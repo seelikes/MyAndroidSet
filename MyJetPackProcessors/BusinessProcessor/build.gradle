@@ -7,7 +7,7 @@ buildscript {
 
     repositories {
         google()
-        if (project_in_debug.toBoolean() && findPath('repo') != null) {
+        if (project_in_debug.toBoolean() && findPath('repo').exists()) {
             maven {
                 url uri(findPath('repo'))
             }
@@ -29,7 +29,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        if (project_in_debug.toBoolean() && findPath('repo') != null) {
+        if (project_in_debug.toBoolean() && findPath('repo').exists()) {
             maven {
                 url uri(findPath('repo'))
             }
