@@ -131,6 +131,13 @@
         enabled="includeInstantAppUrl"
         help="The route to use in the Instant App route for this activity"/>
 
+    <parameter
+        id="canModuleSingleRun"
+        name="Can Module Single Run"
+        type="boolean"
+        default="true"
+        help="If true, this activity will be registered to alone manifest also" />
+
     <!-- 128x128 thumbnails relative to template.xml -->
     <thumbs>
         <!-- default thumbnail is required -->

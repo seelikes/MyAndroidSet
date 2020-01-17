@@ -13,7 +13,9 @@
 </#if>
 
     <merge from="root/src/main/AndroidManifest.xml.ftl" to="${escapeXmlAttribute(manifestOut)}/AndroidManifest.xml" />
+<#if canModuleSingleRun>
     <merge from="root/src/alone/AndroidManifest.xml.ftl" to="${escapeXmlAttribute(aloneDir)}/AndroidManifest.xml" />
+</#if>
 
     <merge from="root/res/values/strings.xml.ftl" to="${escapeXmlAttribute(resOut)}/values/strings.xml" />
 
