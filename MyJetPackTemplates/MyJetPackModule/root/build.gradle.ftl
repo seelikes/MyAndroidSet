@@ -112,6 +112,10 @@ if (!Run_Mode.contains('ALONE_${activityLayout?upper_case}')) {
         groupId = 'com.example.myjetpackapplication'
         artifactId = 'business-${moduleNameShiftPrefix?lower_case}'
         version = project.extensions.android.defaultConfig.versionName
+        if (project_in_debug.toBoolean()) {
+            registry = 'project'
+            registryDir = findPath('repo')
+        }
         description = 'test cases for ${moduleNameShiftPrefix?lower_case}'
     }
 
