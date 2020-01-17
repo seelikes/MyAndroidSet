@@ -1,40 +1,26 @@
 package com.example.myjetpackapplication.annotationprocessor.business.compiler;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.example.myjetpackapplication.annotationprocessor.business.annotation.ABusinessListAll;
-import com.example.myjetpackapplication.annotationprocessor.business.annotation.ABusinessManager;
-import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business;
-import com.example.myjetpackapplication.annotationprocessor.business.annotation.BusinessItem;
+import com.example.myjetpackapplication.annotationprocessor.business.annotation.*;
 import com.google.auto.service.AutoService;
 import com.java.lib.oil.GlobalMethods;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.*;
 
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.Processor;
-import javax.annotation.processing.RoundEnvironment;
-import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.annotation.processing.SupportedSourceVersion;
+import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
+import java.io.IOException;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by liutiantian on 2019-12-21 18:17 星期六
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
-@SupportedAnnotationTypes({"com.example.myjetpackapplication.annotationprocessor.business.annotation.Business"})
+@SupportedAnnotationTypes({"com.example.myjetpackapplication.annotationprocessor.business.annotation.Businesses"})
 @AutoService(Processor.class)
 public class BusinessCompiler extends AbstractProcessor {
     public BusinessCompiler() {
@@ -49,12 +35,12 @@ public class BusinessCompiler extends AbstractProcessor {
         }
 
         for (TypeElement element : annotations) {
-            if (!GlobalMethods.getInstance().checkIn(element.getQualifiedName().toString(), Business.class.getCanonicalName())) {
+            if (!GlobalMethods.getInstance().checkIn(element.getQualifiedName().toString(), Businesses.class.getCanonicalName())) {
                 return false;
             }
         }
 
-        Set<? extends Element> itemAnnotations = roundEnv.getElementsAnnotatedWith(Business.class);
+        Set<? extends Element> itemAnnotations = roundEnv.getElementsAnnotatedWith(Businesses.class);
         if (itemAnnotations == null || itemAnnotations.isEmpty()) {
             return true;
         }
@@ -90,12 +76,12 @@ public class BusinessCompiler extends AbstractProcessor {
                 .addCode("if (parent == null && res.isEmpty()) {\n")
                 .addCode("    $T parents = new $T<>();\n", SetString, HashSet)
                 .addCode("    $T titles = new $T<>();\n", SetString, HashSet)
-                .addCode("    for (int i = 0; i < business.size(); ++i) {\n")
-                .addCode("        if (business.get(i).getParent() != null) {\n")
-                .addCode("            parents.add(business.get(i).getParent());\n")
+                .addCode("    for (int i = 0; i < businesses.size(); ++i) {\n")
+                .addCode("        if (businesses.get(i).getParent() != null) {\n")
+                .addCode("            parents.add(businesses.get(i).getParent());\n")
                 .addCode("        }\n")
-                .addCode("        if (business.get(i).getTitle() != null) {\n")
-                .addCode("            titles.add(business.get(i).getTitle());\n")
+                .addCode("        if (businesses.get(i).getTitle() != null) {\n")
+                .addCode("            titles.add(businesses.get(i).getTitle());\n")
                 .addCode("        }\n")
                 .addCode("    }\n")
                 .addCode("    parents.removeAll(titles);\n")
@@ -146,21 +132,29 @@ public class BusinessCompiler extends AbstractProcessor {
                 .returns(ListBusinessItem)
                 .addCode("$T res = new $T<>();\n", ListBusinessItem, ArrayList);
         for (Element element : itemAnnotations) {
-            Business business = element.getAnnotation(Business.class);
-            listAllBuilder.addCode("{\n");
-            listAllBuilder.addCode("    $T business = new $T();\n", BusinessItem.class, BusinessItem.class);
-            listAllBuilder.addCode("    business.setTitle($S);\n", business.title());
-            if (!business.parent().isEmpty()) {
-                listAllBuilder.addCode("    business.setParent($S);\n", business.parent());
+            Businesses businesses = element.getAnnotation(Businesses.class);
+            for (Business business : businesses.value()) {
+                listAllBuilder.addCode("{\n");
+                listAllBuilder.addCode("    $T business = new $T();\n", BusinessItem.class, BusinessItem.class);
+                listAllBuilder.addCode("    business.setTitle($S);\n", business.title());
+                if (!business.parent().isEmpty()) {
+                    listAllBuilder.addCode("    business.setParent($S);\n", business.parent());
+                }
+                String path = business.path();
+                if (!path.isEmpty()) {
+                    listAllBuilder.addCode("    business.setPath($S);\n", path);
+                }
+                else {
+                    Route route = element.getAnnotation(Route.class);
+                    if (route != null) {
+                        listAllBuilder.addCode("    business.setPath($S);\n", route.path());
+                    }
+                }
+                listAllBuilder.addCode("    business.setPriority($L);\n", business.priority());
+                listAllBuilder.addCode("    business.setEnable($L);\n", business.enable());
+                listAllBuilder.addCode("    res.add(business);\n");
+                listAllBuilder.addCode("}\n");
             }
-            Route route = element.getAnnotation(Route.class);
-            if (route != null) {
-                listAllBuilder.addCode("    business.setPath($S);\n", route.path());
-            }
-            listAllBuilder.addCode("    business.setPriority($L);\n", business.priority());
-            listAllBuilder.addCode("    business.setEnable($L);\n", business.enable());
-            listAllBuilder.addCode("    res.add(business);\n");
-            listAllBuilder.addCode("}\n");
         }
         listAllBuilder.addCode("return res;\n");
 

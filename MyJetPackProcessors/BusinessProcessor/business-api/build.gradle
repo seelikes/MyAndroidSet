@@ -33,7 +33,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    api "com.example.myjetpackapplication.annotationprocessor:business-annotation:1.0.11"
+    api "com.example.myjetpackapplication.annotationprocessor:business-annotation:1.0.12"
     api "com.github.seelikes.android:dex:1.0.0"
     api "com.java.lib:oil:1.1.21"
 }
@@ -42,6 +42,10 @@ ext {
     groupId = 'com.example.myjetpackapplication.annotationprocessor'
     artifactId = 'business-api'
     version = project.extensions.android.defaultConfig.versionName
+    if (project_in_debug.toBoolean()) {
+        registry = 'project'
+        registryDir = findPath('repo')
+    }
     description = 'business api'
 }
 

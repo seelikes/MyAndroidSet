@@ -1,0 +1,18 @@
+/**
+ * 查找可能存在的仓库目录
+ */
+def findPath(String path) {
+    def curFile = file('./')
+    while (curFile != null) {
+        def repoFile = new File(curFile, path)
+        if (repoFile.exists()) {
+            return repoFile
+        }
+        curFile = curFile.parentFile
+    }
+    return null
+}
+
+ext {
+    findPath = this.&findPath
+}
