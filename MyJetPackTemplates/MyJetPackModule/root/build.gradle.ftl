@@ -1,4 +1,4 @@
-if (Run_Mode.contains('ALONE_${activityLayout?upper_case}')) {
+if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_${moduleNameUnderscore?upper_case}')) {
     apply plugin: 'com.android.application'
 }
 else {
@@ -16,7 +16,7 @@ android {
         targetSdkVersion sdk_version_target as int
         versionCode 1000
         versionName "1.0.00"
-        if (Run_Mode.contains('ALONE_${activityLayout?upper_case}')) {
+        if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_${moduleNameUnderscore?upper_case}')) {
             multiDexEnabled true
         }
 
@@ -31,7 +31,7 @@ android {
         }
     }
 
-    if (Run_Mode.contains('ALONE_${activityLayout?upper_case}')) {
+    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_${moduleNameUnderscore?upper_case}')) {
         sourceSets {
             main {
                 manifest.srcFile 'src/alone/AndroidManifest.xml'
@@ -87,12 +87,12 @@ dependencies {
     api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     api "com.java.lib:oil:$oil_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
-    if (Run_Mode.contains('ALONE_${activityLayout?upper_case}')) {
+    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_${moduleNameUnderscore?upper_case}')) {
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
 }
 
-if (!Run_Mode.contains('ALONE_${activityLayout?upper_case}')) {
+if (!arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_${moduleNameUnderscore?upper_case}')) {
     /**
     * 发布必须配置此项
     * 如果发布至maven服务器
