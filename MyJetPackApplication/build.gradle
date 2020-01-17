@@ -6,11 +6,13 @@ sayHello('aaa')
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    apply from: 'repo.gradle'
+
     repositories {
         google()
-        if (file("../repo").exists()) {
+        if (findPath('repo') != null) {
             maven {
-                url uri('../repo')
+                url uri(findPath('repo'))
             }
         }
         maven {
@@ -35,9 +37,9 @@ buildscript {
 allprojects {
     repositories {
         google()
-        if (file("../repo").exists()) {
+        if (findPath('repo')) {
             maven {
-                url uri('../repo')
+                url uri(findPath('repo'))
             }
         }
         maven {

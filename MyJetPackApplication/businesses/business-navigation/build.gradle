@@ -1,6 +1,7 @@
-if (Run_Mode.contains('ALONE_NAVIGATION')) {
+if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_NAVIGATION')) {
     apply plugin: 'com.android.application'
-} else {
+}
+else {
     apply plugin: 'com.android.library'
 }
 apply plugin: 'kotlin-android'
@@ -15,7 +16,7 @@ android {
         targetSdkVersion sdk_version_target as int
         versionCode 1002
         versionName "1.0.02"
-        if (Run_Mode.contains('ALONE_NAVIGATION')) {
+        if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_NAVIGATION')) {
             multiDexEnabled true
         }
 
@@ -30,7 +31,7 @@ android {
         }
     }
 
-    if (Run_Mode.contains('ALONE_NAVIGATION')) {
+    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_NAVIGATION')) {
         sourceSets {
             main {
                 manifest.srcFile 'src/alone/AndroidManifest.xml'
@@ -88,14 +89,14 @@ dependencies {
     api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     api "com.java.lib:oil:$oil_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
-    if (Run_Mode.contains('ALONE_NAVIGATION')) {
+    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_NAVIGATION')) {
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
     api "com.alibaba:arouter-api:$arouter_api_version"
     kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
 }
 
-if (!Run_Mode.contains('ALONE_NAVIGATION')) {
+if (!arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_NAVIGATION')) {
     /**
      * 发布必须配置此项
      * 如果发布至maven服务器
@@ -115,6 +116,10 @@ if (!Run_Mode.contains('ALONE_NAVIGATION')) {
         groupId = 'com.example.myjetpackapplication'
         artifactId = 'business-navigation'
         version = project.extensions.android.defaultConfig.versionName
+        if (project_in_debug.toBoolean()) {
+            registry = 'project'
+            registryDir = findPath('repo')
+        }
         description = 'test cases for navigation'
     }
 

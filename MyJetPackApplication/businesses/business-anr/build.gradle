@@ -1,4 +1,4 @@
-if (Run_Mode.contains('ALONE_ANR')) {
+if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_AMR')) {
     apply plugin: 'com.android.application'
 }
 else {
@@ -16,7 +16,7 @@ android {
         targetSdkVersion sdk_version_target as int
         versionCode 1001
         versionName "1.0.01"
-        if (Run_Mode.contains('ALONE_ANR')) {
+        if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_AMR')) {
             multiDexEnabled true
         }
 
@@ -30,7 +30,7 @@ android {
         }
     }
 
-    if (Run_Mode.contains('ALONE_ANR')) {
+    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_AMR')) {
         sourceSets {
             main {
                 manifest.srcFile 'src/alone/AndroidManifest.xml'
@@ -77,12 +77,12 @@ dependencies {
     api "com.java.lib:oil:$oil_version"
     api "com.alibaba:arouter-api:$arouter_api_version"
     kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
-    if (Run_Mode.contains('ALONE_ANR')) {
+    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_AMR')) {
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
 }
 
-if (!Run_Mode.contains('ALONE_ANR')) {
+if (!arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_AMR')) {
     /**
      * 发布必须配置此项
      * 如果发布至maven服务器
@@ -102,6 +102,10 @@ if (!Run_Mode.contains('ALONE_ANR')) {
         groupId = 'com.example.myjetpackapplication'
         artifactId = 'business-anr'
         version = project.extensions.android.defaultConfig.versionName
+        if (project_in_debug.toBoolean()) {
+            registry = 'project'
+            registryDir = findPath('repo')
+        }
         description = 'test cases for anr'
     }
 

@@ -11,7 +11,7 @@ android {
         targetSdkVersion sdk_version_target as int
         versionCode 1000
         versionName "1.0.00"
-        if (Run_Mode.contains('ALONE_BROWSER')) {
+        if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_LIBRARY_BROWSER')) {
             multiDexEnabled true
         }
 
@@ -26,7 +26,7 @@ android {
         }
     }
 
-    if (Run_Mode.contains('ALONE_BROWSER')) {
+    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_LIBRARY_BROWSER')) {
         sourceSets {
             main {
                 manifest.srcFile 'src/alone/AndroidManifest.xml'
@@ -83,12 +83,12 @@ dependencies {
     api "com.java.lib:oil:$oil_version"
     api "com.just.agentweb:agentweb:$agentweb_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
-    if (Run_Mode.contains('ALONE_BROWSER')) {
+    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_LIBRARY_BROWSER')) {
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
 }
 
-if (!Run_Mode.contains('ALONE_BROWSER')) {
+if (!arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_LIBRARY_BROWSER')) {
     /**
     * 发布必须配置此项
     * 如果发布至maven服务器
@@ -108,6 +108,10 @@ if (!Run_Mode.contains('ALONE_BROWSER')) {
         groupId = 'com.github.seelikes.android'
         artifactId = 'browser'
         version = project.extensions.android.defaultConfig.versionName
+        if (project_in_debug.toBoolean()) {
+            registry = 'project'
+            registryDir = findPath('repo')
+        }
         description = 'test cases for browser'
     }
 

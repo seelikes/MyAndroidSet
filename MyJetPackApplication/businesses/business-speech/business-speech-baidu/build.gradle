@@ -1,4 +1,4 @@
-if (Run_Mode.contains('ALONE_SPEECH_BAIDU')) {
+if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SPEECH_BAIDU')) {
     apply plugin: 'com.android.application'
 }
 else {
@@ -16,7 +16,7 @@ android {
         targetSdkVersion sdk_version_target as int
         versionCode 1013
         versionName "1.0.13"
-        if (Run_Mode.contains('ALONE_SPEECH_BAIDU')) {
+        if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SPEECH_BAIDU')) {
             multiDexEnabled true
         }
 
@@ -38,7 +38,7 @@ android {
         }
     }
 
-    if (Run_Mode.contains('ALONE_SPEECH_BAIDU')) {
+    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SPEECH_BAIDU')) {
         sourceSets {
             main {
                 manifest.srcFile 'src/alone/AndroidManifest.xml'
@@ -94,14 +94,14 @@ dependencies {
     api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     api "com.java.lib:oil:$oil_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
-    if (Run_Mode.contains('ALONE_SPEECH_BAIDU')) {
+    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SPEECH_BAIDU')) {
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
     api "com.alibaba:arouter-api:$arouter_api_version"
     kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
 }
 
-if (!Run_Mode.contains('ALONE_SPEECH_BAIDU')) {
+if (!arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SPEECH_BAIDU')) {
     /**
     * 发布必须配置此项
     * 如果发布至maven服务器
@@ -121,6 +121,10 @@ if (!Run_Mode.contains('ALONE_SPEECH_BAIDU')) {
         groupId = 'com.example.myjetpackapplication'
         artifactId = 'business-speech-baidu'
         version = project.extensions.android.defaultConfig.versionName
+        if (project_in_debug.toBoolean()) {
+            registry = 'project'
+            registryDir = findPath('repo')
+        }
         description = 'test cases for speech-baidu'
     }
 

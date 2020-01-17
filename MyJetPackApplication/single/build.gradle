@@ -58,6 +58,10 @@ ext {
     groupId = 'com.example.myjetpackapplication'
     artifactId = 'single'
     version = project.extensions.android.defaultConfig.versionName
+    if (project_in_debug.toBoolean()) {
+        registry = 'project'
+        registryDir = findPath('repo')
+    }
     description = 'base class for module single run'
 }
 

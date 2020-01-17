@@ -1,4 +1,4 @@
-if (Run_Mode.contains('ALONE_ANIMATION')) {
+if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_ANIMATION')) {
     apply plugin: 'com.android.application'
 }
 else {
@@ -18,7 +18,7 @@ android {
         targetSdkVersion sdk_version_target as int
         versionCode 1004
         versionName "1.0.04"
-        if (Run_Mode.contains('ALONE_ANIMATION')) {
+        if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_ANIMATION')) {
             multiDexEnabled true
         }
 
@@ -31,7 +31,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    if (Run_Mode.contains('ALONE_ANIMATION')) {
+    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_ANIMATION')) {
         sourceSets {
             main {
                 manifest.srcFile 'src/alone/AndroidManifest.xml'
@@ -75,12 +75,12 @@ dependencies {
     implementation "com.alibaba:arouter-api:$arouter_api_version"
     implementation "com.alibaba:arouter-api:$arouter_api_version"
     implementation "com.orhanobut:logger:$logger_orhanobut_version"
-    if (Run_Mode.contains('ALONE_ANIMATION')) {
+    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_ANIMATION')) {
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
 }
 
-if (!Run_Mode.contains('ALONE_ANIMATION')) {
+if (!arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_ANIMATION')) {
     /**
      * 发布必须配置此项
      * 如果发布至maven服务器
@@ -100,6 +100,10 @@ if (!Run_Mode.contains('ALONE_ANIMATION')) {
         groupId = 'com.example.myjetpackapplication'
         artifactId = 'business-animation'
         version = project.extensions.android.defaultConfig.versionName
+        if (project_in_debug.toBoolean()) {
+            registry = 'project'
+            registryDir = findPath('repo')
+        }
         description = 'test cases for animation'
     }
 

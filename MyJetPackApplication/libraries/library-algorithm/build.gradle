@@ -29,6 +29,10 @@ ext {
     groupId = 'com.github.seelikes.java'
     artifactId = 'algorithm'
     version = '1.0.00'
+    if (project_in_debug.toBoolean()) {
+        registry = 'project'
+        registryDir = findPath('repo')
+    }
     description = 'java algorithm library'
 }
 

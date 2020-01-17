@@ -55,6 +55,10 @@ ext {
     groupId = 'com.example.myjetpackapplication'
     artifactId = 'resources'
     version = project.extensions.android.defaultConfig.versionName
+    if (project_in_debug.toBoolean()) {
+        registry = 'project'
+        registryDir = findPath('repo')
+    }
     description = 'resources bundle'
 }
 

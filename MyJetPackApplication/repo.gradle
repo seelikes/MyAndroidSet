@@ -13,6 +13,25 @@ def findPath(String path) {
     return null
 }
 
+/**
+ * 检查数组是否包含元素
+ * @param arr 数组
+ * @param contain 元素
+ * @return 是否包含元素
+ */
+def arrayContains(Object[] arr, Object contain) {
+    if (arr == null || arr.length == 0) {
+        return false
+    }
+    for (Object item : arr) {
+        if (item == contain) {
+            return true
+        }
+    }
+    return false
+}
+
 ext {
     findPath = this.&findPath
+    arrayContains = this.&arrayContains
 }

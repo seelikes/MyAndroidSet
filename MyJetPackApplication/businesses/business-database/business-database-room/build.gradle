@@ -1,4 +1,4 @@
-if (Run_Mode.contains('ALONE_DATABASE_ROOM')) {
+if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_ROOM')) {
     apply plugin: 'com.android.application'
 }
 else {
@@ -16,7 +16,7 @@ android {
         targetSdkVersion sdk_version_target as int
         versionCode 1004
         versionName "1.0.04"
-        if (Run_Mode.contains('ALONE_DATABASE_ROOM')) {
+        if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_ROOM')) {
             multiDexEnabled true
         }
 
@@ -30,7 +30,7 @@ android {
         }
     }
 
-    if (Run_Mode.contains('ALONE_DATABASE_ROOM')) {
+    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_ROOM')) {
         sourceSets {
             main {
                 manifest.srcFile 'src/alone/AndroidManifest.xml'
@@ -99,12 +99,12 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     api "com.java.lib:oil:$oil_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
-    if (Run_Mode.contains('ALONE_DATABASE_ROOM')) {
+    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_ROOM')) {
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
 }
 
-if (!Run_Mode.contains('ALONE_DATABASE_ROOM')) {
+if (!arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_ROOM')) {
     /**
     * 发布必须配置此项
     * 如果发布至maven服务器
