@@ -3,17 +3,15 @@ package com.example.myjetpackapplication.business.video.view
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
-import android.widget.MediaController
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
-import com.example.myjetpackapplication.business.video.view.R
 import com.example.myjetpackapplication.business.video.view.databinding.ActivityVideoViewBinding
 import com.github.seelikes.android.mvvm.basic.BasicActivity
 import com.orhanobut.logger.Logger
-import kotlinx.android.synthetic.main.activity_video_view.view.*
+import org.greenrobot.eventbus.EventBus
 
 @Business(title = "video_view_title", parent = "video_title")
 @Route(path = "/business221/video/view")
@@ -22,7 +20,6 @@ class VideoViewActivity : BasicActivity<VideoViewActivity, VideoViewViewModel, A
 
     override fun initView(binding: ActivityVideoViewBinding) {
         super.initView(binding)
-        initVideoView(binding)
         initList(binding)
     }
 
@@ -42,18 +39,8 @@ class VideoViewActivity : BasicActivity<VideoViewActivity, VideoViewViewModel, A
         if (binding.rvList.adapter !is VideoViewAdapter) {
             binding.rvList.adapter = VideoViewAdapter(this) { mediaInfo, position ->
                 Logger.i("X11211X, position: $position; mediaInfo: $mediaInfo")
-                binding.videoView.setVideoPath(mediaInfo?.data)
-                if (!binding.videoView.isPlaying) {
-                    binding.videoView.start()
-                }
+                EventBus.getDefault().post(mediaInfo)
             }
-        }
-    }
-
-    private fun initVideoView(binding: ActivityVideoViewBinding) {
-        binding.videoView.setMediaController(MediaController(this))
-        binding.videoView.setOnCompletionListener {
-            it.start()
         }
     }
 }

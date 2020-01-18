@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="model"
             type="com.example.myjetpackapplication.business.video.view.VideoViewViewHolder" />
@@ -9,15 +11,47 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="32px"
+        android:paddingVertical="24px"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="1080px"
             android:layout_height="64px"
-            android:layout_marginStart="64px"
-            android:layout_marginEnd="64px"
             android:text="@{model.title}"/>
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="180px"
+            android:layout_height="320px"
+            app:imageBitmap="@{model.thumbnail}"
+            android:scaleType="fitXY"
+            android:contentDescription="@null"
+            android:visibility="@{!model.land &amp;&amp; !model.playing ? View.VISIBLE : View.GONE}" />
+
+        <ImageView
+            android:id="@+id/thumbnail_land"
+            android:layout_width="320px"
+            android:layout_height="180px"
+            app:imageBitmap="@{model.thumbnailLand}"
+            android:scaleType="fitXY"
+            android:contentDescription="@null"
+            android:visibility="@{model.land &amp;&amp; !model.playing ? View.VISIBLE : View.GONE}" />
+
+        <VideoView
+            android:id="@+id/video_view_land"
+            android:layout_width="320px"
+            android:layout_height="180px"
+            android:layout_gravity="start"
+            android:visibility="@{model.land &amp;&amp; model.playing ? View.VISIBLE : View.GONE}" />
+
+        <VideoView
+            android:id="@+id/video_view"
+            android:layout_width="180px"
+            android:layout_height="320px"
+            android:layout_gravity="start"
+            android:visibility="@{!model.land &amp;&amp; model.playing ? View.VISIBLE : View.GONE}" />
 
     </LinearLayout>
 

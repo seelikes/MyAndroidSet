@@ -21,4 +21,9 @@ class VideoViewAdapter(context: Context, itemClickListener: (item: MediaInfo?, p
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewViewHolder {
         return VideoViewViewHolder(context, ItemVideoViewBinding.inflate(LayoutInflater.from(context)))
     }
+
+    override fun onViewRecycled(holder: VideoViewViewHolder) {
+        super.onViewRecycled(holder)
+        holder.onRecycled()
+    }
 }
