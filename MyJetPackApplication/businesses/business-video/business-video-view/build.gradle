@@ -13,8 +13,8 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1003
-        versionName "1.0.03"
+        versionCode 1004
+        versionName "1.0.04"
         if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_VIDEO_VIEW')) {
             multiDexEnabled true
         }

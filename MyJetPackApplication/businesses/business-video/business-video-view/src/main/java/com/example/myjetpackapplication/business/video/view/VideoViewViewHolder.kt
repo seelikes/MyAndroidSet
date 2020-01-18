@@ -30,7 +30,6 @@ class VideoViewViewHolder(context: Context, binding: ItemVideoViewBinding) : Bas
         if (land.get()) {
             val params = binding.thumbnailLand.layoutParams
             entity?.data?.let {
-                thumbnail.set(null)
                 thumbnailLand.set(VideoUtil.getThumbnail(it, params.width, params.height, MediaStore.Video.Thumbnails.MINI_KIND))
             }
         }
@@ -38,7 +37,6 @@ class VideoViewViewHolder(context: Context, binding: ItemVideoViewBinding) : Bas
             val params = binding.thumbnail.layoutParams
             entity?.data?.let {
                 thumbnail.set(VideoUtil.getThumbnail(it, params.width, params.height, MediaStore.Video.Thumbnails.MINI_KIND))
-                thumbnailLand.set(null)
             }
         }
     }
@@ -63,13 +61,6 @@ class VideoViewViewHolder(context: Context, binding: ItemVideoViewBinding) : Bas
                 stopVideo(binding.videoViewLand)
             }
         }
-    }
-
-    fun onRecycled() {
-        thumbnail.get()?.recycle()
-        thumbnail.set(null)
-        thumbnailLand.get()?.recycle()
-        thumbnailLand.set(null)
     }
 
     private fun setVideoPath(videoView: VideoView?) {
