@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myjetpackapplication.business.video.view">
+
+    <application>
+        <activity android:name=".VideoViewActivity" />
+    </application>
+
+</manifest>

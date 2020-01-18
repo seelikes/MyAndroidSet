@@ -17,6 +17,9 @@ open class BasicViewHolder<T : Any, B : ViewDataBinding>(protected val context: 
     init {
         this.beforeSetToBinding()
         this.callWithParameter(binding)
+        binding.root.setOnClickListener {
+            clickListener?.invoke(entity)
+        }
         binding.root.post{
             this.afterSetToBinding()
         }

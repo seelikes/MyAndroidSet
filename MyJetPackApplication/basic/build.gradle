@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1005
-        versionName "1.0.05"
+        versionCode 1006
+        versionName "1.0.06"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
