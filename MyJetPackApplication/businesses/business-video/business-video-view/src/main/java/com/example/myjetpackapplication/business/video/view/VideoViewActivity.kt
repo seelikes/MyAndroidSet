@@ -15,8 +15,8 @@ import com.github.seelikes.android.mvvm.basic.BasicActivity
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_video_view.view.*
 
-@Business(title = "video_view_title")
-@Route(path = "/business/video/view")
+@Business(title = "video_view_title", parent = "video_title")
+@Route(path = "/business221/video/view")
 class VideoViewActivity : BasicActivity<VideoViewActivity, VideoViewViewModel, ActivityVideoViewBinding>() {
     override fun initModel(savedInstanceState: Bundle?): VideoViewViewModel = VideoViewViewModel(this, DataBindingUtil.setContentView(this, R.layout.activity_video_view))
 
