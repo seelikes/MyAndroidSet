@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
 import com.example.myjetpackapplication.business.video.view.databinding.ActivityVideoViewBinding
+import com.example.myjetpackapplication.business.video.view.event.VideoListScrollEvent
 import com.github.seelikes.android.mvvm.basic.BasicActivity
 import com.orhanobut.logger.Logger
 import org.greenrobot.eventbus.EventBus
@@ -42,5 +43,11 @@ class VideoViewActivity : BasicActivity<VideoViewActivity, VideoViewViewModel, A
                 EventBus.getDefault().post(mediaInfo)
             }
         }
+        binding.rvList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                EventBus.getDefault().post(VideoListScrollEvent(newState))
+            }
+        })
     }
 }
