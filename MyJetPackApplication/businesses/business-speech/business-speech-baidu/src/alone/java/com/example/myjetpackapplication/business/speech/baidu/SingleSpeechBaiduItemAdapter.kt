@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.BusinessItem
 import com.example.myjetpackapplication.business.speech.baidu.databinding.ItemSingleSpeechBaiduBinding
 import com.github.seelikes.android.mvvm.basic.BasicRecyclerAdapter
+import java.lang.ref.WeakReference
 
 /**
  * Created by liutiantian on 2019-12-22 22:04 星期日
@@ -21,7 +22,7 @@ class SingleSpeechBaiduItemAdapter(
 ) {
     override fun onCreateViewHolder(view: ViewGroup, itemType: Int): SingleSpeechBaiduItemHolder =
         SingleSpeechBaiduItemHolder(
-            context,
+            WeakReference(context),
             ItemSingleSpeechBaiduBinding.inflate(LayoutInflater.from(context))
         )
 }

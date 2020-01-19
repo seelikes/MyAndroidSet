@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.myjetpackapplication.business.video.view.databinding.ItemVideoViewBinding
 import com.github.seelikes.android.media.data.MediaInfo
 import com.github.seelikes.android.mvvm.basic.BasicPagedListAdapter
+import java.lang.ref.WeakReference
 
 class VideoDiffUtil : DiffUtil.ItemCallback<MediaInfo>() {
     override fun areItemsTheSame(oldItem: MediaInfo, newItem: MediaInfo): Boolean = oldItem.id == newItem.id
@@ -19,6 +20,11 @@ class VideoDiffUtil : DiffUtil.ItemCallback<MediaInfo>() {
  */
 class VideoViewAdapter(context: Context, itemClickListener: (item: MediaInfo?, position: Int) -> Unit) : BasicPagedListAdapter<MediaInfo, VideoViewViewHolder, VideoDiffUtil, ItemVideoViewBinding>(context, VideoDiffUtil(), itemClickListener) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewViewHolder {
-        return VideoViewViewHolder(context, ItemVideoViewBinding.inflate(LayoutInflater.from(context)))
+        return VideoViewViewHolder(WeakReference(context), ItemVideoViewBinding.inflate(LayoutInflater.from(context)))
+    }
+
+    override fun onViewDetachedFromWindow(holder: VideoViewViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        holder.onViewDetachedFromWindow()
     }
 }

@@ -36,10 +36,8 @@ abstract class BasicPagedListAdapter<T : Any, VH : BasicViewHolder<T, B>, DC : D
     @CallSuper
     override fun onViewDetachedFromWindow(holder: VH) {
         super.onViewDetachedFromWindow(holder)
-        holder.runIfClassHasAnnotation(Subscribe::class.java) {
-            if (EventBus.getDefault().isRegistered(holder)) {
-                EventBus.getDefault().unregister(holder)
-            }
+        if (EventBus.getDefault().isRegistered(holder)) {
+            EventBus.getDefault().unregister(holder)
         }
     }
 }

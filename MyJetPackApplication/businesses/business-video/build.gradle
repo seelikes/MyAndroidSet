@@ -1,6 +1,7 @@
 if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_VIDEO')) {
     apply plugin: 'com.android.application'
-} else {
+}
+else {
     apply plugin: 'com.android.library'
 }
 apply plugin: 'kotlin-android'

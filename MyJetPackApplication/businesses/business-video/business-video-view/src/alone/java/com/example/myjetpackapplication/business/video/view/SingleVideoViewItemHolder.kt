@@ -6,13 +6,14 @@ import androidx.databinding.ObservableInt
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.BusinessItem
 import com.example.myjetpackapplication.business.video.view.databinding.ItemSingleVideoViewBinding
 import com.github.seelikes.android.mvvm.basic.BasicViewHolder
-import com.orhanobut.logger.Logger
+import com.github.seelikes.android.mvvm.basic.context
+import java.lang.ref.WeakReference
 
 /**
  * Created by liutiantian on 2019-12-22 22:05 星期日
  */
-class SingleVideoViewItemHolder(context: Context, binding: ItemSingleVideoViewBinding) :
-    BasicViewHolder<BusinessItem, ItemSingleVideoViewBinding>(context, binding) {
+class SingleVideoViewItemHolder(weakContext: WeakReference<Context>, binding: ItemSingleVideoViewBinding) :
+    BasicViewHolder<BusinessItem, ItemSingleVideoViewBinding>(weakContext, binding) {
     val title = ObservableInt()
     val hasChildren = ObservableBoolean()
 
@@ -20,7 +21,7 @@ class SingleVideoViewItemHolder(context: Context, binding: ItemSingleVideoViewBi
         super.setData(entity)
         hasChildren.set(BusinessManager.getChildren(entity).isNotEmpty())
         title.set(
-            context?.resources?.getIdentifier(entity?.title, "string", context.packageName)
+            context?.resources?.getIdentifier(entity?.title, "string", context?.packageName)
                 ?: R.string.app_name
         )
     }

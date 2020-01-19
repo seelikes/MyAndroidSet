@@ -20,11 +20,12 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.lang.ref.WeakReference
 
 /**
  * Created by liutiantian on 2020-01-17 22:25 星期五
  */
-class VideoViewViewHolder(context: Context, binding: ItemVideoViewBinding) : BasicViewHolder<MediaInfo, ItemVideoViewBinding>(context, binding) {
+class VideoViewViewHolder(weakContext: WeakReference<Context>, binding: ItemVideoViewBinding) : BasicViewHolder<MediaInfo, ItemVideoViewBinding>(weakContext, binding) {
     val title = ObservableField<String>()
     val thumbnail = ObservableField<Bitmap>()
     val thumbnailLand = ObservableField<Bitmap>()
@@ -121,6 +122,13 @@ class VideoViewViewHolder(context: Context, binding: ItemVideoViewBinding) : Bas
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     fun onListScroll(event: VideoListScrollEvent) {
         newState.set(event.newState ?: RecyclerView.SCROLL_STATE_IDLE)
+    }
+
+    fun onViewDetachedFromWindow() {
+        if (job?.isCompleted == true) {
+            return
+        }
+        job?.cancel()
     }
 
     private fun setVideoPath(videoView: VideoView?) {

@@ -6,11 +6,13 @@ import androidx.databinding.ObservableInt
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.BusinessItem
 import com.example.myjetpackapplication.business.database.room.databinding.ItemSingleDatabaseRoomBinding
 import com.github.seelikes.android.mvvm.basic.BasicViewHolder
+import com.github.seelikes.android.mvvm.basic.context
+import java.lang.ref.WeakReference
 
 /**
  * Created by liutiantian on 2019-12-22 22:05 星期日
  */
-class SingleDatabaseRoomItemHolder(context: Context, binding: ItemSingleDatabaseRoomBinding) : BasicViewHolder<BusinessItem, ItemSingleDatabaseRoomBinding>(context, binding) {
+class SingleDatabaseRoomItemHolder(weakContext: WeakReference<Context>, binding: ItemSingleDatabaseRoomBinding) : BasicViewHolder<BusinessItem, ItemSingleDatabaseRoomBinding>(weakContext, binding) {
     val title = ObservableInt()
     val hasChildren = ObservableBoolean()
 
@@ -18,7 +20,7 @@ class SingleDatabaseRoomItemHolder(context: Context, binding: ItemSingleDatabase
         super.setData(entity)
         hasChildren.set(BusinessManager.getChildren(entity).isNotEmpty())
         title.set(
-            context?.resources?.getIdentifier(entity?.title, "string", context.packageName)
+            context?.resources?.getIdentifier(entity?.title, "string", context?.packageName)
                 ?: R.string.app_name
         )
     }
