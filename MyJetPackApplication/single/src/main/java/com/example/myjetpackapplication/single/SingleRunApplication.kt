@@ -2,6 +2,7 @@ package com.example.myjetpackapplication.single
 
 import androidx.multidex.MultiDexApplication
 import com.alibaba.android.arouter.launcher.ARouter
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import me.jessyan.autosize.AutoSizeConfig
@@ -41,5 +42,9 @@ open class SingleRunApplication : MultiDexApplication() {
                 return priority >= Logger.ERROR
             }
         })
+    }
+
+    protected fun initFresco() {
+        Fresco.initialize(this)
     }
 }

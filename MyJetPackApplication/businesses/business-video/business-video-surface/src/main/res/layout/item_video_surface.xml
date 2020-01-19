@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="model"
+            type="com.example.myjetpackapplication.business.video.surface.VideoSurfaceViewHolder" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="32px"
+        android:paddingVertical="24px"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="1080px"
+            android:layout_height="64px"
+            android:text="@{model.title}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{model.land ? View.VISIBLE : View.GONE}">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/thumbnailLand"
+                android:layout_width="320px"
+                android:layout_height="180px"
+                app:imageURI="@{model.bitmapUri}"
+                android:visibility="@{!model.playing ? View.VISIBLE : View.GONE}" />
+
+            <SurfaceView
+                android:id="@+id/surface_land"
+                android:layout_width="320px"
+                android:layout_height="180px"
+                android:visibility="@{model.playing ? View.VISIBLE : View.GONE}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{!model.land ? View.VISIBLE : View.GONE}">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/thumbnail"
+                android:layout_width="180px"
+                android:layout_height="320px"
+                app:imageURI="@{model.bitmapUri}"
+                android:visibility="@{!model.playing ? View.VISIBLE : View.GONE}" />
+
+            <SurfaceView
+                android:id="@+id/surface"
+                android:layout_width="180px"
+                android:layout_height="320px"
+                android:visibility="@{model.playing ? View.VISIBLE : View.GONE}" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1002
-        versionName "1.0.02"
+        versionCode 1003
+        versionName "1.0.03"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -35,6 +35,7 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
     api "com.alibaba:arouter-api:$arouter_api_version"
+    api "com.facebook.fresco:fresco:$fresco_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
     api "me.jessyan:autosize:$autosize_version"
 }

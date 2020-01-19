@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="1080px"
             android:layout_height="64px"
-            android:text="@{model.title}"/>
+            android:text="@{model.title}" />
 
         <ImageView
             android:id="@+id/thumbnail"
