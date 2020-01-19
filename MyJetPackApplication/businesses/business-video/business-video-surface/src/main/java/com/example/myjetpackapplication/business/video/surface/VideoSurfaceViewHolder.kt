@@ -136,6 +136,12 @@ class VideoSurfaceViewHolder(weakContext: WeakReference<Context>, binding: ItemV
         event?.let {
             if (it.id == entity?.id) {
                 Logger.i("X112211X, playing: ${playing.get()}")
+                if (mediaPlayer?.isPlaying == true) {
+                    clickWaiting = false
+                    playing.set(false)
+                    mediaPlayer?.stop()
+                    return
+                }
                 if (playing.get()) {
                     return
                 }
