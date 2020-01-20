@@ -11,5 +11,6 @@ class SingleDatabaseApplication : SingleRunApplication() {
         initLogger(BuildConfig.DEBUG)
         initAutoSize()
         initARouter(BuildConfig.DEBUG)
+        initFresco()
     }
 }

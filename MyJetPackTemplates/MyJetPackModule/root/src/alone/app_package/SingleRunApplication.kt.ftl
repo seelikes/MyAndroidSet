@@ -11,5 +11,6 @@ class ${underscoreToCamelCase(activitySingleLayout)}Application : SingleRunAppli
         initLogger(BuildConfig.DEBUG)
         initAutoSize()
         initARouter(BuildConfig.DEBUG)
+        initFresco()
     }
 }

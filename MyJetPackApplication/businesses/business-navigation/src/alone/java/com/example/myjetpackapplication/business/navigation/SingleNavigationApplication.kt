@@ -11,5 +11,6 @@ class SingleNavigationApplication : SingleRunApplication() {
         initLogger(BuildConfig.DEBUG)
         initAutoSize()
         initARouter(BuildConfig.DEBUG)
+        initFresco()
     }
 }
