@@ -94,6 +94,7 @@ dependencies {
     api "com.java.lib:oil:$oil_version"
     api "com.alibaba:arouter-api:$arouter_api_version"
     kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
+    api "com.orhanobut:logger:$logger_orhanobut_version"
     if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_AMR')) {
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
