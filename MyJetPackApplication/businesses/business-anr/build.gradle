@@ -14,13 +14,28 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1002
-        versionName "1.0.02"
+        versionCode 1003
+        versionName "1.0.03"
         if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_AMR')) {
             multiDexEnabled true
         }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+        ndk {
+            ldLibs "log"
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path 'src/main/cpp/CMakeLists.txt'
+            version '3.10.2'
+        }
     }
 
     buildTypes {
