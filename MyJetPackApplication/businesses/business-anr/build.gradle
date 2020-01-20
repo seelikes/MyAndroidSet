@@ -14,8 +14,8 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1001
-        versionName "1.0.01"
+        versionCode 1002
+        versionName "1.0.02"
         if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_AMR')) {
             multiDexEnabled true
         }
@@ -73,6 +73,8 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
     implementation "com.example.myjetpackapplication:resources:$resources_version"
+    implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
+    kapt "com.example.myjetpackapplication.annotationprocessor:business-compiler:$business_compiler_version"
     api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     api "com.java.lib:oil:$oil_version"
     api "com.alibaba:arouter-api:$arouter_api_version"
