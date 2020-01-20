@@ -5,8 +5,15 @@ import androidx.annotation.CallSuper
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.OnLifecycleEvent
 import com.github.seelikes.android.mvvm.basic.utils.runIfClassHasAnnotation
 import com.gyf.immersionbar.ktx.immersionBar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -20,6 +27,21 @@ abstract class BasicActivity<C : BasicActivity<C, M, B>, M : BasicHostViewModel<
      * ViewBinding对象
      */
     protected lateinit var binding: B
+
+    /**
+     * 协程启动上下文
+     */
+    protected val activityScope: CoroutineScope by lazy {
+        val job = SupervisorJob()
+        lifecycle.addObserver(object : LifecycleObserver {
+            @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+            fun onDestroy(activity: LifecycleOwner) {
+                activity.lifecycle.removeObserver(this)
+                job.cancel()
+            }
+        })
+        CoroutineScope(Dispatchers.Main + job)
+    }
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {

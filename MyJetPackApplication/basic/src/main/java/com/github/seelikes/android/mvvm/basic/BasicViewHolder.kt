@@ -4,12 +4,13 @@ import android.content.Context
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.github.seelikes.android.mvvm.basic.utils.callWithParameter
+import kotlinx.coroutines.CoroutineScope
 import java.lang.ref.WeakReference
 
 /**
  * Created by liutiantian on 2019-04-30 19:24 星期二
  */
-open class BasicViewHolder<T : Any, B : ViewDataBinding>(internal val weakContext: WeakReference<Context>?, protected val binding: B) : RecyclerView.ViewHolder(binding.root) {
+open class BasicViewHolder<T : Any, B : ViewDataBinding> @JvmOverloads constructor(internal val weakContext: WeakReference<Context>?, protected val binding: B, protected val routineScope: CoroutineScope? = null) : RecyclerView.ViewHolder(binding.root) {
     @Suppress("MemberVisibilityCanBePrivate")
     protected var entity: T? = null
 
