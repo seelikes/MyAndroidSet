@@ -5,13 +5,14 @@ import androidx.databinding.ObservableField
 import com.github.seelikes.android.mvvm.basic.BasicViewHolder
 import com.example.myjetpackapplication.business.paging.data.PagingEntity
 import com.example.myjetpackapplication.business.paging.databinding.ItemPagingBinding
+import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
 import java.util.*
 
 /**
  * Created by liutiantian on 2019-05-14 13:43 星期二
  */
-class PagingViewHolder(context: Context, binding: ItemPagingBinding) : BasicViewHolder<PagingEntity, ItemPagingBinding>(context, binding) {
+class PagingViewHolder(weakContext: WeakReference<Context>, binding: ItemPagingBinding) : BasicViewHolder<PagingEntity, ItemPagingBinding>(weakContext, binding) {
     val title = ObservableField<String>()
     val paging = ObservableField<String>()
     val time = ObservableField<String>()

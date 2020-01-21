@@ -128,14 +128,30 @@ class LifecycleTransform extends Transform {
                 }
                 else {
                     try {
-                        enterClass.getDeclaredMethod(declaredMethod.name, declaredMethod.parameterTypes)
+                        CtClass[] parameterTypes
+                        try {
+                            parameterTypes = declaredMethod.parameterTypes
+                        }
+                        catch (NotFoundException ignored) {
+                            enterClass.getDeclaredMethod(declaredMethod.name, null)
+                        }
+                        if (parameterTypes) {
+                            enterClass.getDeclaredMethod(declaredMethod.name, parameterTypes)
+                        }
                     }
                     catch (NotFoundException ignored) {
                         try {
-                            def newMethod = CtNewMethod.make(declaredMethod.returnType, declaredMethod.name, declaredMethod.parameterTypes, declaredMethod.exceptionTypes, null, enterClass)
+                            CtClass returnType = getReturnType(declaredMethod)
+                            def newMethod = CtNewMethod.make(returnType, declaredMethod.name, getParameterTypes(declaredMethod), getExceptionTypes(declaredMethod), null, enterClass)
                             enterClass.addMethod(newMethod)
-                            newMethod.insertBefore(String.format("super.%s(\$\$);", declaredMethod.name))
-                            newMethod.insertAfter(String.format("%s.i(\"%s\", \"%s, %s, enter and leave\");", extension.loggerClass, enterClass.name, extension.tag, declaredMethod.name))
+                            if (returnType == null || returnType == CtClass.voidType) {
+                                newMethod.insertBefore(String.format("super.%s(\$\$);", declaredMethod.name))
+                                newMethod.insertAfter(String.format("%s.i(\"%s\", \"%s, %s, enter and leave\");", extension.loggerClass, enterClass.name, extension.tag, declaredMethod.name))
+                            }
+                            else {
+                                newMethod.insertBefore(String.format("%s.i(\"%s\", \"%s, %s, enter and leave\");", extension.loggerClass, enterClass.name, extension.tag, declaredMethod.name))
+                                newMethod.insertAfter(String.format("return super.%s(\$\$);", declaredMethod.name))
+                            }
                         }
                         catch (CannotCompileException cce) {
                             project.logger.debug("method can not compile when insert", cce)
@@ -147,6 +163,33 @@ class LifecycleTransform extends Transform {
         transformClass(enterClass, ctClass.superclass, readonlyMethods)
         ctClass.interfaces.each { ctInterface ->
             transformClass(enterClass, ctInterface, readonlyMethods)
+        }
+    }
+
+    static def getReturnType(CtMethod method) {
+        try {
+            return method.returnType
+        }
+        catch (NotFoundException ignored) {
+            return CtClass.voidType
+        }
+    }
+
+    static def getParameterTypes(CtMethod method) {
+        try {
+            return method.parameterTypes
+        }
+        catch (NotFoundException ignored) {
+            return null
+        }
+    }
+
+    static def getExceptionTypes(CtMethod method) {
+        try {
+            return method.exceptionTypes
+        }
+        catch (NotFoundException ignored) {
+            return null
         }
     }
 }

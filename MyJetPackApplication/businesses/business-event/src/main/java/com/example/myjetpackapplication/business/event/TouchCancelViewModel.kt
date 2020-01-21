@@ -6,5 +6,5 @@ import com.example.myjetpackapplication.business.event.databinding.ActivityTouch
 import com.github.seelikes.android.mvvm.basic.BasicHostViewModel
 
 class TouchCancelViewModel(host: TouchCancelActivity, binding: ActivityTouchCancelBinding) : BasicHostViewModel<TouchCancelViewModel, TouchCancelActivity, ActivityTouchCancelBinding>(host, binding) {
-    val title = ObservableInt(R.string.touch_cancel_title)
+    val title = ObservableInt(R.string.touch_cancel_view_title)
 }

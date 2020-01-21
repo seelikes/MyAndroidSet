@@ -8,13 +8,14 @@ import com.example.myjetpackapplication.business.database.room.databinding.ItemD
 import com.example.myjetpackapplication.business.database.room.event.DeleteEvent
 import com.orhanobut.logger.Logger
 import org.greenrobot.eventbus.EventBus
+import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
 import java.util.*
 
 /**
  * Created by liutiantian on 2019-05-09 13:41 星期四
  */
-class DatabaseRoomViewHolder(context: Context, binding: ItemDatabaseRoomBinding) : BasicViewHolder<DatabaseRoomEntity, ItemDatabaseRoomBinding>(context, binding) {
+class DatabaseRoomViewHolder(weakContext: WeakReference<Context>, binding: ItemDatabaseRoomBinding) : BasicViewHolder<DatabaseRoomEntity, ItemDatabaseRoomBinding>(weakContext, binding) {
     val id = ObservableField<String>()
     val dice = ObservableField<String>()
     val time = ObservableField<String>()

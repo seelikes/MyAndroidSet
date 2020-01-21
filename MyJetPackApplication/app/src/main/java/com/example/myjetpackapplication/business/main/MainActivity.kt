@@ -87,6 +87,7 @@ class  MainActivity : BasicActivity<MainActivity, MainViewModel, ActivityMainBin
     }
 
     override fun onBackPressed() {
+        Logger.i("202001210142, model.items[0].title: ${model.items[0]?.title}")
         val pageUp = BusinessApi.tryBack(model.items[0])
         if (pageUp?.isNotEmpty() == true) {
             ViewModelProviders.of(this).get(MainDataModel::class.java).items.value = pageUp
