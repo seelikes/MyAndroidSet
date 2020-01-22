@@ -11,7 +11,7 @@ import java.lang.ref.WeakReference
 /**
  * Created by liutiantian on 2019-12-22 22:04 星期日
  */
-class SingleGestureItemAdapter(context: Context, items: List<BusinessItem>?, itemClickListener: (BusinessItem?, Int) -> Unit) : BasicRecyclerAdapter<BusinessItem, SingleGestureItemHolder, ItemSingleGestureBinding>(context, items, itemClickListener) {
+class SingleGestureItemAdapter(context: Context, items: List<BusinessItem>?, itemClickListener: (BusinessItem?, Int) -> Unit) : BasicRecyclerAdapter<BusinessItem, SingleGestureItemHolder>(context, items, itemClickListener) {
     override fun onCreateViewHolder(view: ViewGroup, itemType: Int): SingleGestureItemHolder =
         SingleGestureItemHolder(
             WeakReference(context),

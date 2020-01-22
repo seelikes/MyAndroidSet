@@ -14,8 +14,8 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1007
-        versionName "1.0.07"
+        versionCode 1008
+        versionName "1.0.08"
         if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_VIDEO_VIEW')) {
             multiDexEnabled true
         }
@@ -94,6 +94,7 @@ dependencies {
     }
     api "com.alibaba:arouter-api:$arouter_api_version"
     kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
+    api "com.yanzhenjie.permission:x:$AndPermission_yanzhenjie_version"
 }
 
 if (!arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_VIDEO_VIEW')) {

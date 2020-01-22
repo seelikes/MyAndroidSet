@@ -15,7 +15,7 @@ class SingleNavigationItemAdapter(
     context: Context,
     items: List<BusinessItem>?,
     itemClickListener: (BusinessItem?, Int) -> Unit
-) : BasicRecyclerAdapter<BusinessItem, SingleNavigationItemHolder, ItemSingleNavigationBinding>(
+) : BasicRecyclerAdapter<BusinessItem, SingleNavigationItemHolder>(
     context,
     items,
     itemClickListener

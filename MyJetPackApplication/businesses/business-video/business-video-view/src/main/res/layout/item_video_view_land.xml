@@ -23,8 +23,8 @@
 
         <ImageView
             android:id="@+id/thumbnail"
-            android:layout_width="180px"
-            android:layout_height="320px"
+            android:layout_width="320px"
+            android:layout_height="180px"
             app:imageBitmap="@{model.thumbnailBitmap}"
             android:scaleType="fitXY"
             android:contentDescription="@null"
@@ -32,8 +32,8 @@
 
         <VideoView
             android:id="@+id/video_view"
-            android:layout_width="180px"
-            android:layout_height="320px"
+            android:layout_width="320px"
+            android:layout_height="180px"
             android:layout_gravity="start"
             android:visibility="@{model.playing ? View.VISIBLE : View.GONE}" />
 

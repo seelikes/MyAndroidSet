@@ -15,7 +15,7 @@ class SingleSpeechItemAdapter(
     context: Context,
     items: List<BusinessItem>?,
     itemClickListener: (BusinessItem?, Int) -> Unit
-) : BasicRecyclerAdapter<BusinessItem, SingleSpeechItemHolder, ItemSingleSpeechBinding>(
+) : BasicRecyclerAdapter<BusinessItem, SingleSpeechItemHolder>(
     context,
     items,
     itemClickListener

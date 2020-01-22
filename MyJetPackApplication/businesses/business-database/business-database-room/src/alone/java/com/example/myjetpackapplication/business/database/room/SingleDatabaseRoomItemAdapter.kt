@@ -15,7 +15,7 @@ class SingleDatabaseRoomItemAdapter(
     context: Context,
     items: List<BusinessItem>?,
     itemClickListener: (BusinessItem?, Int) -> Unit
-) : BasicRecyclerAdapter<BusinessItem, SingleDatabaseRoomItemHolder, ItemSingleDatabaseRoomBinding>(
+) : BasicRecyclerAdapter<BusinessItem, SingleDatabaseRoomItemHolder>(
     context,
     items,
     itemClickListener

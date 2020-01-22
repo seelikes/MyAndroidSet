@@ -11,6 +11,6 @@ import java.lang.ref.WeakReference
 /**
  * Created by liutiantian on 2019-12-22 22:04 星期日
  */
-class ${underscoreToCamelCase(activitySingleLayout)}ItemAdapter(context: Context, items: List<BusinessItem>?, itemClickListener: (BusinessItem?, Int) -> Unit) : BasicRecyclerAdapter<BusinessItem, ${underscoreToCamelCase(activitySingleLayout)}ItemHolder, Item${underscoreToCamelCase(activitySingleLayout)}Binding>(context, items, itemClickListener) {
+class ${underscoreToCamelCase(activitySingleLayout)}ItemAdapter(context: Context, items: List<BusinessItem>?, itemClickListener: (BusinessItem?, Int) -> Unit) : BasicRecyclerAdapter<BusinessItem, ${underscoreToCamelCase(activitySingleLayout)}ItemHolder>(context, items, itemClickListener) {
     override fun onCreateViewHolder(view: ViewGroup, itemType: Int): ${underscoreToCamelCase(activitySingleLayout)}ItemHolder = ${underscoreToCamelCase(activitySingleLayout)}ItemHolder(WeakReference(context), Item${underscoreToCamelCase(activitySingleLayout)}Binding.inflate(LayoutInflater.from(context)))
 }

@@ -15,7 +15,7 @@ class SingleVideoSurfaceItemAdapter(
     context: Context,
     items: List<BusinessItem>?,
     itemClickListener: (BusinessItem?, Int) -> Unit
-) : BasicRecyclerAdapter<BusinessItem, SingleVideoSurfaceItemHolder, ItemSingleVideoSurfaceBinding>(
+) : BasicRecyclerAdapter<BusinessItem, SingleVideoSurfaceItemHolder>(
     context,
     items,
     itemClickListener

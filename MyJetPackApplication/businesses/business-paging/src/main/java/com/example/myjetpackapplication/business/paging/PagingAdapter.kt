@@ -19,6 +19,6 @@ class PagingDiffUtil : DiffUtil.ItemCallback<PagingEntity>() {
     override fun areContentsTheSame(oldItem: PagingEntity, newItem: PagingEntity): Boolean = oldItem == newItem
 }
 
-class PagingAdapter(context: Context, dc: PagingDiffUtil = PagingDiffUtil()) : BasicPagedListAdapter<PagingEntity, PagingViewHolder, PagingDiffUtil, ItemPagingBinding>(context, dc) {
+class PagingAdapter(context: Context, dc: PagingDiffUtil = PagingDiffUtil()) : BasicPagedListAdapter<PagingEntity, PagingViewHolder, PagingDiffUtil>(context, dc) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagingViewHolder = PagingViewHolder(WeakReference(context), ItemPagingBinding.inflate(LayoutInflater.from(context), parent, false))
 }

@@ -15,7 +15,7 @@ class SingleProfilerItemAdapter(
     context: Context,
     items: List<BusinessItem>?,
     itemClickListener: (BusinessItem?, Int) -> Unit
-) : BasicRecyclerAdapter<BusinessItem, SingleProfilerItemHolder, ItemSingleProfilerBinding>(
+) : BasicRecyclerAdapter<BusinessItem, SingleProfilerItemHolder>(
     context,
     items,
     itemClickListener

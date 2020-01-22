@@ -10,7 +10,7 @@ import java.lang.ref.WeakReference
 /**
  * Created by liutiantian on 2019-04-30 19:24 星期二
  */
-open class BasicViewHolder<T : Any, B : ViewDataBinding> @JvmOverloads constructor(internal val weakContext: WeakReference<Context>?, protected val binding: B, protected val routineScope: CoroutineScope? = null) : RecyclerView.ViewHolder(binding.root) {
+open class BasicViewHolder<T : Any, B : ViewDataBinding> @JvmOverloads constructor(internal val weakContext: WeakReference<Context>?, val binding: B, val routineScope: CoroutineScope? = null) : RecyclerView.ViewHolder(binding.root) {
     @Suppress("MemberVisibilityCanBePrivate")
     protected var entity: T? = null
 

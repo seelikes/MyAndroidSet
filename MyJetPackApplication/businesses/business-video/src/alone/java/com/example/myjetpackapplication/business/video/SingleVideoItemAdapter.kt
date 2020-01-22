@@ -15,7 +15,7 @@ class SingleVideoItemAdapter(
     context: Context,
     items: List<BusinessItem>?,
     itemClickListener: (BusinessItem?, Int) -> Unit
-) : BasicRecyclerAdapter<BusinessItem, SingleVideoItemHolder, ItemSingleVideoBinding>(
+) : BasicRecyclerAdapter<BusinessItem, SingleVideoItemHolder>(
     context,
     items,
     itemClickListener

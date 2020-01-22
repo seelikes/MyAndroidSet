@@ -15,7 +15,7 @@ class SingleProfilerCpuItemAdapter(
     context: Context,
     items: List<BusinessItem>?,
     itemClickListener: (BusinessItem?, Int) -> Unit
-) : BasicRecyclerAdapter<BusinessItem, SingleProfilerCpuItemHolder, ItemSingleProfilerCpuBinding>(
+) : BasicRecyclerAdapter<BusinessItem, SingleProfilerCpuItemHolder>(
     context,
     items,
     itemClickListener

@@ -18,6 +18,6 @@ class RoomDiffUtil : DiffUtil.ItemCallback<DatabaseRoomEntity>() {
     override fun areContentsTheSame(oldItem: DatabaseRoomEntity, newItem: DatabaseRoomEntity): Boolean = oldItem == newItem
 }
 
-class RoomAdapter(context: Context, dc: RoomDiffUtil) : BasicPagedListAdapter<DatabaseRoomEntity, DatabaseRoomViewHolder, RoomDiffUtil, ItemDatabaseRoomBinding>(context, dc) {
+class RoomAdapter(context: Context, dc: RoomDiffUtil) : BasicPagedListAdapter<DatabaseRoomEntity, DatabaseRoomViewHolder, RoomDiffUtil>(context, dc) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DatabaseRoomViewHolder = DatabaseRoomViewHolder(WeakReference(context), ItemDatabaseRoomBinding.inflate(LayoutInflater.from(context), parent, false))
 }

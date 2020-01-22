@@ -12,6 +12,6 @@ import java.lang.ref.WeakReference
 /**
  * Created by liutiantian on 2020-01-19 13:34 星期日
  */
-class VideoSurfaceAdapter(context: Context, itemClickListener: (item: MediaInfo?, position: Int) -> Unit) : BasicPagedListAdapter<MediaInfo, VideoSurfaceViewHolder, MediaInfoDiffUtil, ItemVideoSurfaceBinding>(context, MediaInfoDiffUtil(), itemClickListener) {
+class VideoSurfaceAdapter(context: Context, itemClickListener: (item: MediaInfo?, position: Int) -> Unit) : BasicPagedListAdapter<MediaInfo, VideoSurfaceViewHolder, MediaInfoDiffUtil>(context, MediaInfoDiffUtil(), itemClickListener) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoSurfaceViewHolder = VideoSurfaceViewHolder(WeakReference(context), ItemVideoSurfaceBinding.inflate(LayoutInflater.from(context)))
 }

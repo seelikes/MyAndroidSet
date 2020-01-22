@@ -3,17 +3,17 @@ package com.example.myjetpackapplication.business.video.view
 import android.content.Context
 import android.graphics.Bitmap
 import android.provider.MediaStore
+import android.widget.ImageView
 import android.widget.VideoView
-import androidx.databinding.Observable
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
+import androidx.databinding.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myjetpackapplication.business.video.view.databinding.ItemVideoViewBinding
+import com.example.myjetpackapplication.business.video.view.databinding.ItemVideoViewLandBinding
 import com.example.myjetpackapplication.business.video.view.event.VideoListScrollEvent
 import com.github.seelikes.android.media.data.MediaInfo
 import com.github.seelikes.android.media.video.VideoUtil
 import com.github.seelikes.android.mvvm.basic.BasicViewHolder
+import kotlinx.android.synthetic.main.item_video_view.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
@@ -25,12 +25,10 @@ import java.lang.ref.WeakReference
 /**
  * Created by liutiantian on 2020-01-17 22:25 星期五
  */
-class VideoViewViewHolder(weakContext: WeakReference<Context>, binding: ItemVideoViewBinding) : BasicViewHolder<MediaInfo, ItemVideoViewBinding>(weakContext, binding) {
+class VideoViewViewHolder<B : ViewDataBinding>(weakContext: WeakReference<Context>, binding: B) : BasicViewHolder<MediaInfo, B>(weakContext, binding) {
     val title = ObservableField<String>()
-    val thumbnail = ObservableField<Bitmap>()
-    val thumbnailLand = ObservableField<Bitmap>()
+    val thumbnailBitmap = ObservableField<Bitmap>()
     val newState = ObservableInt(RecyclerView.SCROLL_STATE_IDLE)
-    val land = ObservableBoolean()
     val playing = ObservableBoolean()
 
     var width: Int? = null
@@ -61,19 +59,10 @@ class VideoViewViewHolder(weakContext: WeakReference<Context>, binding: ItemVide
         job = null
 
         title.set(entity?.title)
-        land.set(entity?.width ?: 0 > entity?.height ?: 0)
-        if (land.get()) {
-            val params = binding.thumbnailLand.layoutParams
-            width = params.width
-            height = params.height
-            newState.notifyChange()
-        }
-        else {
-            val params = binding.thumbnail.layoutParams
-            width = params.width
-            height = params.height
-            newState.notifyChange()
-        }
+        val params = thumbnail?.layoutParams
+        width = params?.width
+        height = params?.height
+        newState.notifyChange()
     }
 
     private suspend fun getThumbnail() {
@@ -82,15 +71,8 @@ class VideoViewViewHolder(weakContext: WeakReference<Context>, binding: ItemVide
                 val finalWidth = width ?: 0
                 val finalHeight = height ?: 0
                 if (finalWidth > 0 && finalHeight > 0) {
-                    if (land.get()) {
-                        entity?.data?.let {
-                            thumbnailLand.set(VideoUtil.getThumbnail(it, finalWidth, finalHeight, MediaStore.Video.Thumbnails.MINI_KIND))
-                        }
-                    }
-                    else {
-                        entity?.data?.let {
-                            thumbnail.set(VideoUtil.getThumbnail(it, finalWidth, finalHeight, MediaStore.Video.Thumbnails.MINI_KIND))
-                        }
+                    entity?.data?.let {
+                        thumbnailBitmap.set(VideoUtil.getThumbnail(it, finalWidth, finalHeight, MediaStore.Video.Thumbnails.MINI_KIND))
                     }
                 }
             }
@@ -102,19 +84,11 @@ class VideoViewViewHolder(weakContext: WeakReference<Context>, binding: ItemVide
         event?.let {
             if (it.id == entity?.id) {
                 playing.set(true)
-                if (land.get()) {
-                    stopVideo(binding.videoView)
-                    setVideoPath(binding.videoViewLand)
-                }
-                else {
-                    setVideoPath(binding.videoView)
-                    stopVideo(binding.videoViewLand)
-                }
+                setVideoPath(videoView)
             }
             else {
                 playing.set(false)
-                stopVideo(binding.videoView)
-                stopVideo(binding.videoViewLand)
+                stopVideo(videoView)
             }
         }
     }
@@ -148,3 +122,33 @@ class VideoViewViewHolder(weakContext: WeakReference<Context>, binding: ItemVide
         }
     }
 }
+
+val <B : ViewDataBinding> VideoViewViewHolder<B>.thumbnail: ImageView?
+    get() {
+        return when (binding) {
+            is ItemVideoViewBinding -> {
+                binding.thumbnail
+            }
+            is ItemVideoViewLandBinding -> {
+                binding.thumbnail
+            }
+            else -> {
+                null
+            }
+        }
+    }
+
+val <B : ViewDataBinding> VideoViewViewHolder<B>.videoView: VideoView?
+    get() {
+        return when (binding) {
+            is ItemVideoViewBinding -> {
+                binding.videoView
+            }
+            is ItemVideoViewLandBinding -> {
+                binding.videoView
+            }
+            else -> {
+                null
+            }
+        }
+    }

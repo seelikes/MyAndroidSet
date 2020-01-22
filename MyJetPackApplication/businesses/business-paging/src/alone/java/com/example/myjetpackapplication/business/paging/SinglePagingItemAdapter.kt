@@ -15,7 +15,7 @@ class SinglePagingItemAdapter(
     context: Context,
     items: List<BusinessItem>?,
     itemClickListener: (BusinessItem?, Int) -> Unit
-) : BasicRecyclerAdapter<BusinessItem, SinglePagingItemHolder, ItemSinglePagingBinding>(
+) : BasicRecyclerAdapter<BusinessItem, SinglePagingItemHolder>(
     context,
     items,
     itemClickListener
