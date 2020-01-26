@@ -77,7 +77,7 @@ class RealmTransform extends Transform {
                     if (!entry.name.endsWith(".class")) {
                         continue
                     }
-                    if (entry.name == "com/github/seelikes/android/realm/RealmApi.class") {
+                    if (entry.name == "com/github/seelikes/android/realm/api/RealmApi.class") {
                         realmJarInput = jarInput
                     }
                     jarClasses.add(entry.name.replaceAll("/", ".").substring(0, entry.name.length() - 6))
@@ -92,6 +92,7 @@ class RealmTransform extends Transform {
 
             input.directoryInputs.each { directoryInput ->
                 ClassPool.default.appendClassPath(directoryInput.file.absolutePath)
+                def fileClassMap = new HashMap()
                 directoryInput.file.eachFileRecurse { file ->
                     if (!file.name.endsWith(".class") || (file.name.matches(/^R\$[a-zA-Z]+?\.class$/) || file.name == "R.class")) {
                         return
@@ -105,10 +106,20 @@ class RealmTransform extends Transform {
                         judgeClass(ctClass, migrationClasses, RealmMigrationClass.class)
                         judgeClass(ctClass, moduleClasses, RealmModule.class)
 
-                        ctClass.writeFile directoryInput.file.absolutePath
+                        ctClass.writeFile new File(transformInvocation.context.temporaryDir, ctClass.name.replaceAll(".", "/") + ".class").absolutePath
+                        fileClassMap.put(ctClass, directoryInput.file)
                         ctClass.detach()
                     }
                 }
+
+                if (!fileClassMap.isEmpty()) {
+                    fileClassMap.entrySet().each { Map.Entry<CtClass, File> entry ->
+                        if (entry.value.delete()) {
+                            FileUtils.copyFile(new File(transformInvocation.context.temporaryDir, entry.key.name.replaceAll(".", "/") + ".class"), entry.value)
+                        }
+                    }
+                }
+
                 def dest = transformInvocation.outputProvider.getContentLocation(directoryInput.name, directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
                 FileUtils.copyDirectory(directoryInput.file, dest)
             }
@@ -200,7 +211,7 @@ class RealmTransform extends Transform {
                             tmpOutputJarStream.write(RealmLibraryMigration.toBytecode())
                             continue
                         }
-                        if (entry.name == "com/github/seelikes/android/realm/RealmApi.class") {
+                        if (entry.name == "com/github/seelikes/android/realm/api/RealmApi.class") {
                             ClassPool.default.importPackage("android.app.Application")
                             ClassPool.default.importPackage("io.realm.Realm")
                             ClassPool.default.importPackage("io.realm.RealmConfiguration")
