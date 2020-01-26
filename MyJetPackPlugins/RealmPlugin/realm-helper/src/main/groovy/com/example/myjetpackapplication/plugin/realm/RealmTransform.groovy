@@ -2,6 +2,10 @@ package com.example.myjetpackapplication.plugin.realm
 
 import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager
+import com.github.seelikes.android.realm.annotation.RealmBaseModule
+import com.github.seelikes.android.realm.annotation.RealmMigrationClass
+import com.github.seelikes.android.realm.annotation.RealmMigrationMethod
+import io.realm.annotations.RealmModule
 import javassist.*
 import org.apache.commons.codec.digest.DigestUtils
 import org.apache.commons.io.FileUtils
@@ -17,7 +21,6 @@ import java.util.zip.ZipEntry
 class RealmTransform extends Transform {
     private Project project
     private RealmExtension extension
-    private Class RealmMigrationMethod
 
     RealmTransform(Project project, RealmExtension extension) {
         this.project = project
@@ -71,7 +74,6 @@ class RealmTransform extends Transform {
                 def entries = jarFile.entries()
                 while (entries.hasMoreElements()) {
                     def entry = entries.nextElement()
-                    project.logger.info("entry: " + entry)
                     if (!entry.name.endsWith(".class")) {
                         continue
                     }
@@ -91,19 +93,18 @@ class RealmTransform extends Transform {
             input.directoryInputs.each { directoryInput ->
                 ClassPool.default.appendClassPath(directoryInput.file.absolutePath)
                 directoryInput.file.eachFileRecurse { file ->
-                    project.logger.warn("file name: " + file.absolutePath)
                     if (!file.name.endsWith(".class") || (file.name.matches(/^R\$[a-zA-Z]+?\.class$/) || file.name == "R.class")) {
                         return
                     }
-                    project.logger.info("file name " + file.name + " is ok to be transformed")
 
                     def ctClass = getCtClassFromFile(file)
                     if (ctClass != null) {
                         if (ctClass.isFrozen()) {
                             ctClass.defrost()
                         }
-                        judgeClass(ctClass, migrationClasses, "com.github.seelikes.android.realm.RealmMigrationClass")
-                        judgeClass(ctClass, moduleClasses, "io.realm.annotations.RealmModule")
+                        judgeClass(ctClass, migrationClasses, RealmMigrationClass.class)
+                        judgeClass(ctClass, moduleClasses, RealmModule.class)
+
                         ctClass.writeFile directoryInput.file.absolutePath
                         ctClass.detach()
                     }
@@ -117,8 +118,8 @@ class RealmTransform extends Transform {
                 if (ctClass.isFrozen()) {
                     ctClass.defrost()
                 }
-                judgeClass(ctClass, migrationClasses, "com.github.seelikes.android.realm.RealmMigrationClass")
-                judgeClass(ctClass, moduleClasses, "io.realm.annotations.RealmModule")
+                judgeClass(ctClass, migrationClasses, RealmMigrationClass.class)
+                judgeClass(ctClass, moduleClasses, RealmModule.class)
                 ctClass.detach()
             }
 
@@ -133,15 +134,15 @@ class RealmTransform extends Transform {
             if (migrationClasses.size() > 0) {
                 migrationClasses.each { candidateClass ->
                     candidateClass.declaredMethods.each { declaredMethod ->
-                        if (declaredMethod.hasAnnotation("com.github.seelikes.android.realm.RealmMigrationMethod")) {
+                        if ((declaredMethod as CtMethod).hasAnnotation(RealmMigrationMethod.class)) {
                             if (migrateMethods.size() == 0) {
                                 migrateMethods.add(declaredMethod)
                             }
                             else {
-                                def realmMigrationMethodAnnotation = (declaredMethod as CtMethod).getAnnotation(RealmMigrationMethod)
+                                def realmMigrationMethodAnnotation = (declaredMethod as CtMethod).getAnnotation(RealmMigrationMethod.class)
                                 def possibleIndex
                                 migrateMethods.eachWithIndex { migrateMethod, index ->
-                                    def migrateMethodAnnotation = (migrateMethod as CtMethod).getAnnotation(RealmMigrationMethod)
+                                    def migrateMethodAnnotation = (migrateMethod as CtMethod).getAnnotation(RealmMigrationMethod.class)
                                     if (realmMigrationMethodAnnotation.oldVersion > migrateMethodAnnotation.newVersion) {
                                         possibleIndex = index
                                         return
@@ -172,8 +173,8 @@ class RealmTransform extends Transform {
                     while (entries.hasMoreElements()) {
                         def entry = entries.nextElement()
                         project.logger.info("entry: " + entry)
-                        if (entry.name == "com/github/seelikes/android/realm/RealmLibraryMigration.class") {
-                            def RealmLibraryMigration = ClassPool.default.get("com.github.seelikes.android.realm.RealmLibraryMigration")
+                        if (entry.name == "com/github/seelikes/android/realm/api/RealmLibraryMigration.class") {
+                            def RealmLibraryMigration = ClassPool.default.get("com.github.seelikes.android.realm.api.RealmLibraryMigration")
                             def migrateMethod = RealmLibraryMigration.getDeclaredMethod("migrate")
                             StringBuilder migrateBody = new StringBuilder()
                             migrateBody.append("{\n")
@@ -204,8 +205,8 @@ class RealmTransform extends Transform {
                             ClassPool.default.importPackage("io.realm.Realm")
                             ClassPool.default.importPackage("io.realm.RealmConfiguration")
                             ClassPool.default.importPackage("io.realm.RealmConfiguration\$Builder")
-                            ClassPool.default.importPackage("com.github.seelikes.android.realm.RealmLibraryMigration")
-                            def RealmApi = ClassPool.default.get("com.github.seelikes.android.realm.RealmApi")
+                            ClassPool.default.importPackage("com.github.seelikes.android.realm.api.RealmLibraryMigration")
+                            def RealmApi = ClassPool.default.get("com.github.seelikes.android.realm.api.RealmApi")
                             RealmApi.declaredMethods.each { initMethod ->
                                 if (initMethod.name.startsWith("init")) {
                                     StringBuilder initBody = new StringBuilder()
@@ -244,7 +245,7 @@ class RealmTransform extends Transform {
                                         for (def i = 0; i < moduleClasses.size(); ++i) {
                                             def realModuleCLass = moduleClasses[i] as CtClass
                                             ClassPool.default.importPackage(realModuleCLass.name)
-                                            if (realModuleCLass.hasAnnotation("com.github.seelikes.android.realm.RealmBaseModule")) {
+                                            if (realModuleCLass.hasAnnotation(RealmBaseModule.class)) {
                                                 def mod = realModuleCLass.getModifiers()
                                                 if (Modifier.isAbstract(mod) && Modifier.isInterface(mod)) {
                                                     continue
@@ -412,7 +413,7 @@ class RealmTransform extends Transform {
         return null
     }
 
-    static def judgeClass(CtClass ctClass, List classes, String annotation) {
+    def judgeClass(CtClass ctClass, List classes, Class annotationClass) {
         if (classes.contains(ctClass)) {
             return
         }
@@ -421,9 +422,10 @@ class RealmTransform extends Transform {
                 return
             }
         }
-        if (ctClass == ClassPool.default.getCtClass(annotation)) {
+        if (ctClass.name == annotationClass.canonicalName) {
             return
         }
+        project.logger.info("ctClass.name: $ctClass.name")
         int mod = ctClass.getModifiers()
         if (Modifier.isEnum(mod) || Modifier.isInterface(mod)) {
             return
@@ -431,8 +433,19 @@ class RealmTransform extends Transform {
         if (Modifier.isAbstract(mod) || Modifier.isAnnotation(mod)) {
             return
         }
-        if (ctClass.hasAnnotation(annotation)) {
-            classes.add(ctClass)
+
+        if (ctClass.hasAnnotation(annotationClass)) {
+            if (classes.size() == 0) {
+                classes.add(ctClass)
+            }
+            else {
+                for (def i = 0; i < classes.size(); ++i) {
+                    if ((classes[i] as CtClass).name == ctClass.name) {
+                        return
+                    }
+                }
+                classes.add(ctClass)
+            }
         }
     }
 

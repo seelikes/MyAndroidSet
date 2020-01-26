@@ -2,8 +2,8 @@ package com.example.myjetpackapplication.plugin.realm.app;
 
 import android.util.Log;
 
-import com.github.seelikes.android.realm.RealmMigrationClass;
-import com.github.seelikes.android.realm.RealmMigrationMethod;
+import com.github.seelikes.android.realm.annotation.RealmMigrationClass;
+import com.github.seelikes.android.realm.annotation.RealmMigrationMethod;
 
 import io.realm.DynamicRealm;
 

@@ -1,3 +1,5 @@
 include ':app'
-include ':realm'
+include ':realm-annotation'
+include ':realm-api'
+include ':realm-helper'
 

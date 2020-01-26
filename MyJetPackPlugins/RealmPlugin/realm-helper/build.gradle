@@ -11,16 +11,18 @@ dependencies {
     testImplementation group: 'junit', name: 'junit', version: '4.12'
     implementation gradleApi()
     implementation 'com.android.tools.build:gradle:3.5.3'
-    implementation 'commons-codec:commons-codec:1.11'
-    implementation 'commons-io:commons-io:2.6'
-    implementation 'javassist:javassist:3.12.1.GA'
-    implementation "com.java.lib:oil:1.1.21"
+    compile 'commons-codec:commons-codec:1.11'
+    compile 'commons-io:commons-io:2.6'
+    compile 'org.javassist:javassist:3.26.0-GA'
+    compile "com.java.lib:oil:1.1.21"
+    compile "com.github.seelikes.android:realm-annotation:1.0.00"
+    compile 'io.realm:realm-annotations:6.0.2'
 }
 
 ext {
     groupId = 'com.example.myjetpackapplication.plugin'
     artifactId = 'realm-helper'
-    version = '1.0.00'
+    version = '1.0.01'
     description = 'realm-helper plugin'
     if (project_in_debug.toBoolean()) {
         registry = 'project'

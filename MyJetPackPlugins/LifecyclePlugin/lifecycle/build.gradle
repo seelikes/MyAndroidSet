@@ -7,7 +7,7 @@ dependencies {
     compile 'com.android.tools.build:gradle:3.5.3'
     compile 'commons-codec:commons-codec:1.11'
     compile 'commons-io:commons-io:2.6'
-    compile 'javassist:javassist:3.12.1.GA'
+    compile 'org.javassist:javassist:3.26.0-GA'
 }
 
 sourceCompatibility = "7"
@@ -16,7 +16,7 @@ targetCompatibility = "7"
 ext {
     groupId = 'com.example.myjetpackapplication.plugin'
     artifactId = 'lifecycle'
-    version = '1.0.20'
+    version = '1.0.21'
     description = 'lifecycle plugin'
     if (project_in_debug.toBoolean()) {
         registry = 'project'
