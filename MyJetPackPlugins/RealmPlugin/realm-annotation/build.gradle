@@ -27,7 +27,7 @@ targetCompatibility = "7"
 ext {
     groupId = 'com.github.seelikes.android'
     artifactId = 'realm-annotation'
-    version = '1.0.02'
+    version = '1.0.03'
     if (project_in_debug.toBoolean()) {
         registry = 'project'
         registryDir = findPath('repo')

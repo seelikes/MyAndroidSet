@@ -77,7 +77,7 @@ class RealmTransform extends Transform {
                     if (!entry.name.endsWith(".class")) {
                         continue
                     }
-                    if (entry.name == "com/github/seelikes/android/realm/api/RealmApi.class") {
+                    if (entry.name == "com/github/seelikes/android/realm/api/RealmApiKt.class") {
                         realmJarInput = jarInput
                     }
                     jarClasses.add(entry.name.replaceAll("/", ".").substring(0, entry.name.length() - 6))
@@ -171,20 +171,19 @@ class RealmTransform extends Transform {
                 }
             }
 
-            project.logger.info("migrateMethods.size: " + migrateMethods.size())
-            if (migrateMethods.size() > 0) {
-                def Context = ClassPool.default.get("android.content.Context")
-
-                def jarInput = realmJarInput as JarInput
-                def tmpOutputJar = new File(project.buildDir, "tmp/" + jarInput.file.name)
-                def tmpOutputJarStream = new JarOutputStream(new FileOutputStream(tmpOutputJar))
-                def jarFile = new JarFile(jarInput.file)
-                try {
-                    def entries = jarFile.entries()
-                    while (entries.hasMoreElements()) {
-                        def entry = entries.nextElement()
-                        project.logger.info("entry: " + entry)
-                        if (entry.name == "com/github/seelikes/android/realm/api/RealmLibraryMigration.class") {
+            def Context = ClassPool.default.get("android.content.Context")
+            def jarInput = realmJarInput as JarInput
+            def tmpOutputJar = new File(transformInvocation.context.temporaryDir, jarInput.file.name)
+            def tmpOutputJarStream = new JarOutputStream(new FileOutputStream(tmpOutputJar))
+            def jarFile = new JarFile(jarInput.file)
+            try {
+                def entries = jarFile.entries()
+                while (entries.hasMoreElements()) {
+                    def entry = entries.nextElement()
+                    project.logger.info("entry: " + entry)
+                    if (entry.name == "com/github/seelikes/android/realm/api/RealmLibraryMigration.class") {
+                        project.logger.info("migrateMethods.size: " + migrateMethods.size())
+                        if (migrateMethods.size() > 0) {
                             def RealmLibraryMigration = ClassPool.default.get("com.github.seelikes.android.realm.api.RealmLibraryMigration")
                             def migrateMethod = RealmLibraryMigration.getDeclaredMethod("migrate")
                             StringBuilder migrateBody = new StringBuilder()
@@ -211,182 +210,181 @@ class RealmTransform extends Transform {
                             tmpOutputJarStream.write(RealmLibraryMigration.toBytecode())
                             continue
                         }
-                        if (entry.name == "com/github/seelikes/android/realm/api/RealmApi.class") {
-                            ClassPool.default.importPackage("android.app.Application")
-                            ClassPool.default.importPackage("io.realm.Realm")
-                            ClassPool.default.importPackage("io.realm.RealmConfiguration")
-                            ClassPool.default.importPackage("io.realm.RealmConfiguration\$Builder")
-                            ClassPool.default.importPackage("com.github.seelikes.android.realm.api.RealmLibraryMigration")
-                            def RealmApi = ClassPool.default.get("com.github.seelikes.android.realm.api.RealmApi")
-                            RealmApi.declaredMethods.each { initMethod ->
-                                if (initMethod.name.startsWith("init")) {
-                                    StringBuilder initBody = new StringBuilder()
+                    }
+                    if (entry.name == "com/github/seelikes/android/realm/api/RealmApiKt.class") {
+                        ClassPool.default.importPackage("android.app.Application")
+                        ClassPool.default.importPackage("android.content.Context")
+                        ClassPool.default.importPackage("io.realm.Realm")
+                        ClassPool.default.importPackage("io.realm.RealmConfiguration")
+                        ClassPool.default.importPackage("io.realm.RealmConfiguration\$Builder")
+                        ClassPool.default.importPackage("com.github.seelikes.android.realm.api.RealmLibraryMigration")
+                        def RealmApi = ClassPool.default.get("com.github.seelikes.android.realm.api.RealmApiKt")
+                        RealmApi.declaredMethods.each { realmMethod ->
+                            project.logger.info("realmMethod.name: ${realmMethod.name}")
+                            if (realmMethod.name == "getRealm") {
+                                StringBuilder realmBody = new StringBuilder()
 
-                                    initBody.append("{\n")
+                                realmBody.append("{\n")
+                                // 初始化Realm
+                                realmBody.append("Realm local = (Realm) realmLocal.get();\n")
+                                realmBody.append("if (local != null && !local.isClosed()) {\n")
+                                realmBody.append("    return local;\n")
+                                realmBody.append("}\n")
 
-                                    // 初始化Realm
-                                    initBody.append("if (\$1 != null) {\n")
-                                    initBody.append("    if (\$1 instanceof Application) {\n")
-                                    initBody.append("        Realm.init(\$1);\n")
-                                    initBody.append("    }\n")
-                                    initBody.append("    else {\n")
-                                    initBody.append("        Realm.init(\$1.getApplicationContext());")
-                                    initBody.append("    }\n")
-                                    initBody.append("}\n")
-
-                                    initBody.append("RealmConfiguration\$Builder builder = new RealmConfiguration\$Builder();\n")
-                                    if (extension.assetFile != null && !extension.assetFile.isEmpty()) {
-                                        initBody.append("builder.assetFile(\"" + extension.assetFile + "\");\n")
+                                realmBody.append("RealmConfiguration\$Builder builder = new RealmConfiguration\$Builder();\n")
+                                if (extension.assetFile != null && !extension.assetFile.isEmpty()) {
+                                    realmBody.append("builder.assetFile(\"" + extension.assetFile + "\");\n")
+                                }
+                                if (extension.compactOnLaunch) {
+                                    realmBody.append("builder.compactOnLaunch();\n")
+                                }
+                                if (extension.deleteRealmIfMigrationNeeded) {
+                                    realmBody.append("builder.deleteRealmIfMigrationNeeded();\n")
+                                }
+                                moduleClasses = moduleClasses.findAll { moduleClass ->
+                                    def realModuleClass = moduleClass as CtClass
+                                    if (realModuleClass.name.startsWith("io.realm")) {
+                                        return false
                                     }
-                                    if (extension.compactOnLaunch) {
-                                        initBody.append("builder.compactOnLaunch();\n")
-                                    }
-                                    if (extension.deleteRealmIfMigrationNeeded) {
-                                        initBody.append("builder.deleteRealmIfMigrationNeeded();\n")
-                                    }
-                                    moduleClasses = moduleClasses.findAll { moduleClass ->
-                                        def realModuleClass = moduleClass as CtClass
-                                        if (realModuleClass.name.startsWith("io.realm")) {
-                                            return false
+                                    return true
+                                }
+                                if (moduleClasses != null && !moduleClasses.isEmpty()) {
+                                    CtClass baseModule
+                                    for (def i = 0; i < moduleClasses.size(); ++i) {
+                                        def realModuleCLass = moduleClasses[i] as CtClass
+                                        ClassPool.default.importPackage(realModuleCLass.name)
+                                        if (realModuleCLass.hasAnnotation(RealmBaseModule.class)) {
+                                            def mod = realModuleCLass.getModifiers()
+                                            if (Modifier.isAbstract(mod) && Modifier.isInterface(mod)) {
+                                                continue
+                                            }
+                                            def constructor = getConstructor(realModuleCLass, RealmApi, Context)
+                                            if (constructor == null) {
+                                                continue
+                                            }
+                                            if (baseModule != null) {
+                                                throw new IllegalStateException("can not have 2 classes which has RealmBaseModule")
+                                            }
+                                            baseModule = realModuleCLass
                                         }
-                                        return true
                                     }
-                                    if (moduleClasses != null && !moduleClasses.isEmpty()) {
-                                        CtClass baseModule
-                                        for (def i = 0; i < moduleClasses.size(); ++i) {
-                                            def realModuleCLass = moduleClasses[i] as CtClass
-                                            ClassPool.default.importPackage(realModuleCLass.name)
-                                            if (realModuleCLass.hasAnnotation(RealmBaseModule.class)) {
-                                                def mod = realModuleCLass.getModifiers()
-                                                if (Modifier.isAbstract(mod) && Modifier.isInterface(mod)) {
-                                                    continue
-                                                }
-                                                def constructor = getConstructor(realModuleCLass, RealmApi, Context)
-                                                if (constructor == null) {
-                                                    continue
-                                                }
-                                                if (baseModule != null) {
-                                                    throw new IllegalStateException("can not have 2 classes which has RealmBaseModule")
-                                                }
-                                                baseModule = realModuleCLass
+                                    if (baseModule != null) {
+                                        realmBody.append("builder.modules(")
+                                        try {
+                                            def constructor = baseModule.getDeclaredConstructor(Context)
+                                            if (constructor.visibleFrom(RealmApi)) {
+                                                realmBody.append("(Object) new " + baseModule.simpleName + "(RealmApiKt.weakContext.get()),")
                                             }
                                         }
-                                        if (baseModule != null) {
-                                            initBody.append("builder.modules(")
+                                        catch (NotFoundException ignored) {
+                                            realmBody.append("(Object) new " + baseModule.simpleName + "(),")
+                                        }
+                                        moduleClasses.each { moduleClass ->
+                                            def realModuleClass = moduleClass as CtClass
+                                            if (realModuleClass == baseModule) {
+                                                return
+                                            }
                                             try {
-                                                def constructor = baseModule.getDeclaredConstructor(Context)
+                                                def constructor = realModuleClass.getDeclaredConstructor(Context)
                                                 if (constructor.visibleFrom(RealmApi)) {
-                                                    initBody.append("(Object) new " + baseModule.simpleName + "(\$1),")
+                                                    realmBody.append("(Object) new " + realModuleClass.simpleName + "(RealmApiKt.weakContext.get()),")
                                                 }
                                             }
                                             catch (NotFoundException ignored) {
-                                                initBody.append("(Object) new " + baseModule.simpleName + "(),")
-                                            }
-                                            moduleClasses.each { moduleClass ->
-                                                def realModuleClass = moduleClass as CtClass
-                                                if (realModuleClass == baseModule) {
-                                                    return
-                                                }
-                                                try {
-                                                    def constructor = realModuleClass.getDeclaredConstructor(Context)
-                                                    if (constructor.visibleFrom(RealmApi)) {
-                                                        initBody.append("(Object) new " + realModuleClass.simpleName + "(\$1),")
-                                                    }
-                                                }
-                                                catch (NotFoundException ignored) {
-                                                    def constructor = realModuleClass.getDeclaredConstructor(null)
-                                                    if (constructor.visibleFrom(RealmApi)) {
-                                                        initBody.append("(Object) new " + realModuleClass.name + "(),")
-                                                    }
+                                                def constructor = realModuleClass.getDeclaredConstructor(null)
+                                                if (constructor.visibleFrom(RealmApi)) {
+                                                    realmBody.append("(Object) new " + realModuleClass.name + "(),")
                                                 }
                                             }
-                                            initBody.deleteCharAt(initBody.length() - 1)
-                                            initBody.append(");\n")
                                         }
-                                        else {
-                                            moduleClasses.each {
-                                                def realModuleClass = moduleClass as CtClass
-                                                try {
-                                                    def constructor = realModuleClass.getDeclaredConstructor(Context)
-                                                    if (constructor.visibleFrom(RealmApi)) {
-                                                        initBody.append("builder.addModule((Object) new " + realModuleClass.simpleName + "(\$1));\n")
-                                                    }
+                                        realmBody.deleteCharAt(realmBody.length() - 1)
+                                        realmBody.append(");\n")
+                                    }
+                                    else {
+                                        moduleClasses.each {
+                                            def realModuleClass = moduleClass as CtClass
+                                            try {
+                                                def constructor = realModuleClass.getDeclaredConstructor(Context)
+                                                if (constructor.visibleFrom(RealmApi)) {
+                                                    realmBody.append("builder.addModule((Object) new " + realModuleClass.simpleName + "(RealmApiKt.weakContext.get()));\n")
                                                 }
-                                                catch (NotFoundException ignored) {
-                                                    def constructor = realModuleClass.getDeclaredConstructor(null)
-                                                    if (constructor.visibleFrom(RealmApi)) {
-                                                        initBody.append("builder.addModule((Object) new " + realModuleClass.simpleName + "());\n")
-                                                    }
+                                            }
+                                            catch (NotFoundException ignored) {
+                                                def constructor = realModuleClass.getDeclaredConstructor(null)
+                                                if (constructor.visibleFrom(RealmApi)) {
+                                                    realmBody.append("builder.addModule((Object) new " + realModuleClass.simpleName + "());\n")
                                                 }
                                             }
                                         }
                                     }
-                                    if (extension.directory != null && !extension.directory.isEmpty()) {
-                                        initBody.append("if (\$1 != null) {\n")
-                                        if (extension.directory.contains(":")) {
-                                            def dirs = extension.directory.split(":")
-                                            initBody.append("new File(\$1." + dirs[0] + ", \"" + dirs[1] + "\");\n")
-                                        }
-                                        else {
-                                            initBody.append("new File(\$1.getFilesDir(), \"" + extension.directory + "\");\n")
-                                        }
-                                    }
-                                    if (extension.inMemory) {
-                                        initBody.append("builder.inMemory();\n")
-                                    }
-                                    if (extension.name != null && !extension.name.isEmpty()) {
-                                        initBody.append("builder.name(\"" + extension.name + "\");\n")
-                                    }
-                                    if (extension.readOnly) {
-                                        initBody.append("builder.readOnly();\n")
-                                    }
-                                    if (extension.encryptionKey != null && !extension.encryptionKey.isEmpty()) {
-                                        initBody.append("builder.encryptionKey(\"" + extension.encryptionKey + "\".getBytes());\n")
-                                    }
-                                    if (extension.schemaVersion >= 0) {
-                                        initBody.append("builder.schemaVersion((long) " + extension.schemaVersion + ");\n")
-                                    }
-                                    initBody.append("builder.migration(new RealmLibraryMigration(\$1));\n")
-                                    initBody.append("realm = Realm.getInstance(builder.build());\n")
-
-                                    initBody.append("}\n")
-
-                                    project.logger.info("initBody: $initBody")
-
-                                    initMethod.setBody(initBody.toString())
-                                    tmpOutputJarStream.putNextEntry(new ZipEntry(entry.name))
-                                    tmpOutputJarStream.write(RealmApi.toBytecode())
                                 }
+                                if (extension.directory != null && !extension.directory.isEmpty()) {
+                                    realmBody.append("if (RealmApiKt.weakContext.get() != null) {\n")
+                                    if (extension.directory.contains(":")) {
+                                        def dirs = extension.directory.split(":")
+                                        realmBody.append("new File(RealmApiKt.weakContext.get()." + dirs[0] + ", \"" + dirs[1] + "\");\n")
+                                    }
+                                    else {
+                                        realmBody.append("new File(RealmApiKt.weakContext.get().getFilesDir(), \"" + extension.directory + "\");\n")
+                                    }
+                                }
+                                if (extension.inMemory) {
+                                    realmBody.append("builder.inMemory();\n")
+                                }
+                                if (extension.name != null && !extension.name.isEmpty()) {
+                                    realmBody.append("builder.name(\"" + extension.name + "\");\n")
+                                }
+                                if (extension.readOnly) {
+                                    realmBody.append("builder.readOnly();\n")
+                                }
+                                if (extension.encryptionKey != null && !extension.encryptionKey.isEmpty()) {
+                                    realmBody.append("builder.encryptionKey(\"" + extension.encryptionKey + "\".getBytes());\n")
+                                }
+                                if (extension.schemaVersion >= 0) {
+                                    realmBody.append("builder.schemaVersion((long) " + extension.schemaVersion + ");\n")
+                                }
+                                realmBody.append("builder.migration(new RealmLibraryMigration((Context) weakContext.get()));\n")
+                                realmBody.append("Realm realm = Realm.getInstance(builder.build());\n")
+                                realmBody.append("realmLocal.set(realm);\n")
+                                realmBody.append("return (Realm) realm;\n")
+
+                                realmBody.append("}\n")
+
+                                project.logger.info("realmBody: \n$realmBody")
+
+                                realmMethod.setBody(realmBody.toString())
+                                tmpOutputJarStream.putNextEntry(new ZipEntry(entry.name))
+                                tmpOutputJarStream.write(RealmApi.toBytecode())
                             }
-                            continue
                         }
-                        def inputStream = jarFile.getInputStream(entry)
-                        try {
-                            tmpOutputJarStream.putNextEntry(new ZipEntry(entry.name))
-                            def bytes = new byte[8192]
-                            def bytesRead
-                            while ((bytesRead = inputStream.read(bytes)) != -1) {
-                                tmpOutputJarStream.write(bytes, 0, bytesRead as int)
-                            }
-                        }
-                        finally {
-                            inputStream.close()
+                        continue
+                    }
+                    def inputStream = jarFile.getInputStream(entry)
+                    try {
+                        tmpOutputJarStream.putNextEntry(new ZipEntry(entry.name))
+                        def bytes = new byte[8192]
+                        def bytesRead
+                        while ((bytesRead = inputStream.read(bytes)) != -1) {
+                            tmpOutputJarStream.write(bytes, 0, bytesRead as int)
                         }
                     }
+                    finally {
+                        inputStream.close()
+                    }
                 }
-                finally {
-                    tmpOutputJarStream.close()
-                    jarFile.close()
-                }
-                def jarName = tmpOutputJar.name
-                def md5Name = DigestUtils.md5Hex(tmpOutputJar.getAbsolutePath())
-                if (jarName.endsWith(".jar")) {
-                    jarName = jarName.substring(0, jarName.length() - 4)
-                }
-                def dest = transformInvocation.outputProvider.getContentLocation(jarName + md5Name, jarInput.contentTypes, jarInput.scopes, Format.JAR)
-                project.logger.info("dest: " + dest)
-                FileUtils.copyFile(tmpOutputJar, dest)
             }
+            finally {
+                tmpOutputJarStream.close()
+                jarFile.close()
+            }
+            def jarName = tmpOutputJar.name
+            def md5Name = DigestUtils.md5Hex(tmpOutputJar.getAbsolutePath())
+            if (jarName.endsWith(".jar")) {
+                jarName = jarName.substring(0, jarName.length() - 4)
+            }
+            def dest = transformInvocation.outputProvider.getContentLocation(jarName + md5Name, jarInput.contentTypes, jarInput.scopes, Format.JAR)
+            project.logger.info("dest: " + dest)
+            FileUtils.copyFile(tmpOutputJar, dest)
         }
     }
 
@@ -475,5 +473,15 @@ class RealmTransform extends Transform {
             }
         }
         return null
+    }
+
+    static def copyJarFile(TransformInvocation transformInvocation, JarInput jarInput) {
+        def jarName = jarInput.name
+        def md5Name = DigestUtils.md5Hex(jarInput.file.getAbsolutePath())
+        if (jarName.endsWith(".jar")) {
+            jarName = jarName.substring(0, jarName.length() - 4)
+        }
+        def dest = transformInvocation.outputProvider.getContentLocation(jarName + md5Name, jarInput.contentTypes, jarInput.scopes, Format.JAR)
+        FileUtils.copyFile(jarInput.file, dest)
     }
 }

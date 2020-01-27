@@ -34,6 +34,12 @@ buildscript {
         else {
             classpath "com.example.myjetpackapplication.plugin:lifecycle:$lifecycle_version"
         }
+        if (project_in_debug.toBoolean() && findPath('repo').exists()) {
+            classpath 'com.example.myjetpackapplication.plugin:realm-helper:+'
+        }
+        else {
+            classpath 'com.example.myjetpackapplication.plugin:realm-helper:1.0.01'
+        }
     }
 }
 

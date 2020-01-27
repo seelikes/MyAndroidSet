@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myjetpackapplication.business.database.realm">
+
+    <application>
+        <activity android:name=".DatabaseRealmActivity" />
+    </application>
+
+</manifest>

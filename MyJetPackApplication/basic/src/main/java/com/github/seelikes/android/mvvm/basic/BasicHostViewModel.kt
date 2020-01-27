@@ -9,7 +9,7 @@ open class BasicHostViewModel<C : BasicHostViewModel<C, H, B>, H: Any, B : ViewD
         if (host is BasicInitView<*>) {
             host.beforeSetToBinding()
         }
-        this.callWithParameter(host)
+        host.callWithParameter(binding)
         if (host is BasicInitView<*>) {
             binding.root.post {
                 host.afterSetToBinding()

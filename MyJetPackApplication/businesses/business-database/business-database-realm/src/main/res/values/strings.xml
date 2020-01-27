@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Realm</string>
+    <string name="database_realm_title">Realm</string>
+    <string name="database_realm_button_delete">Delete</string>
+</resources>

@@ -69,13 +69,13 @@ class VideoViewActivity : BasicActivity<VideoViewActivity, VideoViewViewModel, A
         binding.rvList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    Debug.startMethodTracing(FileUtils.getInstance().locateFile(externalCacheDir, "tracing", "${System.currentTimeMillis()}").absolutePath)
-                }
+//                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+//                    Debug.startMethodTracing(FileUtils.getInstance().locateFile(externalCacheDir, "tracing", "${System.currentTimeMillis()}").absolutePath)
+//                }
                 EventBus.getDefault().post(VideoListScrollEvent(newState))
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    Debug.stopMethodTracing()
-                }
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+//                    Debug.stopMethodTracing()
+//                }
             }
         })
     }

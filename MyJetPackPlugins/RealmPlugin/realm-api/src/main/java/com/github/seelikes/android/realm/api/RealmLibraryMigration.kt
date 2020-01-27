@@ -11,4 +11,12 @@ class RealmLibraryMigration(val context: Context) : RealmMigration {
     override fun migrate(realm: DynamicRealm, oldVersion: Long, newVersion: Long) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun hashCode(): Int {
+        return RealmLibraryMigration::class.java.canonicalName.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return other is RealmLibraryMigration
+    }
 }

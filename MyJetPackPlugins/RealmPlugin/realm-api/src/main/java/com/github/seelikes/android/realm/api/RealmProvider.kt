@@ -18,7 +18,7 @@ class RealmProvider : ContentProvider() {
     }
 
     override fun onCreate(): Boolean {
-        RealmApi.init(context)
+        init(context)
         return true
     }
 

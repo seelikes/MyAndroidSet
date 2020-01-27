@@ -4,6 +4,7 @@ import android.Manifest
 import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
+import android.os.Debug
 import android.os.PersistableBundle
 import android.view.View
 import android.widget.Toast
@@ -15,6 +16,7 @@ import com.example.myjetpackapplication.annotationprocessor.business.annotation.
 import com.example.myjetpackapplication.business.video.surface.databinding.ActivityVideoSurfaceBinding
 import com.example.myjetpackapplication.business.video.surface.event.VideoListScrollEvent
 import com.github.seelikes.android.mvvm.basic.BasicActivity
+import com.java.lib.oil.file.FileUtils
 import com.orhanobut.logger.Logger
 import com.yanzhenjie.permission.AndPermission
 import org.greenrobot.eventbus.EventBus
@@ -69,7 +71,13 @@ class VideoSurfaceActivity : BasicActivity<VideoSurfaceActivity, VideoSurfaceVie
         binding.rvList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
+//                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+//                    Debug.startMethodTracing(FileUtils.getInstance().locateFile(externalCacheDir, "tracing", "${System.currentTimeMillis()}").absolutePath)
+//                }
                 EventBus.getDefault().post(VideoListScrollEvent(newState))
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+//                    Debug.stopMethodTracing()
+//                }
             }
         })
     }

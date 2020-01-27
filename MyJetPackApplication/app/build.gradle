@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'lifecycle'
+apply plugin: 'realm-android'
+apply plugin: 'realm-helper'
 
 android {
     compileSdkVersion sdk_version_compile as int
@@ -68,6 +70,16 @@ android {
     }
 }
 
+realm {
+    kotlinExtensionsEnabled = true
+}
+
+realmHelper {
+    name 'MyAndroidSet.realm'
+    schemaVersion 0
+    encryptionKey 'qop3lquwbhylueemdyzskwnsgukrvSLxfvqkwp0swPyvtspkusuieoqlvyrsVZSy'
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
@@ -76,6 +88,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.core:core-ktx:$core_ktx_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    implementation "androidx.preference:preference-ktx:$androidx_preference_ktx_version"
     testImplementation "junit:junit:$junit_version"
     implementation "androidx.test.ext:junit-ktx:$androidx_junit_ktx_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
