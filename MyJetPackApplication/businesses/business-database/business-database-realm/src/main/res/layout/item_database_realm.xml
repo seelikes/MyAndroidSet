@@ -24,6 +24,14 @@
                 android:paddingHorizontal="32px"
                 android:gravity="center_vertical"
                 android:textColor="@color/title_text_color"
+                android:text="@{model.id}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="32px"
+                android:gravity="center_vertical"
+                android:textColor="@color/title_text_color"
                 android:text="@{model.key}" />
 
             <TextView
@@ -38,7 +46,8 @@
                 android:layout_width="0px"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:paddingHorizontal="32px"
+                android:gravity="end|center_vertical"
                 android:textColor="@color/title_text_color"
                 android:text="@{model.createTime}" />
 

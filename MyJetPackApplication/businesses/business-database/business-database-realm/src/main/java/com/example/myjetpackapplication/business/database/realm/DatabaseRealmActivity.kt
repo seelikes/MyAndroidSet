@@ -62,6 +62,7 @@ class DatabaseRealmActivity : BasicActivity<DatabaseRealmActivity, DatabaseRealm
     fun onClickRandomGenerate() {
         activityScope.launch {
             for (i in 0..128) {
+                Logger.i("202001271811, onClickRandomGenerate.i: $i")
                 onClickAddOne()
             }
         }

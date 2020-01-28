@@ -20,6 +20,7 @@ import java.util.*
  * Created by liutiantian on 2020-01-26 17:47 星期日
  */
 class DatabaseRealmViewHolder(context: Context, binding: ItemDatabaseRealmBinding, routineScope: CoroutineScope?) : BasicViewHolder<DatabaseRealmBean, ItemDatabaseRealmBinding>(WeakReference(context), binding, routineScope) {
+    val id = ObservableField<String>()
     val key = ObservableField<String>()
     val value = ObservableField<String>()
     val createTime = ObservableField<String>()
@@ -29,6 +30,7 @@ class DatabaseRealmViewHolder(context: Context, binding: ItemDatabaseRealmBindin
     override fun setData(entity: DatabaseRealmBean?) {
         super.setData(entity)
         Logger.i("202001271322, setData.entity: $entity")
+        id.set(entity?.id?.toString())
         key.set(entity?.key)
         value.set(entity?.value)
         createTime.set(dateFormat.format(entity?.createTime))
