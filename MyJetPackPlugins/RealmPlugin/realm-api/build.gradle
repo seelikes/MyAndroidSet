@@ -56,7 +56,7 @@ dependencies {
 ext {
     groupId = 'com.github.seelikes.android'
     artifactId = 'realm-api'
-    version = '1.0.03'
+    version = '1.0.04'
     if (project_in_debug.toBoolean()) {
         registry = 'project'
         registryDir = findPath('repo')

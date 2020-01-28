@@ -15,14 +15,14 @@ dependencies {
     compile 'commons-io:commons-io:2.6'
     compile 'org.javassist:javassist:3.26.0-GA'
     compile "com.java.lib:oil:1.1.21"
-    compile "com.github.seelikes.android:realm-annotation:1.0.03"
+    compile "com.github.seelikes.android:realm-annotation:1.0.04"
     compile 'io.realm:realm-annotations:6.0.2'
 }
 
 ext {
     groupId = 'com.example.myjetpackapplication.plugin'
     artifactId = 'realm-helper'
-    version = '1.0.03'
+    version = '1.0.04'
     description = 'realm-helper plugin'
     if (project_in_debug.toBoolean()) {
         registry = 'project'

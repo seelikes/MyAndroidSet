@@ -108,6 +108,9 @@ dependencies {
     if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_REALM')) {
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
+    else {
+        implementation "com.github.seelikes.android:realm-api:$realm_helper_version"
+    }
     api "com.alibaba:arouter-api:$arouter_api_version"
     kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
 }

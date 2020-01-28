@@ -212,12 +212,12 @@ class RealmTransform extends Transform {
                         }
                     }
                     if (entry.name == "com/github/seelikes/android/realm/api/RealmApiKt.class") {
-                        ClassPool.default.importPackage("android.app.Application")
                         ClassPool.default.importPackage("android.content.Context")
+                        ClassPool.default.importPackage("com.github.seelikes.android.realm.api.RealmLibraryMigration")
                         ClassPool.default.importPackage("io.realm.Realm")
                         ClassPool.default.importPackage("io.realm.RealmConfiguration")
                         ClassPool.default.importPackage("io.realm.RealmConfiguration\$Builder")
-                        ClassPool.default.importPackage("com.github.seelikes.android.realm.api.RealmLibraryMigration")
+                        ClassPool.default.importPackage("java.io.File")
                         def RealmApi = ClassPool.default.get("com.github.seelikes.android.realm.api.RealmApiKt")
                         RealmApi.declaredMethods.each { realmMethod ->
                             project.logger.info("realmMethod.name: ${realmMethod.name}")
