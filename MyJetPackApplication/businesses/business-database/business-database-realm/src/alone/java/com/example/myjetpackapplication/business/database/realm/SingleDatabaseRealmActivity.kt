@@ -2,6 +2,7 @@ package com.example.myjetpackapplication.business.database.realm
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
@@ -12,11 +13,16 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
 import com.example.myjetpackapplication.business.database.realm.R
 import com.example.myjetpackapplication.business.database.realm.databinding.ActivitySingleDatabaseRealmBinding
+import com.github.seelikes.android.cache.Cache
 import com.github.seelikes.android.mvvm.basic.BasicActivity
 
 @Route(path = "/business/single/database/realm")
-class SingleDatabaseRealmActivity :
-    BasicActivity<SingleDatabaseRealmActivity, SingleDatabaseRealmViewModel, ActivitySingleDatabaseRealmBinding>() {
+class SingleDatabaseRealmActivity : BasicActivity<SingleDatabaseRealmActivity, SingleDatabaseRealmViewModel, ActivitySingleDatabaseRealmBinding>() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Cache.strong("123", "123")
+    }
+
     override fun initModel(savedInstanceState: Bundle?): SingleDatabaseRealmViewModel =
         SingleDatabaseRealmViewModel(
             this,

@@ -101,6 +101,7 @@ dependencies {
     implementation "com.example.myjetpackapplication:business-animation:$business_animation_version"
     implementation "com.example.myjetpackapplication:business-anr:$business_anr_version"
     implementation "com.example.myjetpackapplication:business-database:$business_database_version"
+    implementation "com.example.myjetpackapplication:business-database-realm:$business_database_realm_version"
     implementation "com.example.myjetpackapplication:business-database-room:$business_database_room_version"
     implementation "com.example.myjetpackapplication:business-event:$business_event_version"
     implementation "com.example.myjetpackapplication:business-gesture:$business_gesture_version"

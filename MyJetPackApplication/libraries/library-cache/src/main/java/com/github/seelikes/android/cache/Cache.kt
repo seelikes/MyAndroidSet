@@ -5,9 +5,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
+import com.java.lib.oil.lang.StringManager
 import java.lang.ref.SoftReference
 import java.lang.ref.WeakReference
 import java.util.concurrent.ConcurrentHashMap
+import javax.crypto.Cipher
+import kotlin.random.Random
 
 /**
  * Created by liutiantian on 2019-12-25 20:22 星期三
@@ -19,6 +22,10 @@ object Cache {
     private val removeObservers: MutableMap<(Any, Any?) -> Unit, Pair<LifecycleOwner?, LifecycleObserver?>?> = mutableMapOf()
 
     private val handler = Handler()
+
+    internal fun init() {
+
+    }
 
     fun <T : Any> get(key: Any, def: T?): T? {
         return extract(
@@ -95,7 +102,7 @@ object Cache {
                 oldItem?: return
                 oldItem.removeRunnable?.let { handler.removeCallbacks(it) }
                 oldItem.lifecycleObserver?.let { oldItem.shell?.lifecycle?.removeObserver(it) }
-                val value = extract(
+                val value = extract<Any>(
                     oldItem.value,
                     null
                 )
@@ -214,6 +221,18 @@ object Cache {
                 }
             }
         }
+    }
+
+    /**
+     * 生成随机键
+     */
+    fun generateRandomKey(len: Int = 16): String {
+        val randomBytesStr = StringManager.getInstance().base64(Random.nextBytes(len), Cipher.ENCRYPT_MODE)
+        var res = ""
+        for (i in 0 until len) {
+            res += randomBytesStr[Random.nextInt(0, randomBytesStr.size)]
+        }
+        return res
     }
 
     fun destroy() {

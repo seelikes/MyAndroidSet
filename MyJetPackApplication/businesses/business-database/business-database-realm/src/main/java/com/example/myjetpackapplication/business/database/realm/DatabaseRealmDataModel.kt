@@ -5,9 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.example.myjetpackapplication.business.database.realm.data.DatabaseRealmBean
-import com.example.myjetpackapplication.business.database.realm.data.DatabaseRealmDataSource
-import com.example.myjetpackapplication.business.database.realm.data.DatabaseRealmEntity
+import com.example.myjetpackapplication.business.database.realm.data.*
+import com.github.seelikes.android.cache.Cache
 import com.github.seelikes.android.realm.api.realm
 import com.orhanobut.logger.Logger
 import io.realm.Sort
@@ -47,6 +46,7 @@ class DatabaseRealmDataModel(application: Application) : AndroidViewModel(applic
             if (close == true) {
                 realm.close()
             }
+            rememberMe()
             list.value?.dataSource?.invalidate()
         }
     }
@@ -58,11 +58,13 @@ class DatabaseRealmDataModel(application: Application) : AndroidViewModel(applic
                 realm.beginTransaction()
                 entity?.deleteFromRealm()
                 realm.commitTransaction()
+                rememberMe()
                 list.value?.dataSource?.invalidate()
                 return
             }
             realm.executeTransaction {
                 realm.delete(DatabaseRealmEntity::class.java)
+                forgetMe()
             }
             list.value?.dataSource?.invalidate()
         }
@@ -71,5 +73,16 @@ class DatabaseRealmDataModel(application: Application) : AndroidViewModel(applic
                 realm.close()
             }
         }
+    }
+
+    private fun forgetMe() {
+        Cache.remove(KEY_SIZE)
+        Cache.remove(KEY_MAX_ID)
+    }
+
+    private fun rememberMe() {
+        Cache.strong(KEY_SIZE, list.value?.snapshot()?.size)
+        val max = list.value?.snapshot()?.maxWith(kotlin.Comparator<DatabaseRealmBean> { o1, o2 -> ((o1?.id ?: 0) - (o2?.id ?: 0)).toInt() })
+        Cache.strong(KEY_MAX_ID, max?.id)
     }
 }

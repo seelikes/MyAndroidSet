@@ -1,10 +1,14 @@
 package com.example.myjetpackapplication.business.database.realm.data
 
 import androidx.paging.ItemKeyedDataSource
+import com.github.seelikes.android.cache.Cache
 import com.github.seelikes.android.realm.api.realm
 import com.orhanobut.logger.Logger
 import io.realm.Sort
 import io.realm.kotlin.where
+
+val KEY_MAX_ID = Cache.generateRandomKey(19)
+val KEY_SIZE = Cache.generateRandomKey(20)
 
 /**
  * Created by liutiantian on 2020-01-26 18:07 星期日
@@ -14,11 +18,14 @@ class DatabaseRealmDataSource(private val pageSize: Int = 15) : ItemKeyedDataSou
         Logger.i("202001271322, params.requestedLoadSize: ${params.requestedLoadSize}; params.requestedInitialKey: ${params.requestedInitialKey}")
         Logger.i("202001271322, thread.name: ${Thread.currentThread().name}")
         realm.use {
-            val nextKey: Long = (params.requestedLoadSize / pageSize + (if (params.requestedLoadSize % pageSize != 0) 1 else 0)).toLong()
-            val maxId = realm.where<DatabaseRealmEntity>().max("id") as? Long ?: 0
+            var requestedLoadSize: Long = Cache.get(KEY_SIZE, (params.requestedLoadSize / pageSize + (if (params.requestedLoadSize % pageSize != 0) 1 else 0)).toLong() * pageSize + 1)!!
+            if (requestedLoadSize < pageSize) {
+                requestedLoadSize = pageSize.toLong()
+            }
+            val maxId = Cache.get(KEY_MAX_ID, realm.where<DatabaseRealmEntity>().max("id") as? Long ?: 1)!!
             val count = realm.where<DatabaseRealmEntity>().count().toInt()
             Logger.i("202001271322, maxId: $maxId; count: $count")
-            val list = realm.where<DatabaseRealmEntity>().lessThan("id", maxId + 1L).sort("createTime", Sort.DESCENDING).limit(pageSize * nextKey).findAll().toList()
+            val list = realm.where<DatabaseRealmEntity>().lessThan("id", maxId + 1L).sort("createTime", Sort.DESCENDING).limit(requestedLoadSize).findAll().toList()
 
             Logger.i("202001271322, list: ${list.map { it.key }}")
             val map = list.map {

@@ -102,6 +102,7 @@ dependencies {
     kapt "com.example.myjetpackapplication.annotationprocessor:business-compiler:$business_compiler_version"
     api "com.getbase:floatingactionbutton:$android__floating__action__button_futuresimple_version"
     api "com.github.mcxtzhang:SwipeDelMenuLayout:V$SwipeDelMenuLayout_mcxtzhang_version"
+    api "com.github.seelikes.android:cache:$library_cache_version"
     api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     api "com.java.lib:oil:$oil_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"

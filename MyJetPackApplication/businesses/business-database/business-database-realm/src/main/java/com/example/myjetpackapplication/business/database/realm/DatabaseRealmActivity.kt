@@ -20,7 +20,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import kotlin.random.Random
 
-@Business(title = "database_realm_title")
+@Business(title = "database_realm_title", parent = "database_title")
 @Route(path = "/business/database_realm")
 class DatabaseRealmActivity : BasicActivity<DatabaseRealmActivity, DatabaseRealmViewModel, ActivityDatabaseRealmBinding>() {
     override fun initModel(savedInstanceState: Bundle?): DatabaseRealmViewModel = DatabaseRealmViewModel(this, DataBindingUtil.setContentView(this, R.layout.activity_database_realm))
@@ -76,8 +76,9 @@ class DatabaseRealmActivity : BasicActivity<DatabaseRealmActivity, DatabaseRealm
     }
 
     fun onClickClear() {
+        Logger.i("202001282217, onClickClear, enter")
         activityScope.launch {
-            ViewModelProvider(this@DatabaseRealmActivity, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[DatabaseRealmDataModel::class.java].delete()
+            ViewModelProvider(this@DatabaseRealmActivity, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[DatabaseRealmDataModel::class.java].delete(close = true)
         }
     }
 }

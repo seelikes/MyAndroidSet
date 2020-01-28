@@ -1,2 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.seelikes.android.cache" />
+    package="com.github.seelikes.android.cache">
+    
+    <application>
+        <provider
+            android:authorities="${applicationId}.cache.provider"
+            android:name=".CacheProvider"
+            android:exported="false" />
+    </application>
+    
+</manifest>
