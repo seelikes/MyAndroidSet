@@ -68,11 +68,11 @@ class SortsTest {
     @Test
     fun quickSort() {
         val paramArr = arrayOf(*arr)
-        Sorts.quickSort(paramArr, { a, b -> a - b})
+        Sorts.quickSort(paramArr) { a, b -> a - b}
         Assert.assertArrayEquals(arrayOf(1, 4, 6, 7, 8), paramArr)
 
         val paramList = mutableListOf(*arr)
-        Sorts.quickSort(paramList, { a, b -> a - b})
+        Sorts.quickSort(paramList) { a, b -> a - b}
         Assert.assertArrayEquals(arrayOf(1, 4, 6, 7, 8), paramList.toTypedArray())
     }
 

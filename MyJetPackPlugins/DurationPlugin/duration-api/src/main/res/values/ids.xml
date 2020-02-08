@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tag_duration_group" type="id" />
+    <item name="tag_duration" type="id" />
+    <item name="tag_duration_report" type="id" />
+</resources>

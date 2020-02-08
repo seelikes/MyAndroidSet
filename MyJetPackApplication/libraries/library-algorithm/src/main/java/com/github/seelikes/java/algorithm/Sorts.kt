@@ -195,7 +195,7 @@ object Sorts {
     }
 
     @JvmOverloads
-    fun <T: Any> quickSort(arr: Array<T>, comparator: (T, T) -> Int, left: Int = 0, right: Int = arr.size - 1) {
+    fun <T: Any> quickSort(arr: Array<T>, left: Int = 0, right: Int = arr.size - 1, comparator: (T, T) -> Int) {
         if (left >= right) {
             return
         }
@@ -217,12 +217,12 @@ object Sorts {
             }
         }
         arr[i] = sentry
-        quickSort(arr, comparator, left, i - 1)
-        quickSort(arr, comparator, i + 1, right)
+        quickSort(arr, left, i - 1, comparator)
+        quickSort(arr, i + 1, right, comparator)
     }
 
     @JvmOverloads
-    fun <T: Any> quickSort(list: MutableList<T>, comparator: (T, T) -> Int, left: Int = 0, right: Int = list.size - 1) {
+    fun <T: Any> quickSort(list: MutableList<T>, left: Int = 0, right: Int = list.size - 1, comparator: (T, T) -> Int) {
         if (left >= right) {
             return
         }
@@ -244,8 +244,8 @@ object Sorts {
             }
         }
         list[i] = sentry
-        quickSort(list, comparator, left, i - 1)
-        quickSort(list, comparator, i + 1, right)
+        quickSort(list, left, i - 1, comparator)
+        quickSort(list, i + 1, right, comparator)
     }
 
     fun <T: Any> heapSort(arr: Array<T>, comparator: (T, T) -> Int) {

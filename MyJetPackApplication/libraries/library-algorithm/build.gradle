@@ -28,7 +28,7 @@ targetCompatibility = "7"
 ext {
     groupId = 'com.github.seelikes.java'
     artifactId = 'algorithm'
-    version = '1.0.00'
+    version = '1.0.01'
     if (project_in_debug.toBoolean()) {
         registry = 'project'
         registryDir = findPath('repo')

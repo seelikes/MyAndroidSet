@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Duration Report</string>
+    <string name="activity_duration_title">Duration Report</string>
+    <string name="host_class">Class: %s</string>
+    <string name="method">Method: %s</string>
+    <string name="count">Count: %d</string>
+    <string name="total_duration">Total Duration: %d</string>
+    <string name="longest_duration">Longest Duration: %d</string>
+    <string name="shortest_duration">Shortest Duration: %d</string>
+    <string name="average_duration">Average Duration: %d</string>
+    <string name="duration">Duration: %d</string>
+    <string name="start_time">Start Time: %s</string>
+    <string name="end_time">End Time: %s</string>
+</resources>

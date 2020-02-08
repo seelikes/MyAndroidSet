@@ -1,0 +1,3 @@
+include ':app'
+include ':duration'
+include ':duration-api'
