@@ -1,0 +1,22 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
+
+ext {
+    groupId = 'com.github.seelikes.android.plugin'
+    artifactId = 'connector-annotation'
+    version = '1.0.00'
+    description = 'connector annotation'
+    if (project_in_debug.toBoolean()) {
+        registry = 'project'
+        registryDir = findPath('repo')
+    }
+}
+
+// change to the maven-publish.gradle below MyJetPackApplication, if this not work
+apply from: '../../../MyJetPackApplication/maven-publish.gradle'

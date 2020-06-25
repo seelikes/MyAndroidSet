@@ -1,0 +1,6 @@
+include ':app'
+include 'connector'
+include ':connector-annotation'
+include ':connector-api'
+include ':libraries:library-one-api'
+include ':libraries:library-one-impl'

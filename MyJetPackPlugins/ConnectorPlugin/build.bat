@@ -1,0 +1,1 @@
+gradlew :app:assembleDebug -debug > 1100.log 2>&1

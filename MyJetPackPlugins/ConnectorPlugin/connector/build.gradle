@@ -1,0 +1,35 @@
+plugins {
+    id 'groovy'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.codehaus.groovy:groovy-all:2.5.8'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    implementation gradleApi()
+    implementation 'com.android.tools.build:gradle:3.6.3'
+    compile 'commons-codec:commons-codec:1.11'
+    compile 'commons-io:commons-io:2.6'
+    compile 'org.javassist:javassist:3.26.0-GA'
+    compile 'com.github.seelikes.android.plugin:connector-annotation:1.0.00'
+}
+
+ext {
+    groupId = 'com.github.seelikes.android.plugin'
+    artifactId = 'connector'
+    version = '1.0.00'
+    description = 'connector plugin'
+    if (project_in_debug.toBoolean()) {
+        registry = 'project'
+        registryDir = findPath('repo')
+    }
+    projectType = 'groovy'
+}
+
+// change to the maven-publish.gradle below MyJetPackApplication, if this not work
+apply from: '../../../MyJetPackApplication/maven-publish.gradle'

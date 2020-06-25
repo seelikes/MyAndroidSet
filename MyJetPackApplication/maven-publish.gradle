@@ -134,6 +134,14 @@ if (project.extensions.findByName('android')) {
     }
 }
 else if (getProperty("projectType", "java") == "groovy") {
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+
+    javadoc {
+        options.encoding = "UTF-8"
+    }
+
     task groovydocJar(type: Jar) {
         classifier "javadoc"
         from groovydoc
@@ -144,6 +152,14 @@ else if (getProperty("projectType", "java") == "groovy") {
     }
 }
 else {
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+
+    javadoc {
+        options.encoding = "UTF-8"
+    }
+
     task javadocJar(type: Jar) {
         classifier "javadoc"
         from javadoc
