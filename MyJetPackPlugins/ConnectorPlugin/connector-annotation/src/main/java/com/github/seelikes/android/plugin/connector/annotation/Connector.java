@@ -11,11 +11,13 @@ import java.lang.annotation.*;
 public @interface Connector {
     /**
      * Name Target
+     * @return Interface Class, maybe parent class also
      */
     Class<?> value();
 
     /**
      * Single Instance across process
+     * @return true if singleton, otherwise false
      */
     boolean singleton() default true;
 }

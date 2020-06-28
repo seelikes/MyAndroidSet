@@ -1,7 +1,5 @@
 package com.github.seelikes.android.plugin.connector.api;
 
-import androidx.annotation.Nullable;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Map;
@@ -12,7 +10,6 @@ public class ConnectorApi {
     private static Map<Class<?>, Object> classObjMap = new ConcurrentHashMap<>();
     private static Map<Class<?>, ConnectorBean> superClassConnectorMap = new ConcurrentHashMap<>();
 
-    @Nullable
     private static <T> T newInstanceFinal(Class<T> targetClass, Object... args) {
         if (targetClass == null) {
             return null;
@@ -41,7 +38,6 @@ public class ConnectorApi {
         return null;
     }
 
-    @Nullable
     private static <T> T newInstance(Class<? super T> superClass, Object... args) {
         ConnectorBean bean = superClassConnectorMap.get(superClass);
         if (bean == null) {

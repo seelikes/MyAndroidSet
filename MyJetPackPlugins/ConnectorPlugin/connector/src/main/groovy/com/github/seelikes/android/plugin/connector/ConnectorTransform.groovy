@@ -231,11 +231,11 @@ class ConnectorTransform extends Transform {
             ctClass.defrost()
         }
         if (ctClass.hasAnnotation(Connector.class)) {
-//            project.logger.info(name + " find class: ${ctClass.name}")
-//            ConnectorBean bean = new ConnectorBean()
-//            bean.connector = ctClass.getAnnotation(Connector.class)
-//            bean.ctClass = ctClass
-//            beans.add(bean)
+            project.logger.info(name + " find class: ${ctClass.name}")
+            ConnectorBean bean = new ConnectorBean()
+            bean.connector = ctClass.getAnnotation(Connector.class)
+            bean.ctClass = ctClass
+            beans.add(bean)
         }
         else {
             ctClass.detach()
