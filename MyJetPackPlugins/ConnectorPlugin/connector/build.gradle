@@ -15,7 +15,7 @@ dependencies {
     implementation 'com.android.tools.build:gradle:3.6.3'
     compile 'commons-codec:commons-codec:1.11'
     compile 'commons-io:commons-io:2.6'
-    compile 'org.javassist:javassist:3.26.0-GA'
+    compile 'org.javassist:javassist:3.27.0-GA'
     compile 'com.github.seelikes.android.plugin:connector-annotation:1.0.00'
 }
 

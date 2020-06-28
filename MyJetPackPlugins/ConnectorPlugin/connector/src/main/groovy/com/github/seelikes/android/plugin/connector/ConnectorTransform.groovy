@@ -119,22 +119,34 @@ class ConnectorTransform extends Transform {
                     project.logger.info(name + " entry.name: ${entry.name}")
                     if (entry.name == "com/github/seelikes/android/plugin/connector/api/ConnectorApi.class") {
                         CtClass ConnectorApi = ClassPool.default.get("com.github.seelikes.android.plugin.connector.api.ConnectorApi")
+                        if (ConnectorApi.isFrozen()) {
+                            ConnectorApi.detach()
+                        }
                         CtConstructor staticInit = ConnectorApi.getClassInitializer()
                         StringBuilder staticInitBody = new StringBuilder()
                         beans.each { ConnectorBean bean ->
-                            project.logger.info(name + " bean.connector: ${bean.connector}")
-                            String interfaceClass = bean.getInterfaceClass()
-                            if (interfaceClass == null || interfaceClass.isEmpty()) {
-                                return
+                            try {
+                                if (bean.ctClass.isFrozen()) {
+                                    bean.ctClass.defrost()
+                                }
+                                project.logger.info(name + " bean.connector: ${bean.connector}")
+                                String interfaceClass = bean.getInterfaceClass()
+                                if (interfaceClass == null || interfaceClass.isEmpty()) {
+                                    return
+                                }
+                                staticInitBody.append("    {\n")
+                                staticInitBody.append("        com.github.seelikes.android.plugin.connector.api.ConnectorBean bean = new com.github.seelikes.android.plugin.connector.api.ConnectorBean();\n")
+                                staticInitBody.append("        bean.targetClass = ${bean.ctClass.name}.class;\n")
+                                staticInitBody.append("        bean.singleton = ${bean.connector.singleton()};\n")
+                                staticInitBody.append("        superClassConnectorMap.put(${interfaceClass}.class, bean);\n")
+                                staticInitBody.append("    }\n")
                             }
-                            staticInitBody.append("    {\n")
-                            staticInitBody.append("        com.github.seelikes.android.plugin.connector.api.ConnectorBean bean = new com.github.seelikes.android.plugin.connector.api.ConnectorBean();\n")
-                            staticInitBody.append("        bean.targetClass = ${bean.ctClass.name}.class;\n")
-                            staticInitBody.append("        bean.singleton = ${bean.connector.singleton()};\n")
-                            staticInitBody.append("        superClassConnectorMap.put(${interfaceClass}.class, bean);\n")
-                            staticInitBody.append("    }\n")
+                            finally {
+                                bean.ctClass.detach()
+                            }
                         }
                         staticInit.insertAfter(staticInitBody.toString())
+                        ConnectorApi.detach()
 
                         tmpJarOutputStream.putNextEntry(new ZipEntry(entry.name))
                         tmpJarOutputStream.write(ConnectorApi.toBytecode())
@@ -215,12 +227,18 @@ class ConnectorTransform extends Transform {
     }
 
     private void parseClass(CtClass ctClass, List<ConnectorBean> beans) {
+        if (ctClass.isFrozen()) {
+            ctClass.defrost()
+        }
         if (ctClass.hasAnnotation(Connector.class)) {
-            project.logger.info(name + " find class: ${ctClass.name}")
-            ConnectorBean bean = new ConnectorBean()
-            bean.connector = ctClass.getAnnotation(Connector.class)
-            bean.ctClass = ctClass
-            beans.add(bean)
+//            project.logger.info(name + " find class: ${ctClass.name}")
+//            ConnectorBean bean = new ConnectorBean()
+//            bean.connector = ctClass.getAnnotation(Connector.class)
+//            bean.ctClass = ctClass
+//            beans.add(bean)
+        }
+        else {
+            ctClass.detach()
         }
     }
 
@@ -242,6 +260,7 @@ class ConnectorTransform extends Transform {
         }
         catch (Throwable throwable) {
             throwable.printStackTrace()
+            throw new GradleException("exception happened while parsing ${jarInput.file.absolutePath}", throwable)
         }
         finally {
             project.logger.info(name + " 1 close jarFile ${jarFile.name}")
