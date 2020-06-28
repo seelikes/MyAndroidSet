@@ -1,6 +1,8 @@
 package com.github.seelikes.android.plugin.connector.api;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -8,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @SuppressWarnings("unchecked")
 public class ConnectorApi {
     private static Map<Class<?>, Object> classObjMap = new ConcurrentHashMap<>();
+    private static Map<Class<?>, ConnectorInitializer<?>> classInitializerMap = new ConcurrentHashMap<>();
     private static Map<Class<?>, ConnectorBean> superClassConnectorMap = new ConcurrentHashMap<>();
 
     private static <T> T newInstanceFinal(Class<T> targetClass, Object... args) {
@@ -16,6 +19,42 @@ public class ConnectorApi {
         }
         Constructor<?>[] constructors = targetClass.getConstructors();
         if (constructors.length == 0) {
+            Method[] methods = targetClass.getDeclaredMethods();
+            if (methods.length > 0) {
+                for (Method method : methods) {
+                    if ((method.getModifiers() & Modifier.STATIC) == Modifier.STATIC && (method.getModifiers() & Modifier.PUBLIC) == Modifier.PUBLIC) {
+                        boolean accessible = method.isAccessible();
+                        try {
+                            method.setAccessible(true);
+                            return (T) method.invoke(null, args);
+                        }
+                        catch (Throwable ignored) {
+
+                        }
+                        finally {
+                            method.setAccessible(accessible);
+                        }
+                    }
+                }
+            }
+            Field[] fields = targetClass.getDeclaredFields();
+            if (fields.length > 0) {
+                for (Field field : fields) {
+                    if (field.getType() == targetClass && ((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) && ((field.getModifiers() & Modifier.PUBLIC) == Modifier.PUBLIC)) {
+                        boolean accessible = field.isAccessible();
+                        try {
+                            field.setAccessible(true);
+                            return (T) field.get(null);
+                        }
+                        catch (Throwable ignored) {
+
+                        }
+                        finally {
+                            field.setAccessible(accessible);
+                        }
+                    }
+                }
+            }
             throw new IllegalStateException("no constructor for " + targetClass.getName());
         }
         for (Constructor<?> constructor : constructors) {
@@ -68,6 +107,13 @@ public class ConnectorApi {
             }
             else {
                 throw new IllegalStateException("saved instance can not be cast to superClass");
+            }
+        }
+        ConnectorInitializer<?> ci = classInitializerMap.get(superClass);
+        if (ci != null) {
+            obj = ci.initialize(args);
+            if (obj != null && superClass.isAssignableFrom(obj.getClass())) {
+                return (T) obj;
             }
         }
         return null;

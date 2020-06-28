@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ConnectorPlugin</string>
+    <string name="api_one">OneApi</string>
+    <string name="api_object">ObjectApi</string>
 </resources>
