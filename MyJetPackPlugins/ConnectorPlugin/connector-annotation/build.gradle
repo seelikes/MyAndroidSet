@@ -10,7 +10,7 @@ targetCompatibility = "7"
 ext {
     groupId = 'com.github.seelikes.android.plugin'
     artifactId = 'connector-annotation'
-    version = '1.0.00'
+    version = "$connector_version"
     description = 'connector annotation'
     if (project_in_debug.toBoolean()) {
         registry = 'project'

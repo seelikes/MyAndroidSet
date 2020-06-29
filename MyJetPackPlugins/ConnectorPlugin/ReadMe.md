@@ -13,7 +13,7 @@ please feel at home when using this plugin at any purposes, it's under MIT licen
     ```
 2. add classpath to your root build.gradle
     ```
-            classpath 'com.github.seelikes.android.plugin:connector:1.0.00'
+            classpath 'com.github.seelikes.android.plugin:connector:1.0.01'
     ```
 3. apply plugin after 'com.android.application' or maybe 'com.android.library'
     ```

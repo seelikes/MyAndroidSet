@@ -16,13 +16,13 @@ dependencies {
     compile 'commons-codec:commons-codec:1.11'
     compile 'commons-io:commons-io:2.6'
     compile 'org.javassist:javassist:3.27.0-GA'
-    compile 'com.github.seelikes.android.plugin:connector-annotation:1.0.00'
+    compile "com.github.seelikes.android.plugin:connector-annotation:$connector_version"
 }
 
 ext {
     groupId = 'com.github.seelikes.android.plugin'
     artifactId = 'connector'
-    version = '1.0.00'
+    version = "$connector_version"
     description = 'connector plugin'
     if (project_in_debug.toBoolean()) {
         registry = 'project'

@@ -25,7 +25,7 @@ buildscript {
             classpath 'com.github.seelikes.android.plugin:connector:+'
         }
         else {
-            classpath 'com.github.seelikes.android.plugin:connector:1.0.00'
+            classpath "com.github.seelikes.android.plugin:connector:$connector_version"
         }
     }
 }

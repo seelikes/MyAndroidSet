@@ -139,6 +139,7 @@ class ConnectorTransform extends Transform {
                                 staticInitBody.append("        bean.targetClass = ${bean.ctClass.name}.class;\n")
                                 staticInitBody.append("        bean.singleton = ${bean.connector.singleton()};\n")
                                 staticInitBody.append("        superClassConnectorMap.put(${interfaceClass}.class, bean);\n")
+
                                 staticInitBody.append("    }\n")
                             }
                             finally {

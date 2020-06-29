@@ -4,13 +4,14 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unchecked")
 public class ConnectorApi {
     private static Map<Class<?>, Object> classObjMap = new ConcurrentHashMap<>();
-    private static Map<Class<?>, ConnectorInitializer<?>> classInitializerMap = new ConcurrentHashMap<>();
+    private static Map<Class<?>, List<ConnectorInitializer<?>>> classInitializerMap = new ConcurrentHashMap<>();
     private static Map<Class<?>, ConnectorBean> superClassConnectorMap = new ConcurrentHashMap<>();
 
     private static <T> T newInstanceFinal(Class<T> targetClass, Object... args) {
@@ -109,11 +110,21 @@ public class ConnectorApi {
                 throw new IllegalStateException("saved instance can not be cast to superClass");
             }
         }
-        ConnectorInitializer<?> ci = classInitializerMap.get(superClass);
-        if (ci != null) {
-            obj = ci.initialize(args);
-            if (obj != null && superClass.isAssignableFrom(obj.getClass())) {
-                return (T) obj;
+        List<ConnectorInitializer<?>> ci = classInitializerMap.get(superClass);
+        if (ci != null && !ci.isEmpty()) {
+            for (int i = 0; i < ci.size(); ++i) {
+                try {
+                    ConnectorInitializer<?> initializer = ci.get(i);
+                    if (initializer != null) {
+                        obj = initializer.initialize(args);
+                        if (obj != null && superClass.isAssignableFrom(obj.getClass())) {
+                            return (T) obj;
+                        }
+                    }
+                }
+                catch (Throwable throwable) {
+
+                }
             }
         }
         return null;
