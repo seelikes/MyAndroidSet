@@ -3,16 +3,21 @@ package com.github.seelikes.android.plugin.connector
 import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.github.seelikes.android.plugin.connector.annotation.Connector
+import com.github.seelikes.android.plugin.connector.utils.ClassUtil
 import javassist.ClassPool
 import javassist.CtClass
 import javassist.CtConstructor
+import javassist.CtField
+import javassist.CtMember
 import javassist.CtMethod
+import javassist.Modifier
 import javassist.NotFoundException
 import org.apache.commons.codec.digest.DigestUtils
 import org.apache.commons.io.FileUtils
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 
+import java.lang.reflect.Field
 import java.util.jar.JarEntry
 import java.util.jar.JarFile
 import java.util.jar.JarOutputStream
@@ -107,6 +112,8 @@ class ConnectorTransform extends Transform {
             return
         }
 
+        String i4 = "    "
+
         JarFile jarFile = new JarFile(apiJar.file)
         project.logger.info(name + " apiJar.file: ${apiJar.file.absolutePath}")
         try {
@@ -134,13 +141,62 @@ class ConnectorTransform extends Transform {
                                 if (interfaceClass == null || interfaceClass.isEmpty()) {
                                     return
                                 }
-                                staticInitBody.append("    {\n")
-                                staticInitBody.append("        com.github.seelikes.android.plugin.connector.api.ConnectorBean bean = new com.github.seelikes.android.plugin.connector.api.ConnectorBean();\n")
-                                staticInitBody.append("        bean.targetClass = ${bean.ctClass.name}.class;\n")
-                                staticInitBody.append("        bean.singleton = ${bean.connector.singleton()};\n")
-                                staticInitBody.append("        superClassConnectorMap.put(${interfaceClass}.class, bean);\n")
+                                staticInitBody.append("${i4}{\n")
+                                staticInitBody.append("${i4}${i4}com.github.seelikes.android.plugin.connector.api.ConnectorBean bean = new com.github.seelikes.android.plugin.connector.api.ConnectorBean();\n")
+                                staticInitBody.append("${i4}${i4}bean.targetClass = ${bean.ctClass.name}.class;\n")
+                                staticInitBody.append("${i4}${i4}bean.singleton = ${bean.connector.singleton()};\n")
+                                staticInitBody.append("${i4}${i4}superClassConnectorMap.put(${interfaceClass}.class, bean);\n")
 
-                                staticInitBody.append("    }\n")
+                                staticInitBody.append("\n")
+
+                                if ((bean.ctClass.modifiers & Modifier.PUBLIC) == Modifier.PUBLIC) {
+                                    bean.ctClass.declaredFields.each { CtField field ->
+                                        if ((field.modifiers & Modifier.PUBLIC) != Modifier.PUBLIC) {
+                                            return
+                                        }
+                                        if ((field.modifiers & Modifier.STATIC) != Modifier.STATIC) {
+                                            return
+                                        }
+                                        if (field.getType() != bean.ctClass) {
+                                            return
+                                        }
+                                        staticInitBody.append("${i4}${i4}classObjMap.put(${bean.ctClass.name}.class, ${bean.ctClass.name}.${field.name})")
+                                    }
+
+                                    staticInitBody.append("${i4}${i4}List<com.github.seelikes.android.plugin.connector.api.ConnectorInitializer<${bean.ctClass.name}>> initializers = new ArrayList<>();\n")
+                                    CtConstructor[] constructors = bean.ctClass.getDeclaredConstructors()
+                                    if (constructors != null && constructors.length > 0 ) {
+                                        for (int i = 0; i < constructors.length; ++i) {
+                                            if ((constructors[i].modifiers & Modifier.PUBLIC) != Modifier.PUBLIC) {
+                                                continue
+                                            }
+                                            val className = "${bean.ctClass.name}\$${DigestUtils.md5Hex("Constructor_$i")}"
+                                            val initializerClass = ClassUtil.makeInitializer(bean.ctClass, className, constructors[i].parameterTypes.length)
+                                            staticInitBody.append("${i4}${i4}initializers.add(new $className();\n")
+                                        }
+                                    }
+
+                                    CtMethod[] declaredMethods = bean.ctClass.declaredMethods
+                                    if (declaredMethods != null && declaredMethods.length > 0) {
+                                        for (int i = 0; i < declaredMethods.length; ++i) {
+                                            CtMethod declaredMethod = declaredMethods[i]
+                                            if ((declaredMethod.modifiers & Modifier.PUBLIC) != Modifier.PUBLIC) {
+                                                return
+                                            }
+                                            if ((declaredMethod.modifiers & Modifier.STATIC) != Modifier.STATIC) {
+                                                return
+                                            }
+                                            if (declaredMethod.returnType != bean.ctClass) {
+                                                return
+                                            }
+                                            val className = "${bean.ctClass.name}\$${DigestUtils.md5Hex("StaticMethod_$i")}"
+                                            val initializerClass = ClassUtil.makeInitializer(bean.ctClass, className, constructors[i].parameterTypes.length)
+                                            staticInitBody.append("${i4}${i4}initializers.add(new $className();\n")
+                                        }
+                                    }
+                                }
+
+                                staticInitBody.append("${i4}}\n")
                             }
                             finally {
                                 bean.ctClass.detach()
