@@ -15,7 +15,7 @@ add maven repository in your root build.gradle
 ::
 
     maven {
-        url "http://112.74.29.196:34272/repository/maven-public/"
+        url "http://www.seelikes.com:34272/repository/maven-public/"
     }
 
 ----------------------------------------------------------

@@ -8,7 +8,7 @@ please feel at home when using this plugin at any purposes, it's under MIT licen
 1. add maven repository to your root build.gradle
     ```
             maven {
-                url 'http://112.74.29.196:34272/repository/maven-public'
+                url 'http://www.seelikes.com:34272/repository/maven-public'
             }
     ```
 2. add classpath to your root build.gradle
