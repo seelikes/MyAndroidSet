@@ -13,5 +13,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BusinessApi.INSTANCE.getChildren(null);
+        findViewById(R.id.helloWorld).setOnClickListener(view -> {
+            BusinessApi.INSTANCE.go(this, "/business/test/router");
+        });
     }
 }

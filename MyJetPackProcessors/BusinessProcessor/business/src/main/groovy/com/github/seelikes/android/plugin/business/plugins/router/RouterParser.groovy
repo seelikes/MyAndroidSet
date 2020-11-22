@@ -140,6 +140,7 @@ class RouterParser implements BusinessParser, JarCtClassForger, DirectoryCtClass
                         com.example.myjetpackapplication.annotationprocessor.business.annotation.BusinessItem item = new com.example.myjetpackapplication.annotationprocessor.business.annotation.BusinessItem();
                         item.setTitle(\"${business.title()}\");
                         item.setParent(\"${business.parent()}\");
+                        item.setTargetClass(${it.value.name}.class);
                         item.setPath(\"${business.path()}\");
                         item.setPriority(${business.priority()});
                         item.setEnable(${business.enable()});
@@ -160,7 +161,7 @@ class RouterParser implements BusinessParser, JarCtClassForger, DirectoryCtClass
                 return
             }
             String pathUpperCase = business.path().replaceAll("/", "_").toUpperCase()
-            CtField.make("public static final ${pathUpperCase} = \"${business.path()}\";", ctClass)
+            CtField.make("public static final String ${pathUpperCase} = \"${business.path()}\";", ctClass)
         }
     }
 }

@@ -5,9 +5,10 @@ import java.io.Serializable;
 /**
  * Created by liutiantian on 2019-12-22 01:04 星期日
  */
-public class BusinessItem implements Serializable {
+public class BusinessItem implements Comparable<BusinessItem>, Serializable {
     private String title;
     private String parent;
+    private Class<?> targetClass;
     private String path;
     private int priority;
     private boolean enable;
@@ -26,6 +27,14 @@ public class BusinessItem implements Serializable {
 
     public void setParent(String parent) {
         this.parent = parent;
+    }
+
+    public Class<?> getTargetClass() {
+        return targetClass;
+    }
+
+    public void setTargetClass(Class<?> targetClass) {
+        this.targetClass = targetClass;
     }
 
     public String getPath() {
@@ -50,5 +59,18 @@ public class BusinessItem implements Serializable {
 
     public void setEnable(boolean enable) {
         this.enable = enable;
+    }
+
+    @Override
+    public int compareTo(BusinessItem item) {
+        if (path == null && item.path == null) {
+            return 0;
+        } else if (path == null) {
+            return 1;
+        } else if (item.path == null) {
+            return -1;
+        } else {
+            return path.compareTo(item.path);
+        }
     }
 }
