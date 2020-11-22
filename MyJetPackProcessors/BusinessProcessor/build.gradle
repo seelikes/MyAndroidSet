@@ -3,7 +3,7 @@
 buildscript {
     apply from: '../../MyJetPackApplication/repo.gradle'
 
-    ext.kotlin_version = '1.3.61'
+    ext.kotlin_version = '1.3.72'
 
     repositories {
         google()
@@ -23,6 +23,12 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        if (project_in_debug.toBoolean() && findPath('repo').exists()) {
+            classpath 'com.github.seelikes.android.plugin:business:+'
+        }
+        else {
+            classpath "com.github.seelikes.android.plugin:business:$business_version"
+        }
     }
 }
 

@@ -18,7 +18,7 @@ targetCompatibility = "8"
 ext {
     groupId = 'com.example.myjetpackapplication.annotationprocessor'
     artifactId = 'business-annotation'
-    version = '1.0.12'
+    version = "$business_annotation_version"
     if (project_in_debug.toBoolean()) {
         registry = 'project'
         registryDir = findPath('repo')

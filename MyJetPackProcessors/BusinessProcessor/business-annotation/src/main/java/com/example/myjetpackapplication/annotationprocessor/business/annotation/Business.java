@@ -7,7 +7,7 @@ import java.lang.annotation.*;
  */
 @Repeatable(Businesses.class)
 @Target(ElementType.TYPE)
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.CLASS)
 @Documented
 public @interface Business {
     /**
