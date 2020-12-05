@@ -95,6 +95,8 @@ dependencies {
     api "com.orhanobut:logger:$logger_orhanobut_version"
 }
 
+installDependencies()
+
 if (!isRunAlone()) {
     /**
     * 发布必须配置此项

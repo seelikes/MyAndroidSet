@@ -1,3 +1,5 @@
+apply from: "$rootDir/dependencies.gradle"
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -89,28 +91,8 @@ dependencies {
     implementation "androidx.test.ext:junit-ktx:$androidx_junit_ktx_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
-    implementation "com.github.seelikes.android:cache:$library_cache_version"
-    implementation "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
     implementation "com.example.myjetpackapplication.annotationprocessor:business-api:$business_api_version"
-    implementation "com.example.myjetpackapplication:resources:$resources_version"
-    implementation "com.example.myjetpackapplication:business-animation:$business_animation_version"
-    implementation "com.example.myjetpackapplication:business-anr:$business_anr_version"
-    implementation "com.example.myjetpackapplication:business-database:$business_database_version"
-    implementation "com.example.myjetpackapplication:business-database-realm:$business_database_realm_version"
-    implementation "com.example.myjetpackapplication:business-database-room:$business_database_room_version"
-    implementation "com.example.myjetpackapplication:business-event:$business_event_version"
-    implementation "com.example.myjetpackapplication:business-gesture:$business_gesture_version"
-    implementation "com.example.myjetpackapplication:business-navigation:$business_navigation_version"
-    implementation "com.example.myjetpackapplication:business-profiler:$business_profiler_version"
-    implementation "com.example.myjetpackapplication:business-profiler-cpu:$business_profiler_cpu_version"
-    implementation "com.example.myjetpackapplication:business-paging:$business_paging_version"
-    implementation "com.example.myjetpackapplication:business-speech:$business_speech_version"
-    implementation "com.example.myjetpackapplication:business-speech-baidu:$business_speech_baidu_version"
-    implementation "com.example.myjetpackapplication:business-video:$business_video_version"
-    implementation "com.example.myjetpackapplication:business-video-surface:$business_video_surface_version"
-    implementation "com.example.myjetpackapplication:business-video-view:$business_video_view_version"
-    implementation "com.example.myjetpackapplication:single:$single_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$androidx_lifecycle_version"
@@ -149,3 +131,5 @@ dependencies {
     implementation "skin.support:skin-support-constraint-layout:$Android_skin_support__ximsfei_version"
     implementation "top.zibin:Luban:$luban_Curzibn_version"
 }
+
+installDependencies()

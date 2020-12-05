@@ -21,10 +21,10 @@ def installDependencies() {
     }
     if (module.application) {
         config.modules.each { subModule ->
-            if (subModile.application) {
+            if (subModule.application || subModule.excludeFromApplication) {
                 return
             }
-            if (config.allSwitchToSource.toBoolean() || subModule.switchToSource.toBoolean()) {
+            if (config.allSwitchToSource.toBoolean() || (subModule.switchToSource.toBoolean() && !subModule.runAlone)) {
                 dependencies.add("implementation", project(":${subModule.name}"))
             }
             else {
@@ -33,8 +33,8 @@ def installDependencies() {
                     dependencies.add("implementation", subModule.location)
                 }
                 else {
-                    def version = property(dependency.location.substring(versionStartIndex + 1))
-                    dependencies.add("implementation", "${dependency.location.substring(0, versionStartIndex)}${version}")
+                    def version = property(subModule.location.substring(versionStartIndex + 1))
+                    dependencies.add("implementation", "${subModule.location.substring(0, versionStartIndex)}${version}")
                 }
             }
         }
@@ -47,7 +47,7 @@ def installDependencies() {
                     item.name == name
                 }
                 if (dependency) {
-                    if (config.allSwitchToSource.toBoolean() || dependency.switchToSource.toBoolean()) {
+                    if (config.allSwitchToSource.toBoolean() || (dependency.switchToSource.toBoolean() && !dependency.runAlone)) {
                         dependencies.add("implementation", project(":${dependency.name}"))
                     }
                     else {
@@ -80,7 +80,7 @@ def installDependencies() {
                         item.name == aloneDependency
                     }
                     if (dependency) {
-                        if (config.allSwitchToSource.toBoolean() || dependency.switchToSource.toBoolean()) {
+                        if (config.allSwitchToSource.toBoolean() || (dependency.switchToSource.toBoolean() && !dependency.runAlone)) {
                             dependencies.add("implementation", project(":${dependency.name}"))
                         }
                         else {
