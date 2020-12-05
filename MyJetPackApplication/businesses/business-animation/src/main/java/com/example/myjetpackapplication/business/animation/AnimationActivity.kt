@@ -11,7 +11,7 @@ import com.github.seelikes.android.mvvm.basic.BasicActivity
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_animation.*
 
-@Business(path = "/business12/animation", title = "animation_title")
+@Business(path = "/business/animation", title = "animation_title")
 class AnimationActivity : BasicActivity<AnimationActivity, AnimationViewModel, ActivityAnimationBinding>() {
     override fun initModel(savedInstanceState: Bundle?): AnimationViewModel = AnimationViewModel(this, DataBindingUtil.setContentView(this, R.layout.activity_animation))
 
