@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-//apply plugin: 'lifecycle'
 apply plugin: 'realm-android'
 apply plugin: 'realm-helper'
 apply plugin: 'business'
@@ -150,9 +149,3 @@ dependencies {
     implementation "skin.support:skin-support-constraint-layout:$Android_skin_support__ximsfei_version"
     implementation "top.zibin:Luban:$luban_Curzibn_version"
 }
-
-//lifecycle {
-//    packageName = project.extensions.android.defaultConfig.applicationId
-//    loggerClass = "android.util.Log"
-//    tag = 'nnn12321'
-//}
