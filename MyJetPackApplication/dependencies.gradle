@@ -1,11 +1,11 @@
 import groovy.json.JsonSlurper
 
-def config = new JsonSlurper().parseText(new File("dependencies.json").text)
+def config = new JsonSlurper().parseText(new File("$rootDir/dependencies.json").text)
 
 println("allSwitchToSource: ${config.allSwitchToSource}")
 
 def includeModules() {
-    def config = new JsonSlurper().parseText(new File("dependencies.json").text)
+    def config = new JsonSlurper().parseText(new File("$rootDir/dependencies.json").text)
     config.modules.each { module ->
         if (config.allSwitchToSource.toBoolean() || module.switchToSource.toBoolean()) {
             include ":${module.name}"
@@ -15,7 +15,7 @@ def includeModules() {
 }
 
 def installDependencies() {
-    def config = new JsonSlurper().parseText(new File("dependencies.json").text)
+    def config = new JsonSlurper().parseText(new File("$rootDir/dependencies.json").text)
     def module = config.modules.find{ module ->
         module.name == name
     }
@@ -101,7 +101,7 @@ def installDependencies() {
 }
 
 def isRunAlone() {
-    def config = new JsonSlurper().parseText(new File("dependencies.json").text)
+    def config = new JsonSlurper().parseText(new File("$rootDir/dependencies.json").text)
     def module = config.modules.find{ module ->
         module.name == name
     }
