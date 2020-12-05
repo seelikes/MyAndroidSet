@@ -7,14 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
-import com.example.myjetpackapplication.business.paging.R
+import com.example.myjetpackapplication.annotationprocessor.business.api.BusinessApi
 import com.example.myjetpackapplication.business.paging.databinding.ActivitySinglePagingBinding
 import com.github.seelikes.android.mvvm.basic.BasicActivity
 
-@Route(path = "/business/single/paging")
+@Business(path = "/business/single/paging")
 class SinglePagingActivity :
     BasicActivity<SinglePagingActivity, SinglePagingViewModel, ActivitySinglePagingBinding>() {
     override fun initModel(savedInstanceState: Bundle?): SinglePagingViewModel =
@@ -44,18 +42,18 @@ class SinglePagingActivity :
         }
         var adapter = binding.rvList.adapter
         if (adapter !is SinglePagingItemAdapter) {
-            adapter = SinglePagingItemAdapter(this, BusinessManager.getChildren(null)) { item, _ ->
+            adapter = SinglePagingItemAdapter(this, BusinessApi.getChildren(null)) { item, _ ->
                 item?.let {
-                    val children = BusinessManager.getChildren(
+                    val children = BusinessApi.getChildren(
                         ViewModelProviders.of(this).get(SinglePagingDataModel::class.java).items.value?.get(
                             0
                         )
                     )
-                    if (children.isNotEmpty()) {
+                    if (!children.isNullOrEmpty()) {
                         ViewModelProviders.of(this).get(SinglePagingDataModel::class.java)
                             .items.value = children
                     } else {
-                        ARouter.getInstance().build(item.path).navigation()
+                        BusinessApi.go(this, item.path)
                     }
                 }
             }
@@ -64,7 +62,7 @@ class SinglePagingActivity :
     }
 
     override fun onBackPressed() {
-        val pageUp = BusinessManager.tryBack(
+        val pageUp = BusinessApi.tryBack(
             ViewModelProviders.of(this).get(SinglePagingDataModel::class.java).items.value?.get(0),
             null
         )

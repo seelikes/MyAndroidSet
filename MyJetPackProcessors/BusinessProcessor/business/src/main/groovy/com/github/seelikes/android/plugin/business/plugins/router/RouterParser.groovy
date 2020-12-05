@@ -109,12 +109,18 @@ class RouterParser implements BusinessParser, JarCtClassForger, DirectoryCtClass
     }
 
     private void handleCtClass(Project project, CtClass ctClass) {
+        project.logger.info("ctCLass: ${ctClass.name}.hasAnnotation(Business.class): ${ctClass.hasAnnotation(Business.class.name)}")
         if (ctClass.hasAnnotation(Business.class)) {
             project.logger.info("DirectoryInput.2216.0000, ctClass: ${ctClass.name} got got hot")
             Object business = ctClass.getAnnotation(Business.class)
             project.logger.info("DirectoryInput.2216.0000, ctClass: ${ctClass.name}; business instanceof Business: ${business instanceof Business}")
-            if (business instanceof Business) {
-                businessCtClassMap.put(business, ctClass)
+            try {
+                if (business instanceof Business) {
+                    businessCtClassMap.put(business, ctClass)
+                }
+            }
+            catch (Throwable throwable) {
+                throw GradleException("aaaaa, ctCLass: ${ctClass.name}", throwable)
             }
         }
     }

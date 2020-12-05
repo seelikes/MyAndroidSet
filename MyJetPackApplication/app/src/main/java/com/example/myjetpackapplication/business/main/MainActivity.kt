@@ -10,10 +10,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.*
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.example.myjetpackapplication.BuildConfig
 import com.example.myjetpackapplication.R
+import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
 import com.example.myjetpackapplication.annotationprocessor.business.api.BusinessApi
 import com.example.myjetpackapplication.databinding.ActivityMainBinding
 import com.example.myjetpackapplication.sophix.work.SophixWorker
@@ -23,7 +22,7 @@ import com.orhanobut.logger.Logger
 import com.yanzhenjie.permission.AndPermission
 import java.util.concurrent.TimeUnit
 
-@Route(path = "/business/main")
+@Business(path = "/business/main")
 class  MainActivity : BasicActivity<MainActivity, MainViewModel, ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +75,7 @@ class  MainActivity : BasicActivity<MainActivity, MainViewModel, ActivityMainBin
                     }
                     else {
                         item.path?.let { path ->
-                            ARouter.getInstance().build(path).navigation()
+                            BusinessApi.go(this, path)
                         }
                     }
                 }

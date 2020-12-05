@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
 import com.example.myjetpackapplication.business.animation.databinding.ActivityAnimationBinding
 import com.github.seelikes.android.mvvm.basic.BasicActivity
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_animation.*
 
-// TODO 修改ARouter
-@Route(path = "/business12/animation")
+@Business(path = "/business12/animation", title = "animation_title")
 class AnimationActivity : BasicActivity<AnimationActivity, AnimationViewModel, ActivityAnimationBinding>() {
     override fun initModel(savedInstanceState: Bundle?): AnimationViewModel = AnimationViewModel(this, DataBindingUtil.setContentView(this, R.layout.activity_animation))
 

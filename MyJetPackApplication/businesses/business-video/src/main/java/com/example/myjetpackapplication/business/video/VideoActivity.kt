@@ -6,7 +6,7 @@ import com.example.myjetpackapplication.annotationprocessor.business.annotation.
 import com.example.myjetpackapplication.business.video.databinding.ActivityVideoBinding
 import com.github.seelikes.android.mvvm.basic.BasicActivity
 
-@Business(title = "video_title")
+@Business(path = "/business/video", title = "video_title")
 class VideoActivity : BasicActivity<VideoActivity, VideoViewModel, ActivityVideoBinding>() {
     override fun initModel(savedInstanceState: Bundle?): VideoViewModel = VideoViewModel(this, DataBindingUtil.setContentView(this, R.layout.activity_video))
 }

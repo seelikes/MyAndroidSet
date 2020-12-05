@@ -7,14 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
-import com.example.myjetpackapplication.business.speech.R
+import com.example.myjetpackapplication.annotationprocessor.business.api.BusinessApi
 import com.example.myjetpackapplication.business.speech.databinding.ActivitySingleSpeechBinding
 import com.github.seelikes.android.mvvm.basic.BasicActivity
 
-@Route(path = "/business/single/speech")
+@Business(path = "/business/single/speech")
 class SingleSpeechActivity :
     BasicActivity<SingleSpeechActivity, SingleSpeechViewModel, ActivitySingleSpeechBinding>() {
     override fun initModel(savedInstanceState: Bundle?): SingleSpeechViewModel =
@@ -44,18 +42,18 @@ class SingleSpeechActivity :
         }
         var adapter = binding.rvList.adapter
         if (adapter !is SingleSpeechItemAdapter) {
-            adapter = SingleSpeechItemAdapter(this, BusinessManager.getChildren(null)) { item, _ ->
+            adapter = SingleSpeechItemAdapter(this, BusinessApi.getChildren(null)) { item, _ ->
                 item?.let {
-                    val children = BusinessManager.getChildren(
+                    val children = BusinessApi.getChildren(
                         ViewModelProviders.of(this).get(SingleSpeechDataModel::class.java).items.value?.get(
                             0
                         )
                     )
-                    if (children.isNotEmpty()) {
+                    if (!children.isNullOrEmpty()) {
                         ViewModelProviders.of(this).get(SingleSpeechDataModel::class.java)
                             .items.value = children
                     } else {
-                        ARouter.getInstance().build(item.path).navigation()
+                        BusinessApi.go(this, item.path)
                     }
                 }
             }
@@ -64,7 +62,7 @@ class SingleSpeechActivity :
     }
 
     override fun onBackPressed() {
-        val pageUp = BusinessManager.tryBack(
+        val pageUp = BusinessApi.tryBack(
             ViewModelProviders.of(this).get(SingleSpeechDataModel::class.java).items.value?.get(0),
             null
         )

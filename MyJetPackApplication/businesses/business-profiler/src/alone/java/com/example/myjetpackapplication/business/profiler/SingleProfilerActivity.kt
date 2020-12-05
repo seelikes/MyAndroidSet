@@ -7,14 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
-import com.example.myjetpackapplication.business.profiler.R
+import com.example.myjetpackapplication.annotationprocessor.business.api.BusinessApi
 import com.example.myjetpackapplication.business.profiler.databinding.ActivitySingleProfilerBinding
 import com.github.seelikes.android.mvvm.basic.BasicActivity
 
-@Route(path = "/business/single/profiler")
+@Business(path = "/business/single/profiler")
 class SingleProfilerActivity :
     BasicActivity<SingleProfilerActivity, SingleProfilerViewModel, ActivitySingleProfilerBinding>() {
     override fun initModel(savedInstanceState: Bundle?): SingleProfilerViewModel =
@@ -45,18 +43,18 @@ class SingleProfilerActivity :
         var adapter = binding.rvList.adapter
         if (adapter !is SingleProfilerItemAdapter) {
             adapter =
-                SingleProfilerItemAdapter(this, BusinessManager.getChildren(null)) { item, _ ->
+                SingleProfilerItemAdapter(this, BusinessApi.getChildren(null)) { item, _ ->
                     item?.let {
-                        val children = BusinessManager.getChildren(
+                        val children = BusinessApi.getChildren(
                             ViewModelProviders.of(this).get(SingleProfilerDataModel::class.java).items.value?.get(
                                 0
                             )
                         )
-                        if (children.isNotEmpty()) {
+                        if (!children.isNullOrEmpty()) {
                             ViewModelProviders.of(this).get(SingleProfilerDataModel::class.java)
                                 .items.value = children
                         } else {
-                            ARouter.getInstance().build(item.path).navigation()
+                            BusinessApi.go(this, item.path)
                         }
                     }
                 }
@@ -65,7 +63,7 @@ class SingleProfilerActivity :
     }
 
     override fun onBackPressed() {
-        val pageUp = BusinessManager.tryBack(
+        val pageUp = BusinessApi.tryBack(
             ViewModelProviders.of(this).get(SingleProfilerDataModel::class.java).items.value?.get(0),
             null
         )

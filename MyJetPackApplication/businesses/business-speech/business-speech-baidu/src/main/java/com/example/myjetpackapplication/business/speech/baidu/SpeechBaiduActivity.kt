@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.baidu.tts.client.SpeechError
 import com.baidu.tts.client.SpeechSynthesizer
 import com.baidu.tts.client.SpeechSynthesizerListener
@@ -18,8 +17,7 @@ import com.orhanobut.logger.Logger
 import java.io.File
 import java.io.FileOutputStream
 
-@Business(title = "speech_baidu_title", parent = "speech_title")
-@Route(path = "/business19/speech/baidu")
+@Business(path = "/business/speech/baidu", title = "speech_baidu_title", parent = "speech_title")
 class SpeechBaiduActivity : BasicActivity<SpeechBaiduActivity, SpeechBaiduViewModel, ActivitySpeechBaiduBinding>() {
     val synthesizer: SpeechSynthesizer = SpeechSynthesizer.getInstance()
     var utteranceId: String? = null

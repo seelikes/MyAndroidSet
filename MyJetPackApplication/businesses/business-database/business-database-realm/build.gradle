@@ -11,6 +11,9 @@ apply plugin: 'realm-android'
 if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_REALM')) {
     apply plugin: 'realm-helper'
 }
+if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_REALM')) {
+    apply plugin: 'business'
+}
 
 android {
     compileSdkVersion sdk_version_compile as int
@@ -18,8 +21,8 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1000
-        versionName "1.0.00"
+        versionCode 1001
+        versionName "1.0.01"
         if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_REALM')) {
             multiDexEnabled true
         }
@@ -58,12 +61,6 @@ android {
         jvmTarget = "1.8"
     }
 
-    kapt {
-        arguments {
-            arg("AROUTER_MODULE_NAME", project.name)
-        }
-    }
-
     dataBinding {
         enabled true
     }
@@ -99,7 +96,6 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
     implementation "com.example.myjetpackapplication:resources:$resources_version"
     implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
-    kapt "com.example.myjetpackapplication.annotationprocessor:business-compiler:$business_compiler_version"
     api "com.getbase:floatingactionbutton:$android__floating__action__button_futuresimple_version"
     api "com.github.mcxtzhang:SwipeDelMenuLayout:V$SwipeDelMenuLayout_mcxtzhang_version"
     api "com.github.seelikes.android:cache:$library_cache_version"
@@ -112,8 +108,6 @@ dependencies {
     else {
         implementation "com.github.seelikes.android:realm-api:$realm_helper_version"
     }
-    api "com.alibaba:arouter-api:$arouter_api_version"
-    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
 }
 
 if (!arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_REALM')) {

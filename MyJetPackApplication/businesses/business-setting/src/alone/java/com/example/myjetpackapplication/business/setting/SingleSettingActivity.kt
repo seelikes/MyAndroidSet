@@ -7,14 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
-import com.example.myjetpackapplication.business.setting.R
+import com.example.myjetpackapplication.annotationprocessor.business.api.BusinessApi
 import com.example.myjetpackapplication.business.setting.databinding.ActivitySingleSettingBinding
 import com.github.seelikes.android.mvvm.basic.BasicActivity
 
-@Route(path = "/business/single/setting")
+@Business(path = "/business/single/setting")
 class SingleSettingActivity :
     BasicActivity<SingleSettingActivity, SingleSettingViewModel, ActivitySingleSettingBinding>() {
     override fun initModel(savedInstanceState: Bundle?): SingleSettingViewModel =
@@ -44,19 +42,19 @@ class SingleSettingActivity :
         }
         var adapter = binding.rvList.adapter
         if (adapter !is SingleSettingItemAdapter) {
-            adapter = SingleSettingItemAdapter(this, BusinessManager.getChildren(null)) { item, _ ->
+            adapter = SingleSettingItemAdapter(this, BusinessApi.getChildren(null)) { item, _ ->
                 item?.let {
-                    val children = BusinessManager.getChildren(
+                    val children = BusinessApi.getChildren(
                         ViewModelProviders.of(this).get(SingleSettingDataModel::class.java).items.value?.get(
                             0
                         )
                     )
-                    if (children.isNotEmpty()) {
+                    if (!children.isNullOrEmpty()) {
                         ViewModelProviders.of(this).get(SingleSettingDataModel::class.java)
                             .items.value = children
                     } else {
                         item.path?.let { path ->
-                            ARouter.getInstance().build(path).navigation()
+                            BusinessApi.go(this, path)
                         }
                     }
                 }
@@ -66,7 +64,7 @@ class SingleSettingActivity :
     }
 
     override fun onBackPressed() {
-        val pageUp = BusinessManager.tryBack(
+        val pageUp = BusinessApi.tryBack(
             ViewModelProviders.of(this).get(SingleSettingDataModel::class.java).items.value?.get(0),
             null
         )

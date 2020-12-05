@@ -9,14 +9,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
 import com.github.seelikes.android.mvvm.basic.BasicActivity
 import com.example.myjetpackapplication.business.paging.data.PagingEntity
 import com.example.myjetpackapplication.business.paging.databinding.ActivityPagingBinding
 
-@Business(title = "paging_title")
-@Route(path = "/business20/paging")
+@Business(path = "/business/paging", title = "paging_title")
 class PagingActivity : BasicActivity<PagingActivity, PagingViewModel, ActivityPagingBinding>() {
     override fun initModel(savedInstanceState: Bundle?): PagingViewModel = PagingViewModel(this, DataBindingUtil.setContentView(this, R.layout.activity_paging))
 

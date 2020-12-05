@@ -1,7 +1,6 @@
 package com.example.myjetpackapplication.single
 
 import androidx.multidex.MultiDexApplication
-import com.alibaba.android.arouter.launcher.ARouter
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
@@ -23,14 +22,6 @@ open class SingleRunApplication : MultiDexApplication() {
                 isSupportSP = false
             }
         }
-    }
-
-    protected fun initARouter(debug: Boolean) {
-        if (debug) {
-            ARouter.openDebug()
-            ARouter.openLog()
-        }
-        ARouter.init(this)
     }
 
     protected fun initLogger(debug: Boolean) {

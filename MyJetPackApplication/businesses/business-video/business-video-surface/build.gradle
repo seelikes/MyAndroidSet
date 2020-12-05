@@ -7,6 +7,9 @@ else {
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_VIDEO_SURFACE')) {
+    apply plugin: 'business'
+}
 
 android {
     compileSdkVersion sdk_version_compile as int
@@ -14,8 +17,8 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1001
-        versionName "1.0.01"
+        versionCode 1003
+        versionName "1.0.03"
         if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_VIDEO_SURFACE')) {
             multiDexEnabled true
         }
@@ -54,12 +57,6 @@ android {
         jvmTarget = "1.8"
     }
 
-    kapt {
-        arguments {
-            arg("AROUTER_MODULE_NAME", project.name)
-        }
-    }
-
     dataBinding {
         enabled true
     }
@@ -84,7 +81,6 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
     implementation "com.example.myjetpackapplication:resources:$resources_version"
     implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
-    kapt "com.example.myjetpackapplication.annotationprocessor:business-compiler:$business_compiler_version"
     api "com.facebook.fresco:fresco:$fresco_version"
     api "com.github.seelikes.android:media:$library_media_version"
     api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
@@ -93,8 +89,6 @@ dependencies {
     if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_VIDEO_SURFACE')) {
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
-    api "com.alibaba:arouter-api:$arouter_api_version"
-    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
     api "com.yanzhenjie.permission:x:$AndPermission_yanzhenjie_version"
 }
 

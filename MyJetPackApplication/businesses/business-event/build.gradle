@@ -14,8 +14,8 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1004
-        versionName "1.0.04"
+        versionCode 1005
+        versionName "1.0.05"
         if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_EVENT')) {
             multiDexEnabled true
         }
@@ -50,12 +50,6 @@ android {
         jvmTarget = "1.8"
     }
 
-    kapt {
-        arguments {
-            arg("AROUTER_MODULE_NAME", project.name)
-        }
-    }
-
     dataBinding {
         enabled true
     }
@@ -79,14 +73,11 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
     implementation "com.example.myjetpackapplication:resources:$resources_version"
     implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
-    kapt "com.example.myjetpackapplication.annotationprocessor:business-compiler:$business_compiler_version"
     api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     api "com.java.lib:oil:$oil_version"
     if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_EVENT')) {
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
-    api "com.alibaba:arouter-api:$arouter_api_version"
-    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
 }
 

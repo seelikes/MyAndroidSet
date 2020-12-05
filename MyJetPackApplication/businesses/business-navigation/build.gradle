@@ -7,6 +7,9 @@ else {
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_NAVIGATION')) {
+    apply plugin: 'business'
+}
 
 android {
     compileSdkVersion sdk_version_compile as int
@@ -14,8 +17,8 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1002
-        versionName "1.0.02"
+        versionCode 1003
+        versionName "1.0.03"
         if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_NAVIGATION')) {
             multiDexEnabled true
         }
@@ -54,12 +57,6 @@ android {
         jvmTarget = "1.8"
     }
 
-    kapt {
-        arguments {
-            arg("AROUTER_MODULE_NAME", project.name)
-        }
-    }
-
     dataBinding {
         enabled true
     }
@@ -85,15 +82,12 @@ dependencies {
     implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
     api "androidx.navigation:navigation-fragment:$androidx_navigation_version"
     api "androidx.navigation:navigation-fragment-ktx:$androidx_navigation_version"
-    kapt "com.example.myjetpackapplication.annotationprocessor:business-compiler:$business_compiler_version"
     api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     api "com.java.lib:oil:$oil_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
     if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_NAVIGATION')) {
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
-    api "com.alibaba:arouter-api:$arouter_api_version"
-    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
 }
 
 if (!arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_NAVIGATION')) {

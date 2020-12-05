@@ -7,12 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
+import com.example.myjetpackapplication.annotationprocessor.business.api.BusinessApi
 import com.example.myjetpackapplication.business.video.surface.databinding.ActivitySingleVideoSurfaceBinding
 import com.github.seelikes.android.mvvm.basic.BasicActivity
 
-@Route(path = "/business/single/video/surface")
+@Business(path = "/business/single/video/surface")
 class SingleVideoSurfaceActivity :
     BasicActivity<SingleVideoSurfaceActivity, SingleVideoSurfaceViewModel, ActivitySingleVideoSurfaceBinding>() {
     override fun initModel(savedInstanceState: Bundle?): SingleVideoSurfaceViewModel =
@@ -43,19 +43,19 @@ class SingleVideoSurfaceActivity :
         var adapter = binding.rvList.adapter
         if (adapter !is SingleVideoSurfaceItemAdapter) {
             adapter =
-                SingleVideoSurfaceItemAdapter(this, BusinessManager.getChildren(null)) { item, _ ->
+                SingleVideoSurfaceItemAdapter(this, BusinessApi.getChildren(null)) { item, _ ->
                     item?.let {
-                        val children = BusinessManager.getChildren(
+                        val children = BusinessApi.getChildren(
                             ViewModelProviders.of(this).get(SingleVideoSurfaceDataModel::class.java).items.value?.get(
                                 0
                             )
                         )
-                        if (children.isNotEmpty()) {
+                        if (!children.isNullOrEmpty()) {
                             ViewModelProviders.of(this).get(SingleVideoSurfaceDataModel::class.java)
                                 .items.value = children
                         } else {
                             item.path?.let { path ->
-                                ARouter.getInstance().build(path).navigation()
+                                BusinessApi.go(this, path)
                             }
                         }
                     }
@@ -65,7 +65,7 @@ class SingleVideoSurfaceActivity :
     }
 
     override fun onBackPressed() {
-        val pageUp = BusinessManager.tryBack(
+        val pageUp = BusinessApi.tryBack(
             ViewModelProviders.of(this).get(SingleVideoSurfaceDataModel::class.java).items.value?.get(
                 0
             ), null

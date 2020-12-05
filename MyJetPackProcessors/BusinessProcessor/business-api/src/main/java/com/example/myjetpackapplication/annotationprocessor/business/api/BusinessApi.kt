@@ -3,6 +3,7 @@ package com.example.myjetpackapplication.annotationprocessor.business.api
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.BusinessItem
 import java.util.concurrent.ConcurrentSkipListSet
 
@@ -46,19 +47,21 @@ object BusinessApi {
     }
 
     fun getChildren(parent: BusinessItem?): List<BusinessItem>? {
+        Log.i("112233", "getChildren, businesses.isEmpty(): ${businesses.isEmpty()}")
         if (businesses.isEmpty()) {
             return null
         }
         val res = mutableListOf<BusinessItem>()
         for (business in businesses) {
-            if (business.parent == parent?.title) {
+            Log.i("112233", "getChildren, business.path: ${business.path}; business.parent: ${business.parent}; parent.title: ${parent?.title}")
+            if (business.parent == parent?.title || (business.parent.isNullOrEmpty() && parent?.title.isNullOrEmpty())) {
                 res.add(business)
             }
         }
         return res
     }
 
-    fun tryBack(current: BusinessItem, layer: List<BusinessItem>? = null): List<BusinessItem>? {
+    fun tryBack(current: BusinessItem?, layer: List<BusinessItem>? = null): List<BusinessItem>? {
         if (businesses.isEmpty()) {
             return null
         }
@@ -72,7 +75,7 @@ object BusinessApi {
                 continue
             }
             for (child in children) {
-                if (child.title == current.title) {
+                if (child.title == current?.title || (child.title.isNullOrEmpty() && current?.title.isNullOrEmpty())) {
                     return currentLayer
                 }
                 val guess = tryBack(current, children)

@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
 import com.github.seelikes.android.mvvm.basic.BasicActivity
 import com.example.myjetpackapplication.business.database.room.data.DatabaseRoomEntity
@@ -21,8 +20,7 @@ import org.greenrobot.eventbus.Subscribe
 /**
  * Created by liutiantian on 2019-05-08 00:06 星期三
  */
-@Business(title = "database_room_title", parent = "database_title")
-@Route(path = "/business18/room")
+@Business(path = "/business/room", title = "database_room_title", parent = "database_title")
 class DatabaseRoomActivity : BasicActivity<DatabaseRoomActivity, DatabaseRoomViewModel, ActivityDatabaseRoomBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

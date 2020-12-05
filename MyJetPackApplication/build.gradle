@@ -38,6 +38,11 @@ buildscript {
         else {
             classpath 'com.example.myjetpackapplication.plugin:realm-helper:1.0.04'
         }
+        if (project_in_debug.toBoolean() && findPath('repo').exists()) {
+            classpath 'com.github.seelikes.android.plugin:business:+'
+        } else {
+            classpath "com.github.seelikes.android.plugin:business:$business_version"
+        }
     }
 }
 

@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
 import com.example.myjetpackapplication.business.video.surface.databinding.ActivityVideoSurfaceBinding
 import com.example.myjetpackapplication.business.video.surface.event.VideoListScrollEvent
@@ -21,8 +20,7 @@ import com.orhanobut.logger.Logger
 import com.yanzhenjie.permission.AndPermission
 import org.greenrobot.eventbus.EventBus
 
-@Business(title = "video_surface_title", parent = "video_title")
-@Route(path = "/business2001191315/video/surface")
+@Business(path = "/business/video/surface", title = "video_surface_title", parent = "video_title")
 class VideoSurfaceActivity : BasicActivity<VideoSurfaceActivity, VideoSurfaceViewModel, ActivityVideoSurfaceBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

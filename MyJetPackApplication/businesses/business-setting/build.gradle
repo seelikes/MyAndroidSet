@@ -6,6 +6,9 @@ if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SETTING')) {
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SETTING')) {
+    apply plugin: 'business'
+}
 
 android {
     compileSdkVersion sdk_version_compile as int
@@ -13,8 +16,8 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1000
-        versionName "1.0.00"
+        versionCode 1001
+        versionName "1.0.01"
         if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SETTING')) {
             multiDexEnabled true
         }
@@ -53,12 +56,6 @@ android {
         jvmTarget = "1.8"
     }
 
-    kapt {
-        arguments {
-            arg("AROUTER_MODULE_NAME", project.name)
-        }
-    }
-
     dataBinding {
         enabled true
     }
@@ -91,8 +88,6 @@ dependencies {
     if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SETTING')) {
         implementation "com.example.myjetpackapplication:single:$single_version"
     }
-    api "com.alibaba:arouter-api:$arouter_api_version"
-    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
 }
 
 if (!arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SETTING')) {

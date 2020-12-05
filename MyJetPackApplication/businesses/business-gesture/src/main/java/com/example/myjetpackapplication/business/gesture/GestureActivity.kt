@@ -6,7 +6,6 @@ import android.view.MotionEvent
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
 import com.example.myjetpackapplication.business.gesture.databinding.ActivityGestureBinding
 import com.example.myjetpackapplication.business.gesture.info.GestureInfo
@@ -15,8 +14,7 @@ import com.orhanobut.logger.Logger
 import java.text.SimpleDateFormat
 import java.util.*
 
-@Business(title = "gesture_title")
-@Route(path = "/business15/gesture")
+@Business(path = "/business/gesture", title = "gesture_title")
 class GestureActivity : BasicActivity<GestureActivity, GestureViewModel, ActivityGestureBinding>() {
     private lateinit var gestureDetector: GestureDetector
 

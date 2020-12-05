@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
 import com.example.myjetpackapplication.business.database.realm.data.DatabaseRealmBean
 import com.example.myjetpackapplication.business.database.realm.databinding.ActivityDatabaseRealmBinding
@@ -20,8 +19,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import kotlin.random.Random
 
-@Business(title = "database_realm_title", parent = "database_title")
-@Route(path = "/business/database_realm")
+@Business(path = "/business/database/realm", title = "database_realm_title", parent = "database_title")
 class DatabaseRealmActivity : BasicActivity<DatabaseRealmActivity, DatabaseRealmViewModel, ActivityDatabaseRealmBinding>() {
     override fun initModel(savedInstanceState: Bundle?): DatabaseRealmViewModel = DatabaseRealmViewModel(this, DataBindingUtil.setContentView(this, R.layout.activity_database_realm))
 

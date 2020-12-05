@@ -10,7 +10,6 @@ class GestureApplication : SingleRunApplication() {
         super.onCreate()
         initLogger(BuildConfig.DEBUG)
         initAutoSize()
-        initARouter(BuildConfig.DEBUG)
         initFresco()
     }
 }

@@ -4,24 +4,20 @@ import android.Manifest
 import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
-import android.os.Debug
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
 import com.example.myjetpackapplication.business.video.view.databinding.ActivityVideoViewBinding
 import com.example.myjetpackapplication.business.video.view.event.VideoListScrollEvent
 import com.github.seelikes.android.mvvm.basic.BasicActivity
-import com.java.lib.oil.file.FileUtils
 import com.orhanobut.logger.Logger
 import com.yanzhenjie.permission.AndPermission
 import org.greenrobot.eventbus.EventBus
 
-@Business(title = "video_view_title", parent = "video_title")
-@Route(path = "/business221/video/view")
+@Business(title = "video_view_title", path = "/business/video/view", parent = "video_title")
 class VideoViewActivity : BasicActivity<VideoViewActivity, VideoViewViewModel, ActivityVideoViewBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

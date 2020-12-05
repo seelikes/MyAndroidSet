@@ -14,8 +14,8 @@ android {
     defaultConfig {
         minSdkVersion sdk_version_min as int
         targetSdkVersion sdk_version_target as int
-        versionCode 1003
-        versionName "1.0.03"
+        versionCode 1004
+        versionName "1.0.04"
         if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_AMR')) {
             multiDexEnabled true
         }
@@ -65,12 +65,6 @@ android {
         jvmTarget = "1.8"
     }
 
-    kapt {
-        arguments {
-            arg("AROUTER_MODULE_NAME", project.name)
-        }
-    }
-
     dataBinding {
         enabled true
     }
@@ -97,8 +91,6 @@ dependencies {
     kapt "com.example.myjetpackapplication.annotationprocessor:business-compiler:$business_compiler_version"
     api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     api "com.java.lib:oil:$oil_version"
-    api "com.alibaba:arouter-api:$arouter_api_version"
-    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
     if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_AMR')) {
         implementation "com.example.myjetpackapplication:single:$single_version"

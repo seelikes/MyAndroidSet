@@ -60,9 +60,6 @@
 -keep class androidx.** { *; }
 -dontwarn androidx.**
 
-#arouter
--keep class com.alibaba.android.arouter.** { *; }
-
 #hotfix
 -keep class com.taobao.sophix.** { *; }
 -keep class com.ta.utdid2.device.** { *; }
