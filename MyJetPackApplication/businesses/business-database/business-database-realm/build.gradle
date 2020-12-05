@@ -1,4 +1,6 @@
-if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_REALM')) {
+apply from: "$rootDir/dependencies.gradle"
+
+if (isRunAlone()) {
     apply plugin: 'com.android.application'
 }
 else {
@@ -8,10 +10,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
-if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_REALM')) {
+if (isRunAlone()) {
     apply plugin: 'realm-helper'
 }
-if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_REALM')) {
+if (isRunAlone()) {
     apply plugin: 'business'
 }
 
@@ -23,7 +25,7 @@ android {
         targetSdkVersion sdk_version_target as int
         versionCode 1001
         versionName "1.0.01"
-        if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_REALM')) {
+        if (isRunAlone()) {
             multiDexEnabled true
         }
 
@@ -38,7 +40,7 @@ android {
         }
     }
 
-    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_REALM')) {
+    if (isRunAlone()) {
         sourceSets {
             main {
                 manifest.srcFile 'src/alone/AndroidManifest.xml'
@@ -65,7 +67,7 @@ android {
         enabled true
     }
 }
-if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_REALM')) {
+if (isRunAlone()) {
     realm {
         kotlinExtensionsEnabled = true
     }
@@ -94,23 +96,19 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit-ktx:$androidx_junit_ktx_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
-    implementation "com.example.myjetpackapplication:resources:$resources_version"
     implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
     api "com.getbase:floatingactionbutton:$android__floating__action__button_futuresimple_version"
     api "com.github.mcxtzhang:SwipeDelMenuLayout:V$SwipeDelMenuLayout_mcxtzhang_version"
-    api "com.github.seelikes.android:cache:$library_cache_version"
-    api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     api "com.java.lib:oil:$oil_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
-    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_REALM')) {
-        implementation "com.example.myjetpackapplication:single:$single_version"
-    }
-    else {
+    if (!isRunAlone()) {
         implementation "com.github.seelikes.android:realm-api:$realm_helper_version"
     }
 }
 
-if (!arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_DATABASE_REALM')) {
+installDependencies()
+
+if (!isRunAlone()) {
     /**
      * 发布必须配置此项
      * 如果发布至maven服务器

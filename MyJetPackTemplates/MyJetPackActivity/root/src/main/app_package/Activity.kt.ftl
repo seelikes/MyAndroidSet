@@ -2,7 +2,6 @@ package ${escapeKotlinIdentifiers(packageName)}
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.Business
 <#if applicationPackage??>
 import ${applicationPackage}.R
@@ -13,8 +12,7 @@ import ${packageName}.databinding.${underscoreToCamelCase(activityLayout)}Bindin
 </#if>
 import com.github.seelikes.android.mvvm.basic.BasicActivity
 
-@Business(title = "${activityTitleName}")
-@Route(path = "${activityRoutePath}")
+@Business(path = "${activityRoutePath}", title = "${activityTitleName}")
 class ${activityClass} : BasicActivity<${activityClass}, ${viewModelClass}, ${underscoreToCamelCase(activityLayout)}Binding>() {
     override fun initModel(savedInstanceState: Bundle?): ${viewModelClass} = ${viewModelClass}(this, DataBindingUtil.setContentView(this, R.layout.${activityLayout}))
 }

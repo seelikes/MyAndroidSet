@@ -10,7 +10,6 @@ class ${underscoreToCamelCase(activitySingleLayout)}Application : SingleRunAppli
         super.onCreate()
         initLogger(BuildConfig.DEBUG)
         initAutoSize()
-        initARouter(BuildConfig.DEBUG)
         initFresco()
     }
 }

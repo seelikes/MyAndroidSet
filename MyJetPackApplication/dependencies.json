@@ -1,0 +1,286 @@
+{
+    "allSwitchToSource": false,
+    "modules": [
+        {
+            "name": "app",
+            "path": "./app",
+            "switchToSource": true,
+            "runAlone": true,
+            "application": true
+        },
+        {
+            "name": "basic",
+            "path": "./basic",
+            "location": "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version",
+            "switchToSource": true,
+            "runAlone": false
+        },
+        {
+            "name": "business-animation",
+            "path": "./businesses/business-animation",
+            "location": "com.example.myjetpackapplication:business-animation:$business_animation_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "business-anr",
+            "path": "./businesses/business-anr",
+            "location": "com.example.myjetpackapplication:business-anr:$business_anr_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "business-database",
+            "path": "./businesses/business-database",
+            "location": "com.example.myjetpackapplication:business-database:$business_database_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ],
+            "aloneDependencies": [
+                "business-database-realm",
+                "business-database-room"
+            ]
+        },
+        {
+            "name": "business-database-realm",
+            "path": "./businesses/business-database/business-database-realm",
+            "location": "com.example.myjetpackapplication:business-database-realm:$business_database_realm_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "cache",
+                "resources"
+            ]
+        },
+        {
+            "name": "business-database-room",
+            "path": "./businesses/business-database/business-database-room",
+            "location": "com.example.myjetpackapplication:business-database-room:$business_database_room_version",
+            "switchToSource": true,
+            "runAlone": true,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "business-event",
+            "path": "./businesses/business-event",
+            "location": "com.example.myjetpackapplication:business-event:$business_event_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "business-gesture",
+            "path": "./businesses/business-gesture",
+            "location": "com.example.myjetpackapplication:business-gesture:$business_gesture_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "business-navigation",
+            "path": "./businesses/business-navigation",
+            "location": "com.example.myjetpackapplication:business-navigation:$business_navigation_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "business-paging",
+            "path": "./businesses/business-paging",
+            "location": "com.example.myjetpackapplication:business-paging:$business_paging_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "business-profiler",
+            "path": "./businesses/business-profiler",
+            "location": "com.example.myjetpackapplication:business-profiler:$business_profiler_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ],
+            "aloneDependencies": [
+                "business-profiler-cpu"
+            ]
+        },
+        {
+            "name": "business-profiler-cpu",
+            "path": "./businesses/business-profiler/business-profiler-cpu",
+            "location": "com.example.myjetpackapplication:business-profiler-cpu:$business_profiler_cpu_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "business-setting",
+            "path": "./businesses/business-setting",
+            "location": "com.example.myjetpackapplication:business-setting:$business_setting_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "business-speech",
+            "path": "./businesses/business-speech",
+            "location": "com.example.myjetpackapplication:business-speech:$business_speech_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ],
+            "aloneDependencies": [
+                "business-speech-baidu"
+            ]
+        },
+        {
+            "name": "business-speech-baidu",
+            "path": "./businesses/business-speech/business-speech-baidu",
+            "location": "com.example.myjetpackapplication:business-speech-cpu:$business_speech_baidu_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "business-video",
+            "path": "./businesses/business-video",
+            "location": "com.example.myjetpackapplication:business-video:$business_video_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ],
+            "aloneDependencies": [
+                "business-video-surface",
+                "business-video-view"
+            ]
+        },
+        {
+            "name": "business-video-surface",
+            "path": "./businesses/business-video/business-video-surface",
+            "location": "com.example.myjetpackapplication:business-video-surface:$business_video_surface_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "business-video-view",
+            "path": "./businesses/business-video/business-video-view",
+            "location": "com.example.myjetpackapplication:business-video-view:$business_video_view_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "business-view",
+            "path": "./businesses/business-view",
+            "location": "com.example.myjetpackapplication:business-view:$business_view_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "library-algorithm",
+            "path": "./libraries/library-algorithm",
+            "location": "com.example.myjetpackapplication:library-algorithm:$library_algorithm_version",
+            "switchToSource": true,
+            "runAlone": false
+        },
+        {
+            "name": "library-browser",
+            "path": "./libraries/library-browser",
+            "location": "com.example.myjetpackapplication:library-browser:$library_browser_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "library-cache",
+            "path": "./libraries/library-cache",
+            "location": "com.example.myjetpackapplication:library-cache:$library_cache_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "library-media",
+            "path": "./libraries/library-media",
+            "location": "com.example.myjetpackapplication:library-media:$library_media_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources"
+            ]
+        },
+        {
+            "name": "resources",
+            "path": "./resources",
+            "location": "com.example.myjetpackapplication:resources:$resources_version",
+            "switchToSource": true,
+            "runAlone": false
+        },
+        {
+            "name": "single",
+            "path": "./single",
+            "location": "com.example.myjetpackapplication:single:$single_version",
+            "switchToSource": true,
+            "runAlone": false
+        }
+    ]
+}

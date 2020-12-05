@@ -1,0 +1,116 @@
+import groovy.json.JsonSlurper
+
+def config = new JsonSlurper().parseText(new File("dependencies.json").text)
+
+println("allSwitchToSource: ${config.allSwitchToSource}")
+
+def includeModules() {
+    def config = new JsonSlurper().parseText(new File("dependencies.json").text)
+    config.modules.each { module ->
+        if (config.allSwitchToSource.toBoolean() || module.switchToSource.toBoolean()) {
+            include ":${module.name}"
+            project(":${module.name}").projectDir = new File(module.path)
+        }
+    }
+}
+
+def installDependencies() {
+    def config = new JsonSlurper().parseText(new File("dependencies.json").text)
+    def module = config.modules.find{ module ->
+        module.name == name
+    }
+    if (module.application) {
+        config.modules.each { subModule ->
+            if (subModile.application) {
+                return
+            }
+            if (config.allSwitchToSource.toBoolean() || subModule.switchToSource.toBoolean()) {
+                dependencies.add("implementation", project(":${subModule.name}"))
+            }
+            else {
+                def versionStartIndex = subModule.location.indexOf("\$")
+                if (versionStartIndex < 0) {
+                    dependencies.add("implementation", subModule.location)
+                }
+                else {
+                    def version = property(dependency.location.substring(versionStartIndex + 1))
+                    dependencies.add("implementation", "${dependency.location.substring(0, versionStartIndex)}${version}")
+                }
+            }
+        }
+        return
+    }
+    if (module) {
+        if (module.dependencies) {
+            module.dependencies.each { name ->
+                def dependency = config.modules.find{ item ->
+                    item.name == name
+                }
+                if (dependency) {
+                    if (config.allSwitchToSource.toBoolean() || dependency.switchToSource.toBoolean()) {
+                        dependencies.add("implementation", project(":${dependency.name}"))
+                    }
+                    else {
+                        def versionStartIndex = dependency.location.indexOf("\$")
+                        if (versionStartIndex < 0) {
+                            dependencies.add("implementation", dependency.location)
+                        }
+                        else {
+                            def version = property(dependency.location.substring(versionStartIndex + 1))
+                            dependencies.add("implementation", "${dependency.location.substring(0, versionStartIndex)}${version}")
+                        }
+                    }
+                }
+            }
+        }
+        if (module.runAlone) {
+            def single = config.modules.find{ item ->
+                item.name == "single"
+            }
+            if (config.allSwitchToSource.toBoolean() || single.switchToSource.toBoolean()) {
+                dependencies.add("implementation", project(":single"))
+            }
+            else {
+                dependencies.add("implementation", "com.example.myjetpackapplication:single:$single_version")
+            }
+
+            if (module.aloneDependencies) {
+                module.aloneDependencies.each { aloneDependency ->
+                    def dependency = config.modules.find{ item ->
+                        item.name == aloneDependency
+                    }
+                    if (dependency) {
+                        if (config.allSwitchToSource.toBoolean() || dependency.switchToSource.toBoolean()) {
+                            dependencies.add("implementation", project(":${dependency.name}"))
+                        }
+                        else {
+                            def versionStartIndex = dependency.location.indexOf("\$")
+                            if (versionStartIndex < 0) {
+                                dependencies.add("implementation", dependency.location)
+                            }
+                            else {
+                                def version = property(dependency.location.subString(versionStartIndex + 1))
+                                dependencies.add("implementation", "${dependency.location.substring(0, versionStartIndex)}${version}")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+def isRunAlone() {
+    def config = new JsonSlurper().parseText(new File("dependencies.json").text)
+    def module = config.modules.find{ module ->
+        module.name == name
+    }
+    return module.runAlone.toBoolean()
+}
+
+ext {
+    includeModules = this.&includeModules
+    installDependencies = this.&installDependencies
+    isRunAlone = this.&isRunAlone
+}
+

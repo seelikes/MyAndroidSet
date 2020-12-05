@@ -1,4 +1,6 @@
-if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_${moduleNameUnderscore?upper_case}')) {
+apply from: "$rootDir/dependencies.gradle"
+
+if (isRunAlone()) {
     apply plugin: 'com.android.application'
 }
 else {
@@ -7,6 +9,9 @@ else {
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+if (isRunAlone()) {
+    apply plugin: 'business'
+}
 
 android {
     compileSdkVersion sdk_version_compile as int
@@ -16,7 +21,7 @@ android {
         targetSdkVersion sdk_version_target as int
         versionCode 1000
         versionName "1.0.00"
-        if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_${moduleNameUnderscore?upper_case}')) {
+        if (isRunAlone()) {
             multiDexEnabled true
         }
 
@@ -31,7 +36,7 @@ android {
         }
     }
 
-    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_${moduleNameUnderscore?upper_case}')) {
+    if (isRunAlone()) {
         sourceSets {
             main {
                 manifest.srcFile 'src/alone/AndroidManifest.xml'
@@ -52,12 +57,6 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
-    }
-
-    kapt {
-        arguments {
-            arg("AROUTER_MODULE_NAME", project.name)
-        }
     }
 
     dataBinding {
@@ -82,18 +81,14 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit-ktx:$androidx_junit_ktx_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
-    implementation "com.example.myjetpackapplication:resources:$resources_version"
     implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
-    kapt "com.example.myjetpackapplication.annotationprocessor:business-compiler:$business_compiler_version"
-    api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     api "com.java.lib:oil:$oil_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
-    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_${moduleNameUnderscore?upper_case}')) {
-        implementation "com.example.myjetpackapplication:single:$single_version"
-    }
 }
 
-if (!arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_${moduleNameUnderscore?upper_case}')) {
+installDependencies()
+
+if (!isRunAlone()) {
     /**
     * 发布必须配置此项
     * 如果发布至maven服务器

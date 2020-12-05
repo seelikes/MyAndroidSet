@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
 import com.example.myjetpackapplication.annotationprocessor.business.annotation.BusinessItem
+import com.example.myjetpackapplication.annotationprocessor.business.api.BusinessApi
 import ${packageName}.databinding.ItemSingle${underscoreToCamelCase(activityLayout)}Binding
 import com.github.seelikes.android.mvvm.basic.BasicViewHolder
 import com.github.seelikes.android.mvvm.basic.context
@@ -19,7 +20,7 @@ class ${underscoreToCamelCase(activitySingleLayout)}ItemHolder(weakContext: Weak
 
     override fun setData(entity: BusinessItem?) {
         super.setData(entity)
-        hasChildren.set(BusinessManager.getChildren(entity).isNotEmpty())
+        hasChildren.set(!BusinessApi.getChildren(entity).isNullOrEmpty())
         title.set(context?.resources?.getIdentifier(entity?.title, "string", context?.packageName) ?: R.string.app_name)
     }
 

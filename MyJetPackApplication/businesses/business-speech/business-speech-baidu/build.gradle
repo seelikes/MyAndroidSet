@@ -1,4 +1,6 @@
-if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SPEECH_BAIDU')) {
+apply from: "$rootDir/dependencies.gradle"
+
+if (isRunAlone()) {
     apply plugin: 'com.android.application'
 }
 else {
@@ -7,7 +9,7 @@ else {
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SPEECH_BAIDU')) {
+if (isRunAlone()) {
     apply plugin: 'business'
 }
 
@@ -19,13 +21,13 @@ android {
         targetSdkVersion sdk_version_target as int
         versionCode 1014
         versionName "1.0.14"
-        if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SPEECH_BAIDU')) {
+        if (isRunAlone()) {
             multiDexEnabled true
         }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        if (Run_Mode.contains('ALONE_SPEECH_BAIDU')) {
+        if (isRunAlone()) {
             manifestPlaceholders = [
                 BAIDU_SPEECH_APP_ID: Baidu_speech_app_id,
                 BAIDU_SPEECH_APP_KEY: Baidu_speech_app_key,
@@ -41,7 +43,7 @@ android {
         }
     }
 
-    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SPEECH_BAIDU')) {
+    if (isRunAlone()) {
         sourceSets {
             main {
                 manifest.srcFile 'src/alone/AndroidManifest.xml'
@@ -85,17 +87,14 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit-ktx:$androidx_junit_ktx_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
-    implementation "com.example.myjetpackapplication:resources:$resources_version"
     implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
-    api "com.github.seelikes.android:mvvm-basic:$mvvm_basic_version"
     api "com.java.lib:oil:$oil_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
-    if (arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SPEECH_BAIDU')) {
-        implementation "com.example.myjetpackapplication:single:$single_version"
-    }
 }
 
-if (!arrayContains(Run_Mode.split(',|&|\\|| '), 'ALONE_BUSINESS_SPEECH_BAIDU')) {
+installDependencies()
+
+if (!isRunAlone()) {
     /**
     * 发布必须配置此项
     * 如果发布至maven服务器
