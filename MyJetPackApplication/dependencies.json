@@ -238,7 +238,7 @@
             "name": "business-view",
             "path": "./businesses/business-view",
             "location": "com.example.myjetpackapplication:business-view:$business_view_version",
-            "switchToSource": true,
+            "switchToSource": false,
             "runAlone": false,
             "dependencies": [
                 "basic",
