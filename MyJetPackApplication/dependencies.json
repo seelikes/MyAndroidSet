@@ -247,6 +247,18 @@
             ]
         },
         {
+            "name": "business-view-motion",
+            "path": "./businesses/business-view/business-view-motion",
+            "location": "com.example.myjetpackapplication:business-view-motion:$business_view_motion_version",
+            "switchToSource": false,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources",
+                "business-annotation"
+            ]
+        },
+        {
             "name": "library-algorithm",
             "path": "./libraries/library-algorithm",
             "location": "com.github.seelikes.java:algorithm:$library_algorithm_version",
