@@ -81,7 +81,6 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit-ktx:$androidx_junit_ktx_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
-    implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
     api "com.java.lib:oil:$oil_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
 }

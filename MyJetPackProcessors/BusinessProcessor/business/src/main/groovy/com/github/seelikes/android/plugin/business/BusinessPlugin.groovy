@@ -13,7 +13,7 @@ class BusinessPlugin implements Plugin<Project> {
     void apply(Project project) {
         project.logger.info("here go go")
         project.dependencies.add("implementation", "com.example.myjetpackapplication.annotationprocessor:business-annotation:1.0.14")
-        project.dependencies.add("implementation", "com.example.myjetpackapplication.annotationprocessor:business-api:1.0.12")
+        project.dependencies.add("implementation", "com.example.myjetpackapplication.annotationprocessor:business-api:1.0.13")
         def base = project.extensions.getByType(BaseExtension)
         if (base) {
             project.extensions.create("router", RouterExtension)

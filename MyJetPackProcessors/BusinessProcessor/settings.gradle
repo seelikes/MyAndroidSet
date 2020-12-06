@@ -1,3 +1,5 @@
-include ':app', ':business-compiler', ':business-annotation', ':business-api'
+apply from: '../../MyJetPackApplication/dependencies.gradle'
+
 rootProject.name='BusinessAnnotationProcessor'
-include 'business'
+
+includeModules()

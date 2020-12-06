@@ -53,6 +53,10 @@ object BusinessApi {
         }
         val res = mutableListOf<BusinessItem>()
         for (business in businesses) {
+            Log.i("112233", "getChildren, business.title.isNullOrEmpty(): ${business.title.isNullOrEmpty()}")
+            if (business.title.isNullOrEmpty()) {
+                continue
+            }
             Log.i("112233", "getChildren, business.path: ${business.path}; business.parent: ${business.parent}; parent.title: ${parent?.title}")
             if (business.parent == parent?.title || (business.parent.isNullOrEmpty() && parent?.title.isNullOrEmpty())) {
                 res.add(business)

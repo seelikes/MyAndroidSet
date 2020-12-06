@@ -1,3 +1,5 @@
+apply from: '../../../MyJetPackApplication/dependencies.gradle'
+
 apply plugin: 'java-library'
 
 dependencies {
@@ -5,9 +7,10 @@ dependencies {
     compileOnly "com.google.auto.service:auto-service:1.0-rc6"
     api "com.java.lib:oil:1.1.21"
     api "com.squareup:javapoet:1.11.1"
-    api "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
     api "com.alibaba:arouter-annotation:1.0.6"
 }
+
+installDependencies()
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"

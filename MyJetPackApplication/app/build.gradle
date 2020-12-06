@@ -91,7 +91,6 @@ dependencies {
     implementation "androidx.test.ext:junit-ktx:$androidx_junit_ktx_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
-    implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
     implementation "com.example.myjetpackapplication.annotationprocessor:business-api:$business_api_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_version"

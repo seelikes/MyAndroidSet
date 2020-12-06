@@ -3,6 +3,7 @@ plugins {
     id 'java'
 }
 
+apply from: '../../../MyJetPackApplication/dependencies.gradle'
 
 sourceCompatibility = 1.8
 
@@ -18,13 +19,14 @@ dependencies {
     compile 'commons-codec:commons-codec:1.14'
     compile 'commons-io:commons-io:2.6'
     compile 'org.javassist:javassist:3.27.0-GA'
-    compile "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
 }
+
+installDependencies()
 
 ext {
     groupId = 'com.github.seelikes.android.plugin'
     artifactId = 'business'
-    version = "$business_version"
+    version = "1.0.13"
     description = 'business plugin'
     if (project_in_debug.toBoolean()) {
         registry = 'project'

@@ -5,7 +5,7 @@
             "name": "app",
             "path": "./app",
             "switchToSource": true,
-            "runAlone": true,
+            "runAlone": false,
             "application": true
         },
         {
@@ -23,7 +23,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -34,7 +35,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -45,7 +47,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ],
             "aloneDependencies": [
                 "business-database-realm",
@@ -61,7 +64,8 @@
             "dependencies": [
                 "basic",
                 "cache",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -72,7 +76,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -83,7 +88,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -94,7 +100,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -105,7 +112,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -116,7 +124,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -127,7 +136,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ],
             "aloneDependencies": [
                 "business-profiler-cpu"
@@ -141,7 +151,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -152,7 +163,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -163,7 +175,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ],
             "aloneDependencies": [
                 "business-speech-baidu"
@@ -177,7 +190,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -188,7 +202,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ],
             "aloneDependencies": [
                 "business-video-surface",
@@ -203,7 +218,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -214,7 +230,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -225,7 +242,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -243,7 +261,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -254,7 +273,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -265,7 +285,8 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "resources"
+                "resources",
+                "business-annotation"
             ]
         },
         {
@@ -279,6 +300,12 @@
             "name": "single",
             "path": "./single",
             "location": "com.example.myjetpackapplication:single:$single_version",
+            "switchToSource": false,
+            "runAlone": false
+        },
+        {
+            "name": "business-annotation",
+            "location": "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version",
             "switchToSource": false,
             "runAlone": false
         }

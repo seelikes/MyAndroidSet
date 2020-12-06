@@ -8,8 +8,10 @@ def includeModules() {
     def config = new JsonSlurper().parseText(new File("$rootDir/dependencies.json").text)
     config.modules.each { module ->
         if (config.allSwitchToSource.toBoolean() || module.switchToSource.toBoolean()) {
-            include ":${module.name}"
-            project(":${module.name}").projectDir = new File(module.path)
+            if (module.path) {
+                include ":${module.name}"
+                project(":${module.name}").projectDir = new File(module.path)
+            }
         }
     }
 }
@@ -24,7 +26,7 @@ def installDependencies() {
             if (subModule.application || subModule.excludeFromApplication) {
                 return
             }
-            if (config.allSwitchToSource.toBoolean() || (subModule.switchToSource.toBoolean() && !subModule.runAlone)) {
+            if ((config.allSwitchToSource.toBoolean() || (subModule.switchToSource.toBoolean() && !subModule.runAlone)) && subModule.path) {
                 dependencies.add("implementation", project(":${subModule.name}"))
             }
             else {
@@ -47,17 +49,17 @@ def installDependencies() {
                     item.name == name
                 }
                 if (dependency) {
-                    if (config.allSwitchToSource.toBoolean() || (dependency.switchToSource.toBoolean() && !dependency.runAlone)) {
-                        dependencies.add("implementation", project(":${dependency.name}"))
+                    if ((config.allSwitchToSource.toBoolean() || (dependency.switchToSource.toBoolean() && !dependency.runAlone)) && dependency.path) {
+                        dependencies.add("compile", project(":${dependency.name}"))
                     }
                     else {
                         def versionStartIndex = dependency.location.indexOf("\$")
                         if (versionStartIndex < 0) {
-                            dependencies.add("implementation", dependency.location)
+                            dependencies.add("compile", dependency.location)
                         }
                         else {
                             def version = property(dependency.location.substring(versionStartIndex + 1))
-                            dependencies.add("implementation", "${dependency.location.substring(0, versionStartIndex)}${version}")
+                            dependencies.add("compile", "${dependency.location.substring(0, versionStartIndex)}${version}")
                         }
                     }
                 }
@@ -67,7 +69,7 @@ def installDependencies() {
             def single = config.modules.find{ item ->
                 item.name == "single"
             }
-            if (config.allSwitchToSource.toBoolean() || single.switchToSource.toBoolean()) {
+            if ((config.allSwitchToSource.toBoolean() || single.switchToSource.toBoolean()) && single.path) {
                 dependencies.add("implementation", project(":single"))
             }
             else {
@@ -80,7 +82,7 @@ def installDependencies() {
                         item.name == aloneDependency
                     }
                     if (dependency) {
-                        if (config.allSwitchToSource.toBoolean() || (dependency.switchToSource.toBoolean() && !dependency.runAlone)) {
+                        if ((config.allSwitchToSource.toBoolean() || (dependency.switchToSource.toBoolean() && !dependency.runAlone)) && dependency.path) {
                             dependencies.add("implementation", project(":${dependency.name}"))
                         }
                         else {

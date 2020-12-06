@@ -1,0 +1,52 @@
+{
+    "allSwitchToSource": false,
+    "modules": [
+        {
+            "name": "app",
+            "path": "./app",
+            "switchToSource": true,
+            "runAlone": false,
+            "application": true
+        },
+        {
+            "name": "business",
+            "path": "./business",
+            "location": "com.github.seelikes.android.plugin:business:$business_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "excludeFromApplication": true,
+            "dependencies": [
+                "business-annotation"
+            ]
+        },
+        {
+            "name": "business-annotation",
+            "path": "./business-annotation",
+            "location": "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version",
+            "switchToSource": false,
+            "runAlone": false
+        },
+        {
+            "name": "business-api",
+            "path": "./business-api",
+            "location": "com.example.myjetpackapplication.annotationprocessor:business-api::$business_api_version",
+            "switchToSource": false,
+            "runAlone": false,
+            "excludeFromApplication": true,
+            "dependencies": [
+                "business-annotation"
+            ]
+        },
+        {
+            "name": "business-compiler",
+            "path": "./business-compiler",
+            "location": "com.example.myjetpackapplication.annotationprocessor:business-compiler:$business_compiler_version",
+            "switchToSource": false,
+            "runAlone": false,
+            "excludeFromApplication": true,
+            "dependencies": [
+                "business-annotation"
+            ]
+        }
+    ]
+}

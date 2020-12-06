@@ -1,7 +1,10 @@
+apply from: '../../../MyJetPackApplication/dependencies.gradle'
+
 apply plugin: 'com.android.application'
 apply plugin: 'business'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'business'
 
 android {
     compileSdkVersion 29
@@ -35,6 +38,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+
+installDependencies()
 
 router {
     constantHolder "com.example.myjetpackapplication.annotationprocessor.business.MainActivity"
