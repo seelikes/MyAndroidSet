@@ -6,6 +6,7 @@ import com.github.seelikes.android.plugin.business.plugins.router.RouterExtensio
 import com.github.seelikes.android.plugin.business.plugins.router.RouterParser
 import com.github.seelikes.android.plugin.business.threads.DirectoryInputParser
 import com.github.seelikes.android.plugin.business.threads.JarInputParser
+import javassist.ClassPath
 import javassist.ClassPool
 import org.gradle.api.Project
 
@@ -47,28 +48,33 @@ class BusinessTransform extends Transform {
     void transform(TransformInvocation transformInvocation) throws TransformException, InterruptedException, IOException {
         project.logger.info("${name}.2216 transform begin")
 
+        boolean cacheOpenedJarFile = ClassPool.cacheOpenedJarFile
+        ClassPool.cacheOpenedJarFile = false
+
+        List<ClassPath> classPaths = new ArrayList()
+
         for (def classPath in project.android.bootClasspath) {
-            ClassPool.default.appendClassPath classPath.toString()
+            classPaths.add(ClassPool.default.appendClassPath(classPath.toString()))
         }
 
         // 此处无视增量
         transformInvocation.inputs.each { input ->
             input.jarInputs.each { jarInput ->
-                ClassPool.default.appendClassPath(jarInput.file.absolutePath)
+                classPaths.add(ClassPool.default.appendClassPath(jarInput.file.absolutePath))
             }
 
             input.directoryInputs.each { DirectoryInput directoryInput ->
-                ClassPool.default.appendClassPath(directoryInput.file.absolutePath)
+                classPaths.add(ClassPool.default.appendClassPath(directoryInput.file.absolutePath))
             }
         }
 
         transformInvocation.referencedInputs.each { input ->
             input.jarInputs.each { jarInput ->
-                ClassPool.default.appendClassPath(jarInput.file.absolutePath)
+                classPaths.add(ClassPool.default.appendClassPath(jarInput.file.absolutePath))
             }
 
             input.directoryInputs.each { DirectoryInput directoryInput ->
-                ClassPool.default.appendClassPath(directoryInput.file.absolutePath)
+                classPaths.add(ClassPool.default.appendClassPath(directoryInput.file.absolutePath))
             }
         }
 
@@ -109,6 +115,12 @@ class BusinessTransform extends Transform {
         parsers.each {
             it.collect(project, transformInvocation)
         }
+
+        classPaths.each {
+            ClassPool.default.removeClassPath(it)
+        }
+
+        ClassPool.cacheOpenedJarFile = cacheOpenedJarFile
 
         project.logger.info("${name}.2216 transform finish")
     }

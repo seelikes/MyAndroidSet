@@ -51,6 +51,7 @@ class JarInputParser extends BusinessParserTask<JarParser> implements JarMethods
             throw new GradleException("exception happened while parsing ${input.file.absolutePath}", throwable)
         }
         finally {
+            project.logger.info("jar .2216 ${System.currentTimeMillis()} ${input.name} close")
             jarFile.close()
         }
         project.logger.info("jar.2216 ${System.currentTimeMillis()} ${input.name} end")
