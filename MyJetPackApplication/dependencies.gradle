@@ -1,75 +1,54 @@
 import groovy.json.JsonSlurper
 
-def config = new JsonSlurper().parseText(new File("$rootDir/dependencies.json").text)
+class Properties {
+    static def config
 
-println("allSwitchToSource: ${config.allSwitchToSource}")
+    static def init(rootDir) {
+        if (config == null) {
+            config = new JsonSlurper().parseText(new File("$rootDir/dependencies.json").text)
+        }
+    }
+}
+
+Properties.init("$rootDir")
+
+println("allSwitchToSource: ${Properties.config.allSwitchToSource}")
 
 def includeModules() {
-    def config = new JsonSlurper().parseText(new File("$rootDir/dependencies.json").text)
-    config.modules.each { module ->
-        if (config.allSwitchToSource.toBoolean() || module.switchToSource.toBoolean()) {
+    Properties.config.modules.each { module ->
+        if (Properties.config.allSwitchToSource.toBoolean() || module.switchToSource.toBoolean()) {
             if (module.path) {
                 include ":${module.name}"
-                project(":${module.name}").projectDir = new File(module.path)
+                project(":${module.name}").projectDir = new File("$rootDir", module.path)
             }
         }
     }
 }
 
 def installDependencies() {
-    def config = new JsonSlurper().parseText(new File("$rootDir/dependencies.json").text)
-    def module = config.modules.find{ module ->
+    def module = Properties.config.modules.find{ module ->
         module.name == name
     }
     if (module.application) {
-        config.modules.each { subModule ->
-            if (subModule.application || subModule.excludeFromApplication) {
-                return
-            }
-            if ((config.allSwitchToSource.toBoolean() || (subModule.switchToSource.toBoolean() && !subModule.runAlone)) && subModule.path) {
-                dependencies.add("implementation", project(":${subModule.name}"))
-            }
-            else {
-                def versionStartIndex = subModule.location.indexOf("\$")
-                if (versionStartIndex < 0) {
-                    dependencies.add("implementation", subModule.location)
-                }
-                else {
-                    def version = property(subModule.location.substring(versionStartIndex + 1))
-                    dependencies.add("implementation", "${subModule.location.substring(0, versionStartIndex)}${version}")
-                }
-            }
+        Properties.config.modules.each { dependency ->
+            installDependency(dependency)
         }
         return
     }
     if (module) {
         if (module.dependencies) {
             module.dependencies.each { name ->
-                def dependency = config.modules.find{ item ->
+                def dependency = Properties.config.modules.find{ item ->
                     item.name == name
                 }
-                if (dependency) {
-                    if ((config.allSwitchToSource.toBoolean() || (dependency.switchToSource.toBoolean() && !dependency.runAlone)) && dependency.path) {
-                        dependencies.add("compile", project(":${dependency.name}"))
-                    }
-                    else {
-                        def versionStartIndex = dependency.location.indexOf("\$")
-                        if (versionStartIndex < 0) {
-                            dependencies.add("compile", dependency.location)
-                        }
-                        else {
-                            def version = property(dependency.location.substring(versionStartIndex + 1))
-                            dependencies.add("compile", "${dependency.location.substring(0, versionStartIndex)}${version}")
-                        }
-                    }
-                }
+                installDependency(dependency, "compile")
             }
         }
         if (module.runAlone) {
-            def single = config.modules.find{ item ->
+            def single = Properties.config.modules.find{ item ->
                 item.name == "single"
             }
-            if ((config.allSwitchToSource.toBoolean() || single.switchToSource.toBoolean()) && single.path) {
+            if ((Properties.config.allSwitchToSource.toBoolean() || single.switchToSource.toBoolean()) && single.path) {
                 dependencies.add("implementation", project(":single"))
             }
             else {
@@ -78,33 +57,42 @@ def installDependencies() {
 
             if (module.aloneDependencies) {
                 module.aloneDependencies.each { aloneDependency ->
-                    def dependency = config.modules.find{ item ->
+                    def dependency = Properties.config.modules.find{ item ->
                         item.name == aloneDependency
                     }
-                    if (dependency) {
-                        if ((config.allSwitchToSource.toBoolean() || (dependency.switchToSource.toBoolean() && !dependency.runAlone)) && dependency.path) {
-                            dependencies.add("implementation", project(":${dependency.name}"))
-                        }
-                        else {
-                            def versionStartIndex = dependency.location.indexOf("\$")
-                            if (versionStartIndex < 0) {
-                                dependencies.add("implementation", dependency.location)
-                            }
-                            else {
-                                def version = property(dependency.location.subString(versionStartIndex + 1))
-                                dependencies.add("implementation", "${dependency.location.substring(0, versionStartIndex)}${version}")
-                            }
-                        }
-                    }
+                    installDependency(dependency)
                 }
             }
         }
     }
 }
 
+private def installDependency(dependency, type = "implementation") {
+    def module = Properties.config.modules.find {
+        module.name == name
+    }
+    if (dependency) {
+        if (dependency.application || (module.application && dependency.excludeFromApplication)) {
+            return
+        }
+        if ((Properties.config.allSwitchToSource.toBoolean() || (dependency.switchToSource.toBoolean() && !dependency.runAlone)) && dependency.path) {
+            dependencies.add("$type", project(":${dependency.name}"))
+        }
+        else {
+            def versionStartIndex = dependency.location.indexOf("\$")
+            if (versionStartIndex < 0) {
+                dependencies.add("$type", dependency.location)
+            }
+            else {
+                def version = property(dependency.location.substring(versionStartIndex + 1))
+                dependencies.add("$type", "${dependency.location.substring(0, versionStartIndex)}${version}")
+            }
+        }
+    }
+}
+
 def isRunAlone() {
-    def config = new JsonSlurper().parseText(new File("$rootDir/dependencies.json").text)
-    def module = config.modules.find{ module ->
+    def module = Properties.config.modules.find{ module ->
         module.name == name
     }
     return module.runAlone.toBoolean()
