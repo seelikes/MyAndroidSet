@@ -4,9 +4,7 @@ class Properties {
     static def config
 
     static def init(rootDir) {
-        if (config == null) {
-            config = new JsonSlurper().parseText(new File("$rootDir/dependencies.json").text)
-        }
+        config = new JsonSlurper().parseText(new File("$rootDir/dependencies.json").text)
     }
 }
 
