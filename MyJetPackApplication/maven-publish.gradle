@@ -114,6 +114,14 @@ def getProperty(String name, Object defValue) {
 
 apply plugin: 'maven-publish'
 
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+tasks.withType(Javadoc) {
+    options.encoding = "UTF-8"
+}
+
 if (project.extensions.findByName('android')) {
     task androidJavadocs(type: Javadoc) {
         source = android.sourceSets.main.java.srcDirs
@@ -134,10 +142,6 @@ if (project.extensions.findByName('android')) {
     }
 }
 else if (getProperty("projectType", "java") == "groovy") {
-    tasks.withType(JavaCompile) {
-        options.encoding = "UTF-8"
-    }
-
     javadoc {
         options.encoding = "UTF-8"
     }
@@ -146,16 +150,13 @@ else if (getProperty("projectType", "java") == "groovy") {
         classifier "javadoc"
         from groovydoc
     }
+
     task sourcesJar(type: Jar) {
         classifier "sources"
         from sourceSets.main.allSource
     }
 }
 else {
-    tasks.withType(JavaCompile) {
-        options.encoding = "UTF-8"
-    }
-
     javadoc {
         options.encoding = "UTF-8"
     }
