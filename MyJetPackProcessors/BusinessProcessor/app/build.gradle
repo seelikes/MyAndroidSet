@@ -40,6 +40,6 @@ dependencies {
 
 installDependencies()
 
-//router {
-//    constantHolder "com.example.myjetpackapplication.annotationprocessor.business.MainActivity"
-//}
+router {
+    constantHolder "com.example.myjetpackapplication.annotationprocessor.business.MainActivity"
+}
