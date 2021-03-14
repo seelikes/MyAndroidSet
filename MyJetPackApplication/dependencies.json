@@ -259,6 +259,30 @@
             ]
         },
         {
+            "name": "business-kotlinBasic",
+            "path": "./businesses/business-kotlinBasic",
+            "location": "com.example.myjetpackapplication:business-mutex:$business_kotlinBasic_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources",
+                "business-annotation"
+            ]
+        },
+        {
+            "name": "business-kotlinBasic-mutex",
+            "path": "./businesses/business-kotlinBasic/business-kotlinBasic-mutex",
+            "location": "com.example.myjetpackapplication:business-mutex:$business_kotlinBasic_mutex_version",
+            "switchToSource": true,
+            "runAlone": false,
+            "dependencies": [
+                "basic",
+                "resources",
+                "business-annotation"
+            ]
+        },
+        {
             "name": "library-algorithm",
             "path": "./libraries/library-algorithm",
             "location": "com.github.seelikes.java:algorithm:$library_algorithm_version",

@@ -1,3 +1,11 @@
+include ':kotlinBasic'
 apply from: 'dependencies.gradle'
 
 includeModules()
+
+//include ":app"
+//include ":business-view"
+//include ":business-view-motion"
+//
+//project(":business-view").projectDir = new File("./business/business-view")
+//project(":business-view-motion").projectDir = new File("./business/business-view/business-view-motion")
