@@ -25,20 +25,14 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath "io.realm:realm-gradle-plugin:$realm_gradle_plugin_version"
+//        classpath "io.realm:realm-gradle-plugin:$realm_gradle_plugin_version"
         classpath "com.java.lib:oil:$oil_version"
-        if (project_in_debug.toBoolean() && findPath('repo').exists()) {
-            classpath 'com.example.myjetpackapplication.plugin:lifecycle:+'
-        }
-        else {
-            classpath "com.example.myjetpackapplication.plugin:lifecycle:$lifecycle_version"
-        }
-        if (project_in_debug.toBoolean() && findPath('repo').exists()) {
-            classpath 'com.example.myjetpackapplication.plugin:realm-helper:+'
-        }
-        else {
-            classpath 'com.example.myjetpackapplication.plugin:realm-helper:1.0.04'
-        }
+//        if (project_in_debug.toBoolean() && findPath('repo').exists()) {
+//            classpath 'com.example.myjetpackapplication.plugin:realm-helper:+'
+//        }
+//        else {
+//            classpath 'com.example.myjetpackapplication.plugin:realm-helper:1.0.04'
+//        }
         if (project_in_debug.toBoolean() && findPath('repo').exists()) {
             classpath 'com.github.seelikes.android.plugin:business:+'
         } else {

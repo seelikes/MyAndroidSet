@@ -4,8 +4,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'realm-android'
-apply plugin: 'realm-helper'
+//apply plugin: 'realm-android'
+//apply plugin: 'realm-helper'
 apply plugin: 'business'
 
 android {
@@ -67,15 +67,15 @@ android {
     }
 }
 
-realm {
-    kotlinExtensionsEnabled = true
-}
+//realm {
+//    kotlinExtensionsEnabled = true
+//}
 
-realmHelper {
-    name 'MyAndroidSet.realm'
-    schemaVersion 0
-    encryptionKey 'qop3lquwbhylueemdyzskwnsgukrvSLxfvqkwp0swPyvtspkusuieoqlvyrsVZSy'
-}
+//realmHelper {
+//    name 'MyAndroidSet.realm'
+//    schemaVersion 0
+//    encryptionKey 'qop3lquwbhylueemdyzskwnsgukrvSLxfvqkwp0swPyvtspkusuieoqlvyrsVZSy'
+//}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -91,7 +91,6 @@ dependencies {
     implementation "androidx.test.ext:junit-ktx:$androidx_junit_ktx_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
-    implementation "com.example.myjetpackapplication.annotationprocessor:business-api:$business_api_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$androidx_lifecycle_version"

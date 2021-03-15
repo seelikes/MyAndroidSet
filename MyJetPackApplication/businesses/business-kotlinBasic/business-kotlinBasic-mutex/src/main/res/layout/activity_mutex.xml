@@ -20,7 +20,7 @@
                 android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:layout_scrollFlags="scroll|enterAlways"
                 app:toolbarId="@+id/toolbar">
 
                 <androidx.appcompat.widget.Toolbar
@@ -87,8 +87,32 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/twoTimers"
+                    android:layout_width="match_parent"
+                    android:layout_height="128px"
+                    android:onClick="@{view -> model.host.on2TimersClick()}"
+                    android:gravity="start|center_vertical"
+                    android:paddingHorizontal="64px"
+                    android:textSize="60px"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/kotlinBasic_mutex_2_timers" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/consoleRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.core.widget.NestedScrollView>
 

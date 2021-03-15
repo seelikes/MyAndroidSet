@@ -1,5 +1,5 @@
 {
-    "allSwitchToSource": false,
+    "allSwitchToSource": true,
     "modules": [
         {
             "name": "app",
@@ -63,7 +63,7 @@
             "runAlone": false,
             "dependencies": [
                 "basic",
-                "cache",
+                "library-cache",
                 "resources",
                 "business-annotation"
             ]
@@ -219,6 +219,7 @@
             "dependencies": [
                 "basic",
                 "resources",
+                "library-media",
                 "business-annotation"
             ]
         },
@@ -231,6 +232,7 @@
             "dependencies": [
                 "basic",
                 "resources",
+                "library-media",
                 "business-annotation"
             ]
         },

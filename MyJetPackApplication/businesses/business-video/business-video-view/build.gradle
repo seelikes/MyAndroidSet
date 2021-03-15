@@ -82,7 +82,6 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
     implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
-    api "com.github.seelikes.android:media:$library_media_version"
     api "com.java.lib:oil:$oil_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
     api "com.yanzhenjie.permission:x:$AndPermission_yanzhenjie_version"

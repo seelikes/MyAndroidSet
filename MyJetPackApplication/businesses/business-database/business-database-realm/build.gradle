@@ -9,10 +9,10 @@ else {
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'realm-android'
-if (isRunAlone()) {
-    apply plugin: 'realm-helper'
-}
+//apply plugin: 'realm-android'
+//if (isRunAlone()) {
+//    apply plugin: 'realm-helper'
+//}
 if (isRunAlone()) {
     apply plugin: 'business'
 }

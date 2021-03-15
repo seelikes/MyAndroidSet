@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="kotlinBasic_mutex_title">Mutex</string>
+    <string name="kotlinBasic_mutex_2_timers">主线程先后2个Timer</string>
 </resources>

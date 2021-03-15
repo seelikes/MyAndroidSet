@@ -83,7 +83,6 @@ dependencies {
     implementation "com.example.myjetpackapplication.annotationprocessor:business-annotation:$business_annotation_version"
     api "com.java.lib:oil:$oil_version"
     api "com.orhanobut:logger:$logger_orhanobut_version"
-    implementation "com.example.myjetpackapplication:resources:$resources_version"
 }
 
 installDependencies()
