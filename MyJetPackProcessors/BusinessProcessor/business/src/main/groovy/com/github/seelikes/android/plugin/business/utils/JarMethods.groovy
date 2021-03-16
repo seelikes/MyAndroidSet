@@ -5,14 +5,21 @@ import com.android.build.api.transform.JarInput
 import com.android.build.api.transform.TransformInvocation
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
-
 /**
  * Created by liutiantian on 2020-11-21 12:37 星期六
  */
 trait JarMethods {
     void copyJar(Project project, TransformInvocation transformInvocation, JarInput jarInput, File jarFile) {
+        FileUtils.copyFile(jarFile, getJarName(project, transformInvocation, jarInput, jarFile))
+    }
+
+    void deleteJar(Project project, TransformInvocation transformInvocation, JarInput jarInput) {
+        FileUtils.forceDelete(getJarName(project, transformInvocation, jarInput, jarInput.file))
+    }
+
+    private File getJarName(Project project, TransformInvocation transformInvocation, JarInput jarInput, File jarFile) {
         def jarName = jarFile.absolutePath.startsWith(project.rootDir.absolutePath) ? jarFile.absolutePath.substring(project.rootDir.absolutePath.length() + 1) : jarFile.absolutePath
         def dest = transformInvocation.outputProvider.getContentLocation(jarName, jarInput.contentTypes, jarInput.scopes, Format.JAR)
-        FileUtils.copyFile(jarFile, dest)
+        return dest
     }
 }

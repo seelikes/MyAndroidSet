@@ -56,6 +56,7 @@ trait JarCtClassForger implements JarMethods {
                 tmpJarOutputStream.close()
             }
             copyJar(project, transformInvocation, jarInput, tmpJarFile)
+            deleteJar(project, transformInvocation, jarInput)
         }
         catch (Throwable throwable) {
             throwable.printStackTrace()
