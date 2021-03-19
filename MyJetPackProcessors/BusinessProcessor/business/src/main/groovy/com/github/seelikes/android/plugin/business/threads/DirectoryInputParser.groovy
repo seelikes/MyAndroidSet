@@ -1,19 +1,17 @@
 package com.github.seelikes.android.plugin.business.threads
 
 import com.android.build.api.transform.DirectoryInput
-import com.android.build.api.transform.Format
 import com.android.build.api.transform.TransformInvocation
 import com.github.seelikes.android.plugin.business.BusinessParserTask
+import com.github.seelikes.android.plugin.business.utils.DirectoryCtClassForger
 import javassist.ClassPool
 import javassist.CtClass
 import javassist.NotFoundException
-import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
-
 /**
  * Created by liutiantian on 2020-11-16 15:30 星期一
  */
-class DirectoryInputParser extends BusinessParserTask<DirectoryParser> {
+class DirectoryInputParser extends BusinessParserTask<DirectoryParser> implements DirectoryCtClassForger {
     interface DirectoryParser {
         void parse(Project project, TransformInvocation transformInvocation, DirectoryInput directoryInput, CtClass ctClass, File file)
     }
@@ -37,7 +35,7 @@ class DirectoryInputParser extends BusinessParserTask<DirectoryParser> {
                     }
                 }
             }
-            FileUtils.copyDirectory(directoryInput.file, transformInvocation.outputProvider.getContentLocation(directoryInput.name, directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY))
+            copyDirectory(project, transformInvocation, directoryInput, directoryInput.file)
         }
         project.logger.info("dir.2216 ${input.name} end")
     }

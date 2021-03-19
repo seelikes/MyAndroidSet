@@ -10,16 +10,21 @@ import org.gradle.api.Project
  */
 trait JarMethods {
     void copyJar(Project project, TransformInvocation transformInvocation, JarInput jarInput, File jarFile) {
+        project.logger.warn("XXXXX111222, copyJar, jarFile: ${jarFile.absolutePath}; jarFile.length: ${jarFile.length()}")
         FileUtils.copyFile(jarFile, getJarName(project, transformInvocation, jarInput, jarFile))
     }
 
     void deleteJar(Project project, TransformInvocation transformInvocation, JarInput jarInput) {
-        FileUtils.forceDelete(getJarName(project, transformInvocation, jarInput, jarInput.file))
+        def dest = getJarName(project, transformInvocation, jarInput, jarInput.file)
+        if (dest.exists()) {
+            FileUtils.forceDelete(dest)
+        }
     }
 
     private File getJarName(Project project, TransformInvocation transformInvocation, JarInput jarInput, File jarFile) {
         def jarName = jarFile.absolutePath.startsWith(project.rootDir.absolutePath) ? jarFile.absolutePath.substring(project.rootDir.absolutePath.length() + 1) : jarFile.absolutePath
         def dest = transformInvocation.outputProvider.getContentLocation(jarName, jarInput.contentTypes, jarInput.scopes, Format.JAR)
+        project.logger.warn("XXXXX111222, getJarName, jarFile: ${jarFile.absolutePath}; dest: ${dest.name}")
         return dest
     }
 }

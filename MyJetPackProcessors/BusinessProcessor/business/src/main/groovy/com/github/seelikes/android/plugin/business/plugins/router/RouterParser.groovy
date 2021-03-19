@@ -126,6 +126,7 @@ class RouterParser implements BusinessParser, JarCtClassForger, DirectoryCtClass
     }
 
     private void injectRouter(Project project, TransformInvocation transformInvocation, CtClass ctClass) {
+        project.logger.info("RouterParser.injectRouter.2216, enter")
         if (ctClass.isFrozen()) {
             ctClass.defrost()
         }
@@ -135,11 +136,11 @@ class RouterParser implements BusinessParser, JarCtClassForger, DirectoryCtClass
         }
         businessCtClassMap.each {
             Business business = it.key
-            project.logger.info("RouterParser.collect.2216, business != null: ${business != null}")
+            project.logger.info("RouterParser.injectRouter.2216, business != null: ${business != null}")
             if (business == null) {
                 return
             }
-            project.logger.info("RouterParser.collect.2216, tweak enter")
+            project.logger.info("RouterParser.injectRouter.2216, tweak enter")
             classInitializer.insertAfter(
                 """
                     {
