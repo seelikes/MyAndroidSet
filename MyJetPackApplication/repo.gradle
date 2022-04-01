@@ -8,7 +8,7 @@ def findPath(String path, Boolean createInSetDefault = true) {
         if (repoFile.exists()) {
             return repoFile
         }
-        if (curFile.name == 'MyAndroidSet') {
+        if (curFile.name == "${rootDir.name}") {
             if (createInSetDefault) {
                 return new File(curFile, path)
             }
