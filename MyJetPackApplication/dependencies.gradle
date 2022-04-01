@@ -39,7 +39,7 @@ def installDependencies() {
                 def dependency = Properties.config.modules.find{ item ->
                     item.name == name
                 }
-                installDependency(dependency, "compile")
+                installDependency(dependency, "implementation")
             }
         }
         if (module.runAlone) {
