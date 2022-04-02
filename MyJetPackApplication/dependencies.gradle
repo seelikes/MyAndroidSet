@@ -46,7 +46,7 @@ def installDependencies() {
             def single = Properties.config.modules.find{ item ->
                 item.name == "single"
             }
-            if ((Properties.config.allSwitchToSource.toBoolean() || single.switchToSource.toBoolean()) && single.path) {
+            if (single && (Properties.config.allSwitchToSource.toBoolean() || single.switchToSource.toBoolean()) && single.path) {
                 dependencies.add("implementation", project(":single"))
             }
             else {
