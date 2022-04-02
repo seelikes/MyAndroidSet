@@ -58,7 +58,15 @@ def installDependencies() {
                     def dependency = Properties.config.modules.find{ item ->
                         item.name == aloneDependency
                     }
-                    installDependency(dependency)
+                    if (dependency.annotationProcessor) {
+                        if (project.plugins["kotlin-kapt"]) {
+                            installDependency(dependency, "kapt")
+                        } else {
+                            installDependency(dependency, "annotationProcessor")
+                        }
+                    } else {
+                        installDependency(dependency)
+                    }
                 }
             }
         }
