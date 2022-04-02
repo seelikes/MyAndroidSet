@@ -41,20 +41,6 @@ def arrayContains(Object[] arr, Object contain) {
     return false
 }
 
-/**
- * 智能查找文件
- * @param gradleFileName gradle脚本名称
- * @return nothing
- */
-def smartApply(String gradleFileName) {
-    def targetFile = findPath(gradleFileName)
-    if (targetFile != null) {
-        def relativePath = targetFile.relativePath(rootDir)
-        apply from: relativePath
-    }
-    apply from: "https://raw.githubusercontent.com/seelikes/MyAndroidSet/master/MyJetPackApplication/$gradleFileName"
-}
-
 ext {
     findPath = this.&findPath
     arrayContains = this.&arrayContains
