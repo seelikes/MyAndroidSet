@@ -74,6 +74,7 @@ def installDependencies() {
 }
 
 private def installDependency(dependency, type = "implementation") {
+    println("dependency: ${dependency.name}; type: $type")
     def module = Properties.config.modules.find { module ->
         module.name == name
     }
