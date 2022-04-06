@@ -97,6 +97,12 @@ private def installDependency(dependency, type = "implementation") {
     }
 }
 
+def findModule(Project project) {
+    return Properties.config.modules.find { module ->
+        module.name == project.name
+    }
+}
+
 def isRunAlone() {
     def module = Properties.config.modules.find{ module ->
         module.name == name
@@ -121,6 +127,7 @@ def isRunAloneOrApplication() {
 ext {
     includeModules = this.&includeModules
     installDependencies = this.&installDependencies
+    findModule = this.&findModule
     isRunAlone = this.&isRunAlone
     isApplication = this.&isApplication
     isRunAloneOrApplication = this.&isRunAloneOrApplication
