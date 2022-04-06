@@ -97,9 +97,9 @@ private def installDependency(dependency, type = "implementation") {
     }
 }
 
-def findModule(Project project) {
+def findModule() {
     return Properties.config.modules.find { module ->
-        module.name == project.name
+        module.name == name
     }
 }
 
