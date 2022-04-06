@@ -101,12 +101,28 @@ def isRunAlone() {
     def module = Properties.config.modules.find{ module ->
         module.name == name
     }
-    return module.runAlone.toBoolean()
+    return module.runAlone
+}
+
+def isApplication() {
+    def module = Properties.config.modules.find{ module ->
+        module.name == name
+    }
+    return module.application
+}
+
+def isRunAloneOrApplication() {
+    def module = Properties.config.modules.find{ module ->
+        module.name == name
+    }
+    return module.runAlone || module.application
 }
 
 ext {
     includeModules = this.&includeModules
     installDependencies = this.&installDependencies
     isRunAlone = this.&isRunAlone
+    isApplication = this.&isApplication
+    isRunAloneOrApplication = this.&isRunAloneOrApplication
 }
 
