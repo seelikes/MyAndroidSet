@@ -73,7 +73,6 @@ private def installDependency(dependency, type = "implementation") {
             type = "annotationProcessor"
         }
     }
-    println("dependency: ${dependency.name}; type: $type")
     def module = Properties.config.modules.find { module ->
         module.name == name
     }
