@@ -16,8 +16,8 @@ def includeModules() {
     Properties.config.modules.each { module ->
         if (Properties.config.allSwitchToSource.toBoolean() || module.switchToSource.toBoolean()) {
             if (module.path) {
-                include ":${module.name}"
-                project(":${module.name}").projectDir = new File("$rootDir", module.path)
+                include createName(module.path)
+                project(createName(module.path)).projectDir = new File("$rootDir", module.path)
             }
         }
     }
@@ -74,7 +74,7 @@ private def installDependency(dependency, type = "implementation") {
             return
         }
         if ((Properties.config.allSwitchToSource.toBoolean() || (dependency.switchToSource.toBoolean() && !dependency.runAlone)) && dependency.path) {
-            dependencies.add("$type", project(":${dependency.name}"))
+            dependencies.add("$type", project(createName(module.path)))
         }
         else {
             def versionStartIndex = dependency.location.indexOf("\$")
@@ -94,6 +94,10 @@ def isRunAlone() {
         module.name == name
     }
     return module.runAlone.toBoolean()
+}
+
+def createName(String path) {
+    return path.replaceAll("\\.?/", ":")
 }
 
 ext {
