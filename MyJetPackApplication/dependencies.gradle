@@ -66,6 +66,9 @@ def installDependencies() {
 }
 
 private def installDependency(dependency, type = "implementation") {
+    if (!dependency) {
+        return
+    }
     if (dependency.annotationProcessor) {
         if (project.plugins["kotlin-kapt"]) {
             type = "kapt"
